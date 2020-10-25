@@ -1,0 +1,13 @@
+# font generator ignores
+bmfont2c.*
+*.fnt
+*.png
+*.exe
+*.bmfc
+
+# keil ignores
+*.crf
+*.d
+*.o
+*.petef
+*.lst
