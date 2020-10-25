@@ -67,6 +67,9 @@ void demo_lines(void)
     // vertical grey line
     epdgl_draw_line(20,20,20,280,EPD_GREY);
 
+    // black text
+    epdgl_draw_string(30,260,"demo_lines", &CascadiaMono24, EPD_BLACK);
+
     // request screen update
     while (!epdgl_update_screen(EPD_FAST));
 }
@@ -90,6 +93,9 @@ void demo_rect(void)
     
     // inset white rectangle
     epdgl_fill_rect(60,70,10,20,EPD_WHITE);
+
+    // black text
+    epdgl_draw_string(40,260,"demo_rect", &CascadiaMono24, EPD_BLACK);
 
     // request screen update
     while (!epdgl_update_screen(EPD_FAST));
@@ -115,6 +121,9 @@ void demo_circle(void)
     // inset white circle
     epdgl_fill_circle(120,120,20,EPD_WHITE);
 
+    // black text
+    epdgl_draw_string(50,260,"demo_circle", &CascadiaMono24, EPD_BLACK);
+
     // request screen update
     while (!epdgl_update_screen(EPD_FAST));
 }
@@ -129,6 +138,9 @@ void demo_text(void)
 
     // grey text
     epdgl_draw_string(10,40,"Dreary World...", &CascadiaMono24, EPD_GREY);
+
+    // black text
+    epdgl_draw_string(60,260,"demo_text", &CascadiaMono24, EPD_BLACK);
     
     // request screen update
     while (!epdgl_update_screen(EPD_FAST));
@@ -154,6 +166,9 @@ void demo_plot(void)
     
     // plotting function
     epdgl_plot(x, y, 6, cfg);
+
+    // black text
+    epdgl_draw_string(70,260,"demo_plot", &CascadiaMono24, EPD_BLACK);
 
     // request screen update
     while (!epdgl_update_screen(EPD_FAST));
@@ -198,7 +213,7 @@ int main (void)
                                     // fast update is ~0.3s but lower contrast
 
     // set display orientation (see epdgl.h for options)
-    epdgl_set_orientation(LANDSCAPE);
+    epdgl_set_orientation(PORTRAIT);
     
     while (1) {
         demo_lines();

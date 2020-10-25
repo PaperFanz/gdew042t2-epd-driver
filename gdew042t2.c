@@ -126,6 +126,63 @@ const uint8_t lut_wb_slow[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
 };
 
+// new waveform created by Jean-Marc Zingg for the actual panel
+#define T1 25 // color change charge balance pre-phase
+#define T2  1 // color change or sustain charge balance pre-phase
+#define T3  2 // color change or sustain phase
+#define T4 25 // color change phase
+
+const unsigned char lut_vcom0_partial[] = {
+    0x00, T1, T2, T3, T4, 1, // 00 00 00 00
+    0x00,  1,  0,  0,  0, 1, // gnd phase       
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0, 0, 0,
+};
+
+
+const unsigned char lut_ww_partial[] = {
+    0x18, T1, T2, T3, T4, 1, // 00 01 10 00
+    0x00,  1,  0,  0,  0, 1, // gnd phase   
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,
+};
+
+const unsigned char lut_bw_partial[] = {
+    0x5A, T1, T2, T3, T4, 1, // 01 01 10 10
+    0x00,  1,  0,  0,  0, 1, // gnd phase
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0, 
+};
+
+const unsigned char lut_bb_partial[] = {
+    0x24, T1, T2, T3, T4, 1, // 00 10 01 00
+    0x00,  1,  0,  0,  0, 1, // gnd phase
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0, 
+};
+
+const unsigned char lut_wb_partial[] = {
+    0xA5, T1, T2, T3, T4, 1, // 10 10 01 01
+    0x00,  1,  0,  0,  0, 1, // gnd phase 
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+    0x00,  0,  0,  0,  0, 0,        
+};
+
 // Display resolution
 #define EPD_WIDTH                       400
 #define EPD_HEIGHT                      300

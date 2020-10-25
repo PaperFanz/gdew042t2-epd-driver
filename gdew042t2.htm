@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\gdew042t2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\gdew042t2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Oct 25 15:20:06 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Oct 25 16:36:53 2020
 <BR><P>
 <H3>Maximum Stack Usage =        244 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -621,8 +621,8 @@ Global Symbols
 
 <P><STRONG><a name="[b2]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
 
-<P><STRONG><a name="[8a]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<P><STRONG><a name="[8b]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
 </UL>
 
 <P><STRONG><a name="[b3]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
@@ -653,54 +653,58 @@ Global Symbols
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
 </UL>
 
-<P><STRONG><a name="[82]"></a>demo_circle</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, main.o(i.demo_circle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = demo_circle &rArr; epdgl_fill_circle &rArr; epdgl_draw_abs_horizontal
+<P><STRONG><a name="[82]"></a>demo_circle</STRONG> (Thumb, 98 bytes, Stack size 8 bytes, main.o(i.demo_circle))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = demo_circle &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_circle
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_circle
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[87]"></a>demo_lines</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, main.o(i.demo_lines))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = demo_lines &rArr; epdgl_draw_line &rArr; epdgl_draw_abs_pixel
+<P><STRONG><a name="[88]"></a>demo_lines</STRONG> (Thumb, 130 bytes, Stack size 8 bytes, main.o(i.demo_lines))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = demo_lines &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[89]"></a>demo_plot</STRONG> (Thumb, 78 bytes, Stack size 88 bytes, main.o(i.demo_plot))
+<P><STRONG><a name="[8a]"></a>demo_plot</STRONG> (Thumb, 96 bytes, Stack size 88 bytes, main.o(i.demo_plot))
 <BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = demo_plot &rArr; epdgl_plot &rArr; epdgl_draw_line &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_plot
+<BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_plot
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8c]"></a>demo_rect</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, main.o(i.demo_rect))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = demo_rect &rArr; epdgl_fill_rect &rArr; epdgl_draw_abs_horizontal
+<P><STRONG><a name="[8d]"></a>demo_rect</STRONG> (Thumb, 118 bytes, Stack size 8 bytes, main.o(i.demo_rect))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = demo_rect &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8f]"></a>demo_text</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, main.o(i.demo_text))
+<P><STRONG><a name="[90]"></a>demo_text</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, main.o(i.demo_text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = demo_text &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -714,7 +718,7 @@ Global Symbols
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
 <P><STRONG><a name="[96]"></a>epd_init</STRONG> (Thumb, 120 bytes, Stack size 4 bytes, gdew042t2.o(i.epd_init))
@@ -732,7 +736,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a2]"></a>epd_is_idle</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, gdew042t2.o(i.epd_is_idle))
-<BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR><BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
 <P><STRONG><a name="[9b]"></a>epd_set_lut_fast</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_fast))
@@ -742,7 +746,7 @@ Global Symbols
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
 <P><STRONG><a name="[9a]"></a>epd_set_lut_slow</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_slow))
@@ -752,16 +756,16 @@ Global Symbols
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
 </UL>
-<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
 <P><STRONG><a name="[83]"></a>epdgl_clear</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_clear))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 </UL>
 
@@ -770,7 +774,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 </UL>
 
 <P><STRONG><a name="[84]"></a>epdgl_draw_circle</STRONG> (Thumb, 138 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_draw_circle))
@@ -782,14 +786,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 </UL>
 
-<P><STRONG><a name="[88]"></a>epdgl_draw_line</STRONG> (Thumb, 234 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_draw_line))
+<P><STRONG><a name="[89]"></a>epdgl_draw_line</STRONG> (Thumb, 234 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_draw_line))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = epdgl_draw_line &rArr; epdgl_draw_abs_pixel
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_pixel
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_absolute
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_plot
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
+<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_plot
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
 </UL>
 
 <P><STRONG><a name="[9d]"></a>epdgl_draw_pixel</STRONG> (Thumb, 24 bytes, Stack size 24 bytes, epdgl.o(i.epdgl_draw_pixel))
@@ -801,22 +805,26 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
 </UL>
 
-<P><STRONG><a name="[8d]"></a>epdgl_draw_rect</STRONG> (Thumb, 172 bytes, Stack size 56 bytes, epdgl.o(i.epdgl_draw_rect))
+<P><STRONG><a name="[8e]"></a>epdgl_draw_rect</STRONG> (Thumb, 172 bytes, Stack size 56 bytes, epdgl.o(i.epdgl_draw_rect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = epdgl_draw_rect &rArr; epdgl_draw_abs_horizontal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_vertical
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_horizontal
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_absolute
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
 </UL>
 
-<P><STRONG><a name="[90]"></a>epdgl_draw_string</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, epdgl.o(i.epdgl_draw_string))
+<P><STRONG><a name="[86]"></a>epdgl_draw_string</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, epdgl.o(i.epdgl_draw_string))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
+<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 </UL>
 
 <P><STRONG><a name="[85]"></a>epdgl_fill_circle</STRONG> (Thumb, 178 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_fill_circle))
@@ -829,28 +837,28 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 </UL>
 
-<P><STRONG><a name="[8e]"></a>epdgl_fill_rect</STRONG> (Thumb, 142 bytes, Stack size 56 bytes, epdgl.o(i.epdgl_fill_rect))
+<P><STRONG><a name="[8f]"></a>epdgl_fill_rect</STRONG> (Thumb, 142 bytes, Stack size 56 bytes, epdgl.o(i.epdgl_fill_rect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = epdgl_fill_rect &rArr; epdgl_draw_abs_horizontal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_horizontal
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_absolute
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
 </UL>
 
-<P><STRONG><a name="[8b]"></a>epdgl_plot</STRONG> (Thumb, 260 bytes, Stack size 96 bytes, epdgl.o(i.epdgl_plot))
+<P><STRONG><a name="[8c]"></a>epdgl_plot</STRONG> (Thumb, 260 bytes, Stack size 96 bytes, epdgl.o(i.epdgl_plot))
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = epdgl_plot &rArr; epdgl_draw_line &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
+<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
 </UL>
-<BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
 </UL>
 
 <P><STRONG><a name="[a7]"></a>epdgl_set_orientation</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_set_orientation))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[86]"></a>epdgl_update_screen</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, epdgl.o(i.epdgl_update_screen))
+<P><STRONG><a name="[87]"></a>epdgl_update_screen</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, epdgl.o(i.epdgl_update_screen))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = epdgl_update_screen &rArr; epd_set_lut_slow &rArr; wait_until_idle &rArr; delayms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
@@ -859,10 +867,10 @@ Global Symbols
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 </UL>
 
@@ -870,16 +878,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 244 + Unknown Stack Size
 <LI>Call Chain = main &rArr; demo_plot &rArr; epdgl_plot &rArr; epdgl_draw_line &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_set_orientation
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitPF4
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;portFinit
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_text
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_rect
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_plot
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_lines
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_circle
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
@@ -941,19 +949,19 @@ Local Symbols
 </H3>
 <P><STRONG><a name="[9e]"></a>epdgl_absolute</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_absolute))
 <BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_circle
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_circle
 </UL>
 
 <P><STRONG><a name="[a0]"></a>epdgl_draw_abs_horizontal</STRONG> (Thumb, 370 bytes, Stack size 28 bytes, epdgl.o(i.epdgl_draw_abs_horizontal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = epdgl_draw_abs_horizontal
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_rect
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_circle
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
 </UL>
 
 <P><STRONG><a name="[9f]"></a>epdgl_draw_abs_pixel</STRONG> (Thumb, 156 bytes, Stack size 12 bytes, epdgl.o(i.epdgl_draw_abs_pixel))
@@ -961,14 +969,14 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_fill_circle
-<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_line
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_circle
 </UL>
 
 <P><STRONG><a name="[a1]"></a>epdgl_draw_abs_vertical</STRONG> (Thumb, 160 bytes, Stack size 20 bytes, epdgl.o(i.epdgl_draw_abs_vertical))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = epdgl_draw_abs_vertical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_rect
 </UL>
 <P>
 <H3>
