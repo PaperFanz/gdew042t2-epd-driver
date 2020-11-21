@@ -417,6 +417,21 @@
               <FileType>1</FileType>
               <FilePath>.\font.c</FilePath>
             </File>
+            <File>
+              <FileName>dsp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\dsp.c</FilePath>
+            </File>
+            <File>
+              <FileName>fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\keypad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

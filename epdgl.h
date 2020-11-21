@@ -41,6 +41,11 @@ typedef struct plot_config {
     epd_color_t color;
 } plot_config_t;
 
+typedef struct text_config {
+    font_t * font;
+    epd_color_t color;
+} text_config_t;
+
 void epdgl_init(void);
 
 void epdgl_set_orientation(epd_orientation_t o);
@@ -63,9 +68,13 @@ void epdgl_draw_circle(int32_t x, int32_t y, int32_t r, epd_color_t c);
 
 void epdgl_fill_circle(int32_t x, int32_t y, int32_t r, epd_color_t c);
 
-void epdgl_draw_char(int32_t x, int32_t y, char s, font_t * f, epd_color_t c);
+void epdgl_set_cursor(int32_t x, int32_t y);
 
-void epdgl_draw_string(int32_t x, int32_t y, const char * s, font_t * f, epd_color_t c);
+void epdgl_draw_char(char s, text_config_t * cfg);
+
+void epdgl_draw_int(int32_t i, text_config_t * cfg);
+
+void epdgl_draw_string(const char * s, text_config_t * cfg);
 
 void epdgl_plot(int32_t * x, int32_t * y, int32_t l, plot_config_t cfg);
 

@@ -13,6 +13,10 @@
 #define EPD_WIDTH   400
 #define EPD_HEIGHT  300
 
+// text printing cursor
+static int32_t CURSOR_X;
+static int32_t CURSOR_Y;
+
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
@@ -316,37 +320,60 @@ epdgl_fill_circle(int32_t x, int32_t y, int32_t r, epd_color_t c)
 }
 
 void
-epdgl_draw_char(int32_t x, int32_t y, char s, font_t * f, epd_color_t c)
+epdgl_set_cursor(int32_t x, int32_t y)
 {
+    CURSOR_X = x;
+    CURSOR_Y = y;
+}
+
+void
+epdgl_draw_char(char s, text_config_t * cfg)
+{
+    font_t * f = cfg->font;
     uint32_t fbytes = f->GlyphHeight * f->GlyphBytesWidth;
     const uint8_t * charmap = &f->GlyphBitmaps[(s - f->FirstAsciiCode) * fbytes];
-    int32_t xtmp = x;
+    int32_t x = CURSOR_X;
+    int32_t y = CURSOR_Y;
 
     for (int32_t i = 0; i < f->GlyphHeight; ++i) {
         for (int32_t j = 0; j < f->GlyphBytesWidth; ++j) {
             uint8_t data = *charmap;
             for (uint8_t k = 0x80; k > 0; k = k >> 1) {
-                if (data & k) epdgl_draw_pixel(x, y, c);
+                if (data & k) epdgl_draw_pixel(x, y, cfg->color);
                 ++x;
             }
             ++charmap;
         }
-        x = xtmp;
+        x = CURSOR_X;
         ++y;
+    }
+
+    if (f->FixedWidth) {
+        CURSOR_X += f->FixedWidth;
+    } else {
+        CURSOR_X += f->GlyphWidth[s - f->FirstAsciiCode];
     }
 }
 
 void
-epdgl_draw_string(int32_t x, int32_t y, const char * s, font_t * f, epd_color_t c)
+epdgl_draw_int(int32_t i, text_config_t * cfg)
+{
+    if (i < 0) {
+        i *= -1;
+        epdgl_draw_char('-', cfg);
+        epdgl_draw_int(i, cfg);
+    } else {
+        if (i/10) epdgl_draw_int(i/10, cfg);
+        epdgl_draw_char(0x30 + (i%10), cfg);
+    }
+}
+
+void
+epdgl_draw_string(const char * s, text_config_t * cfg)
 {
     while (*s != 0) {
-        epdgl_draw_char(x, y, *s, f, c);
+        epdgl_draw_char(*s, cfg);
         ++s;
-        if (f->FixedWidth) {
-            x += f->FixedWidth;
-        } else {
-            x += f->GlyphWidth[*s - f->FirstAsciiCode];
-        }
     }
 }
 

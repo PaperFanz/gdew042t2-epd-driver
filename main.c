@@ -36,16 +36,169 @@
 // VCC (pin 2) connected to +3.3 V
 // Gnd (pin 1) connected to ground
 
+// stdlib includes
 #include <stdio.h>
 #include <stdint.h>
+
+// valvanoware includes
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/LaunchPad.h"
 #include "../inc/CortexM.h"
 #include "../inc/PLL.h"
+#include "../inc/Timer0A.h"
+
+// local includes
 #include "gdew042t2.h"
 #include "epdgl.h"
+#include "keypad.h"
 
-#include "image.h"
+void portFinit(void)
+{
+    SYSCTL_RCGCGPIO_R |= 0x00000020;  // 1) activate clock for Port F
+    while((SYSCTL_PRGPIO_R&0x20) == 0){};// allow time for clock to stabilize
+    GPIO_PORTF_LOCK_R = 0x4C4F434B;   // 2) unlock GPIO Port F
+    GPIO_PORTF_CR_R = 0x1F;           // allow changes to PF4-0
+    // only PF0 needs to be unlocked, other bits can't be locked
+    GPIO_PORTF_DIR_R = 0x0E;          // 5) PF4,PF0 in, PF3-1 out
+    GPIO_PORTF_PUR_R = 0x11;          // enable pull-up on PF0 and PF4
+    GPIO_PORTF_DEN_R = 0x1F;          // 7) enable digital I/O on PF4-0
+    GPIO_PORTF_DATA_R = 0;            // LEDs off
+}
+
+void waitPF4(void)
+{
+    while (((~(PF4) & 0x10) >> 4) == 0);
+    while (((~(PF4) & 0x10) >> 4) == 1);
+}
+
+text_config_t t_cfg = {&CascadiaMono24, EPD_BLACK};
+
+const char * KEY_STRINGS[] = {
+    "F1",      "F2",    "F3",   "F4",   "F5",   "F6",    
+             "ENTER", "MOD1", "MOD2", "UP",   "BACKSPACE",     
+    "SIN",     "COS",   "TAN",  "LEFT", "DOWN", "RIGHT",    
+    "CONST",   "VAR",   "POW",  "LOG",  "ROOT",   
+    "EE",      "N7",    "N8",   "N9",   "DIV",        
+    "PARENTH", "N4",    "N5",   "N6",   "MUL",       
+    "BASE",    "N1",    "N2",   "N3",   "SUB",      
+    "MATH",    "N0",    "DEC",  "SIGN", "ADD",
+    "KEY_NUM",
+    /* alpha mode */
+    "A",       "B",      "C",
+    "D",       "E",      "F",     "G",      "H", 
+    "I",       "J",      "K",     "L",      "M", 
+    "N",       "O",      "P",     "Q",      "R", 
+    "S",       "T",      "U",     "V",      "W", 
+    "X",       "Y",      "Z",     "SPACE",  "SHIFT",
+};
+
+void
+print_key(key_event_t * e)
+{
+    epdgl_draw_string(KEY_STRINGS[e->key], &t_cfg);
+    if (e->k_action == KEY_UP) {
+        epdgl_draw_string(", up", &t_cfg);
+    } else {
+        epdgl_draw_string(", dn", &t_cfg);
+    }
+}
+
+void
+demo_keys(void)
+{
+    int y = 10;
+    key_event_t ev;
+    epdgl_set_cursor(10,y);
+    while(1) {
+        keypad_scan();
+
+        while (key_fifo_get(&ev) != FIFO_EMPTY_ERR) {
+            print_key(&ev);
+            y+=30;
+            if (y > 370) {
+                y = 10;
+                epdgl_clear();
+            }
+            epdgl_set_cursor(10, y);
+        }
+
+        while (!epdgl_update_screen(EPD_FAST));
+
+        waitPF4();
+    }
+}
+
+int main (void)
+{
+	PLL_Init(Bus80MHz);   // 80 MHz
+    DisableInterrupts();  // Disable interrupts until finished with inits
+    
+    epd_init(); // initialize e-paper display
+    portFinit();
+    keypad_init();
+
+	EnableInterrupts();
+
+    // clear frame buffer and refresh screen
+    epdgl_clear();
+    epdgl_update_screen(EPD_SLOW);  // slow update prevents ghosting, but is ~3s
+                                    // fast update is ~0.3s but lower contrast
+
+    // set display orientation (see epdgl.h for options)
+    epdgl_set_orientation(PORTRAIT);
+
+    demo_keys();
+    
+    while (1) {
+        // demo_calc();
+        // waitPF4();
+        // demo_all();
+    }
+}
+
+/*
+void
+demo_calc(void)
+{
+    epdgl_clear();
+    char * expr = "5*5";
+    char * ans = "25";
+
+    int cy = 360;
+    int cx = 20;
+
+    for (char * c = expr; *c != '\0'; ++c) {
+        waitPF4();
+        epdgl_draw_char(cx,cy,*c,&CascadiaMono24,EPD_BLACK);
+        cx += CascadiaMono24.FixedWidth;
+        while (!epdgl_update_screen(EPD_FAST));
+    }
+    
+    epdgl_clear();
+    waitPF4();
+
+    epdgl_draw_string(20, 320, expr, &CascadiaMono24, EPD_BLACK);
+    epdgl_draw_string(280 - 28, 360, ans, &CascadiaMono24, EPD_BLACK);
+    while (!epdgl_update_screen(EPD_SLOW));
+}
+
+void
+demo_status(void)
+{
+    epdgl_clear();
+    epdgl_draw_string(20, 20, "Device ID: 0", &CascadiaMono24, EPD_BLACK);
+    epdgl_draw_line(20, 46, 380, 46, EPD_BLACK);
+
+    epdgl_draw_string(20, 54, "Scheduled Sensors:", &CascadiaMono24, EPD_BLACK);
+    
+    epdgl_draw_string(40, 15 + 68, "temperature..........5s", &CascadiaMono24, EPD_BLACK);
+    epdgl_draw_string(40, 15 + 92, "pressure.....[disabled]", &CascadiaMono24, EPD_GREY);
+    epdgl_draw_string(40, 15 + 116, "angle................1s", &CascadiaMono24, EPD_BLACK);
+    
+    epdgl_fill_rect(0, 300 - 36, 400, 36, EPD_BLACK);
+    epdgl_draw_string(20, 300 - 30, "Connected: trident-5G", &CascadiaMono24, EPD_WHITE);
+    while (!epdgl_update_screen(EPD_SLOW));
+}
 
 void demo_lines(void)
 {
@@ -128,24 +281,6 @@ void demo_circle(void)
     while (!epdgl_update_screen(EPD_FAST));
 }
 
-void demo_text(void)
-{
-    // clear frame buffer
-    epdgl_clear();
-
-    // black text
-    epdgl_draw_string(10,10,"Hello, World!", &CascadiaMono24, EPD_BLACK);
-
-    // grey text
-    epdgl_draw_string(10,40,"Dreary World...", &CascadiaMono24, EPD_GREY);
-
-    // black text
-    epdgl_draw_string(60,260,"demo_text", &CascadiaMono24, EPD_BLACK);
-    
-    // request screen update
-    while (!epdgl_update_screen(EPD_FAST));
-}
-
 void demo_plot(void)
 {
     // clear frame buffer
@@ -174,61 +309,21 @@ void demo_plot(void)
     while (!epdgl_update_screen(EPD_FAST));
 }
 
-void portFinit(void)
+void demo_all(void)
 {
-    SYSCTL_RCGCGPIO_R |= 0x00000020;  // 1) activate clock for Port F
-    while((SYSCTL_PRGPIO_R&0x20) == 0){};// allow time for clock to stabilize
-    GPIO_PORTF_LOCK_R = 0x4C4F434B;   // 2) unlock GPIO Port F
-    GPIO_PORTF_CR_R = 0x1F;           // allow changes to PF4-0
-    // only PF0 needs to be unlocked, other bits can't be locked
-    GPIO_PORTF_DIR_R = 0x0E;          // 5) PF4,PF0 in, PF3-1 out
-    GPIO_PORTF_PUR_R = 0x11;          // enable pull-up on PF0 and PF4
-    GPIO_PORTF_DEN_R = 0x1F;          // 7) enable digital I/O on PF4-0
-    GPIO_PORTF_DATA_R = 0;            // LEDs off
+    demo_lines();
+    waitPF4();
+
+    demo_rect();
+    waitPF4();
+
+    demo_circle();
+    waitPF4();
+
+    demo_text();
+    waitPF4();
+
+    demo_plot();
+    waitPF4();
 }
-
-void waitPF4(void)
-{
-    while (((~(PF4) & 0x10) >> 4) == 0){
-
-    }
-    while (((~(PF4) & 0x10) >> 4) == 1){
-        
-    }
-}
-
-int main (void)
-{
-	PLL_Init(Bus80MHz);   // 80 MHz
-    DisableInterrupts();  // Disable interrupts until finished with inits
-    
-    epd_init(); // initialize e-paper display
-    portFinit();
-
-	EnableInterrupts();
-
-    // clear frame buffer and refresh screen
-    epdgl_clear();
-    epdgl_update_screen(EPD_SLOW);  // slow update prevents ghosting, but is ~3s
-                                    // fast update is ~0.3s but lower contrast
-
-    // set display orientation (see epdgl.h for options)
-    epdgl_set_orientation(PORTRAIT);
-    
-    while (1) {
-        demo_lines();
-        waitPF4();
-
-        demo_rect();
-        waitPF4();
-
-        demo_circle();
-        waitPF4();
-
-        demo_text();
-        waitPF4();
-
-        demo_plot();
-        waitPF4();
-    }
-}
+*/
