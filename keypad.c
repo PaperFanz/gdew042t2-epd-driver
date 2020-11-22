@@ -4,98 +4,11 @@
     Author: Pete Fan
 */
 
+#include <stdbool.h>
+
 #include "keypad.h"
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/CortexM.h"
-
-const key_t KEYMAP[] = {
-    /* Normal mode keymaps */
-    F6,
-    BACKSPACE,
-    RIGHT,
-    ADD,
-    SIGN,
-    DEC,
-    N0,
-    F5,
-    UP,
-    DOWN,
-    ROOT,
-    DIV,
-    MUL,
-    SUB,
-    F4,
-    MOD2,
-    LEFT,
-    LOG,
-    N9,
-    N6,
-    N3,
-    F3,
-    MOD1,
-    TAN,
-    POW,
-    N8,
-    N5,
-    N2,
-    F2,
-    ENTER,
-    COS,
-    VAR,
-    N7,
-    N4,
-    N1,
-    F1,
-    SIN,
-    CONST,
-    EE,
-    PARENTH,
-    BASE,
-    MATH,
-    /* Alpha mode keymaps */
-    F6,
-    BACKSPACE,
-    RIGHT,
-    SHIFT,
-    SPACE,
-    Z,
-    Y,
-    F5,
-    UP,
-    DOWN,
-    H,
-    M,
-    R,
-    W,
-    F4,
-    MOD2,
-    LEFT,
-    G,
-    L,
-    Q,
-    V,
-    F3,
-    MOD1,
-    C,
-    F,
-    K,
-    P,
-    U,
-    F2,
-    ENTER,
-    B,
-    E,
-    J,
-    O,
-    T,
-    F1,
-    A,
-    D,
-    I,
-    N,
-    S,
-    X,
-};
 
 #define COL_NUM           6
 #define COL_PORT_NUM      0x10
@@ -113,18 +26,11 @@ const key_t KEYMAP[] = {
 
 #define SYSCTL_MASK (ROW_PORT_NUM | COL_PORT_NUM)
 
-// describes current keyboard state
+/*
+    Keyboard State Variables
+*/
 static uint8_t key_prev[COL_NUM];
 static uint8_t key_curr[COL_NUM];
-
-typedef enum key_mode {
-    NORMAL,
-    ALPHA,
-    MODE1,
-    MODE2
-} key_mode_t;
-
-static key_mode_t MODE = NORMAL;
 
 // cross-thread communication struct
 typedef struct key_event_queue {
@@ -201,7 +107,7 @@ keypad_scan(void)
         uint8_t diff = key_prev[col] ^ key_curr[col];
         for (row = 0; row < ROW_NUM; ++row) {
             if (diff & (0x01 << row)) {
-                ev.key = KEYMAP[(col * ROW_NUM) + row + (MODE * KEY_NUM)];
+                ev.key = (col * ROW_NUM) + row;
                 if (key_prev[col] & (0x01 << row)) {
                     ev.k_action = KEY_UP;
                 } else {

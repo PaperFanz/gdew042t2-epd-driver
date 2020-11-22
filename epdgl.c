@@ -17,6 +17,17 @@
 static int32_t CURSOR_X;
 static int32_t CURSOR_Y;
 
+// update request boolean
+static bool UPDATE_REQUEST = false;
+static bool FORCE_SLOW_UPDATE = false;
+
+typedef enum LUT_mode {
+    LUT_FAST,
+    LUT_SLOW
+} lut_mode_t;
+
+static lut_mode_t LUT_MODE = LUT_SLOW;
+
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
@@ -49,6 +60,8 @@ epdgl_absolute(int32_t * x, int32_t * y)
 void
 epdgl_init()
 {
+    LUT_MODE = LUT_SLOW;
+    epd_set_lut_slow();
     epdgl_clear();
 }
 
@@ -57,22 +70,33 @@ epdgl_update_screen(epd_update_t u)
 {
     static uint32_t fast_refresh_count = 0;
     if (!epd_is_idle()) return false;
+    if (UPDATE_REQUEST == false) return true;
 
     // force slow refresh to avoid burn in
-    if (fast_refresh_count >= 3) u = EPD_SLOW;
+    if (fast_refresh_count >= 20 || FORCE_SLOW_UPDATE) {
+        u = EPD_SLOW;
+    }
 
     switch (u) {
     case EPD_FAST:
         ++fast_refresh_count;
-        epd_set_lut_fast();
+        if (LUT_MODE != LUT_FAST) {
+            epd_set_lut_fast();
+            LUT_MODE = LUT_FAST;
+        }
         break;
     case EPD_SLOW:
         fast_refresh_count = 0;
-        epd_set_lut_slow();
+        if (LUT_MODE != LUT_SLOW) {
+            epd_set_lut_slow();
+            LUT_MODE = LUT_SLOW;
+        }
+        FORCE_SLOW_UPDATE = false;
         break;
     }
 
     epd_display_frame_buffer(EPDGL_BUF);
+    UPDATE_REQUEST = false;
 
     return true;
 }
@@ -168,6 +192,8 @@ epdgl_draw_pixel(int32_t x, int32_t y, epd_color_t c)
     epdgl_absolute(&x, &y);
 
     epdgl_draw_abs_pixel(x, y, c);
+
+    UPDATE_REQUEST = true;
 }
 
 void
@@ -176,6 +202,9 @@ epdgl_clear(void)
     for (int i = 0; i < BUF_SIZE; ++i) {
         EPDGL_BUF[i] = 0xff;
     }
+
+    UPDATE_REQUEST = true;
+    FORCE_SLOW_UPDATE = true;
 }
 
 void
@@ -184,6 +213,9 @@ epdgl_invert(void)
     for (int i = 0; i < BUF_SIZE; ++i) {
         EPDGL_BUF[i] = ~EPDGL_BUF[i];
     }
+
+    UPDATE_REQUEST = true;
+    FORCE_SLOW_UPDATE = true;
 }
 
 void
@@ -214,6 +246,8 @@ epdgl_draw_line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, epd_color_t c)
             if (sy < 0 && y0 < y1) break;
         }
     }
+
+    UPDATE_REQUEST = true;
 }
 
 void
@@ -236,6 +270,8 @@ epdgl_draw_rect(int32_t x, int32_t y, int32_t w, int32_t h, epd_color_t c)
     epdgl_draw_abs_horizontal(minx, maxy - 1, w, c);
     epdgl_draw_abs_vertical(minx, miny, h, c);
     epdgl_draw_abs_vertical(maxx - 1, miny, h, c);
+
+    UPDATE_REQUEST = true;
 }
 
 void
@@ -259,6 +295,8 @@ epdgl_fill_rect(int32_t x, int32_t y, int32_t w, int32_t h, epd_color_t c)
         ++miny;
         --h;
     }
+
+    UPDATE_REQUEST = true;
 }
 
 void
@@ -287,6 +325,8 @@ epdgl_draw_circle(int32_t x, int32_t y, int32_t r, epd_color_t c)
             err += ++x_pos * 2 + 1;
         }
     } while (x_pos <= 0);
+
+    UPDATE_REQUEST = true;
 }
 
 void
@@ -317,6 +357,8 @@ epdgl_fill_circle(int32_t x, int32_t y, int32_t r, epd_color_t c)
             err += ++x_pos * 2 + 1;
         }
     } while (x_pos <= 0);
+
+    UPDATE_REQUEST = true;
 }
 
 void

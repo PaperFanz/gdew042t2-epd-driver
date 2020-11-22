@@ -11,3 +11,15 @@ bmfont2c.*
 *.o
 *.petef
 *.lst
+*.htm
+*.uvoptx
+*.uvprojx
+*.dep
+*.axf
+*.lnp
+*.map
+*.scvd
+*.uvguix
+
+# vscode ignores
+.vscode
