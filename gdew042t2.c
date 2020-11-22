@@ -416,13 +416,13 @@ void epd_init(void)
     writedata(0x17);
     writedata(0x17);
     writedata(0x17);                  //07 0f 17 1f 27 2F 37 2f
-    writecmd(POWER_ON);
-    wait_until_idle();  // comment out if debugging with logic analyzer
     writecmd(PANEL_SETTING);
     writedata(0xbf);    // KW-BF   KWR-AF  BWROTP 0f
     writedata(0x0b);
     writecmd(PLL_CONTROL);
     writedata(0x3c);        // 3A 100HZ   29 150Hz 39 200HZ  31 171HZ
+    writecmd(POWER_ON);
+    wait_until_idle();  // comment out if debugging with logic analyzer
 
     epd_set_lut_slow();
 }

@@ -46,6 +46,7 @@
 #include "../inc/CortexM.h"
 #include "../inc/PLL.h"
 #include "../inc/Timer0A.h"
+#include "../inc/Timer1A.h"
 
 // local includes
 #include "gdew042t2.h"
@@ -110,21 +111,17 @@ demo_keys(void)
     key_event_t ev;
     epdgl_set_cursor(10,y);
     while(1) {
-        keypad_scan();
-
         while (key_fifo_get(&ev) != FIFO_EMPTY_ERR) {
-            print_key(&ev);
-            y+=30;
             if (y > 370) {
                 y = 10;
                 epdgl_clear();
             }
             epdgl_set_cursor(10, y);
+            print_key(&ev);
+            y+=30;
         }
 
-        while (!epdgl_update_screen(EPD_FAST));
-
-        waitPF4();
+        epdgl_update_screen(EPD_FAST);
     }
 }
 
@@ -136,6 +133,8 @@ int main (void)
     epd_init(); // initialize e-paper display
     portFinit();
     keypad_init();
+
+    Timer0A_Init(&keypad_scan, 80000000/160, 2);
 
 	EnableInterrupts();
 
