@@ -18,6 +18,7 @@
 #include "../inc/Timer1A.h"
 
 // local includes
+#include "easi.h"
 #include "gdew042t2.h"
 #include "epdgl.h"
 #include "keypad.h"
@@ -41,7 +42,7 @@ void waitPF4(void)
     while (((~(PF4) & 0x10) >> 4) == 1);
 }
 
-text_config_t t_cfg = {&CascadiaMono24, EPD_BLACK};
+text_config_t t_cfg = {&Consolas20, EPD_BLACK};
 
 const char * KEY_STRINGS[] = {
     "F1",      "F2",    "F3",   "F4",   "F5",   "F6",    
@@ -95,7 +96,7 @@ demo_keys(void)
             }
             epdgl_set_cursor(10, y);
             print_key(&ev);
-            y+=30;
+            y+=20;
         }
 
         epdgl_update_screen(EPD_FAST);
@@ -123,7 +124,8 @@ int main (void)
     // set display orientation (see epdgl.h for options)
     epdgl_set_orientation(PORTRAIT);
 
-    demo_keys();
+    //demo_keys();
+    easi_run();
     
     while (1) {
         // demo_calc();
