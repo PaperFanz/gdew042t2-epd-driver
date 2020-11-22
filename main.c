@@ -116,21 +116,15 @@ int main (void)
 
 	EnableInterrupts();
 
-    // clear frame buffer and refresh screen
     epdgl_clear();
-    epdgl_update_screen(EPD_SLOW);  // slow update prevents ghosting, but is ~3s
-                                    // fast update is ~0.3s but lower contrast
+    while(!epdgl_update_screen(EPD_SLOW));
 
     // set display orientation (see epdgl.h for options)
     epdgl_set_orientation(PORTRAIT);
 
-    //demo_keys();
-    easi_run();
-    
+    easi_init();
     while (1) {
-        // demo_calc();
-        // waitPF4();
-        // demo_all();
+        easi_run();
     }
 }
 
