@@ -73,7 +73,7 @@ epdgl_update_screen(epd_update_t u)
     if (UPDATE_REQUEST == false) return true;
 
     // force slow refresh to avoid burn in
-    if (fast_refresh_count >= 12 || FORCE_SLOW_UPDATE) {
+    if (fast_refresh_count >= 20 || FORCE_SLOW_UPDATE) {
         u = EPD_SLOW;
     }
 
