@@ -9,7 +9,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
 I (..\inc\../inc/LaunchPad.h)(0x5F53BDA3)
 I (..\inc\../inc/tm4c123gh6pm.h)(0x5F8A55C0)
 I (..\inc\../inc/CortexM.h)(0x5F53BD9E)
-F (.\main.c)(0x5FB86F15)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (.\main.c)(0x5FB9D67C)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\main.o --omf_browse .\main.crf --depend .\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599FA01C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
 I (../inc/tm4c123gh6pm.h)(0x5F8A55C0)
@@ -17,30 +17,26 @@ I (../inc/LaunchPad.h)(0x5F53BDA3)
 I (../inc/CortexM.h)(0x5F53BD9E)
 I (../inc/PLL.h)(0x5F53BDA4)
 I (../inc/Timer0A.h)(0x5F53BDA7)
-I (gdew042t2.h)(0x5F95BD94)
+I (gdew042t2.h)(0x5FB9D629)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599FA01E)
-I (epdgl.h)(0x5FB7ECED)
+I (epdgl.h)(0x5FB9D629)
 I (font.h)(0x5F94D8DF)
 I (keypad.h)(0x5FB86EA3)
 I (fifo.h)(0x5FB7F3A1)
-F (.\gdew042t2.c)(0x5F95EFE3)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\gdew042t2.o --omf_browse .\gdew042t2.crf --depend .\gdew042t2.d)
-I (gdew042t2.h)(0x5F95BD94)
+F (.\gdew042t2.c)(0x5FB9D629)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\gdew042t2.o --omf_browse .\gdew042t2.crf --depend .\gdew042t2.d)
+I (gdew042t2.h)(0x5FB9D629)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599FA01E)
 I (../inc/tm4c123gh6pm.h)(0x5F8A55C0)
-F (.\epdgl.c)(0x5FB7F4B4)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\epdgl.o --omf_browse .\epdgl.crf --depend .\epdgl.d)
-I (epdgl.h)(0x5FB7ECED)
-I (gdew042t2.h)(0x5F95BD94)
+F (.\epdgl.c)(0x5FB9D629)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\epdgl.o --omf_browse .\epdgl.crf --depend .\epdgl.d)
+I (epdgl.h)(0x5FB9D629)
+I (gdew042t2.h)(0x5FB9D629)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599FA01E)
 I (font.h)(0x5F94D8DF)
 F (.\font.c)(0x5F95B38F)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\font.o --omf_browse .\font.crf --depend .\font.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
 I (font.h)(0x5F94D8DF)
-F (.\dsp.c)(0x5FAA49D9)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\dsp.o --omf_browse .\dsp.crf --depend .\dsp.d)
-I (dsp.h)(0x5FAA49DF)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)
-I (fifo.h)(0x5FB7F3A1)
 F (.\fifo.c)(0x5FB7F375)(-c --cpu Cortex-M4 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .. -I ..\..\.. --C99-I.\RTE\_GDEW042T2-IC:\Users\petef\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-IC:\Users\petef\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="527" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_LM4F120H5QR-o .\fifo.o --omf_browse .\fifo.crf --depend .\fifo.d)
 I (../inc/CortexM.h)(0x5F53BD9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599FA01E)

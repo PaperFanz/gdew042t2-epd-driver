@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\gdew042t2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\gdew042t2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Nov 20 19:37:04 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Nov 21 21:11:59 2020
 <BR><P>
 <H3>Maximum Stack Usage =        116 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -13,11 +13,11 @@ main &rArr; demo_keys &rArr; print_key &rArr; epdgl_draw_string &rArr; epdgl_dra
 Functions with no stack information
 </H3><UL>
  <LI><a href="#[7d]">Reset_Handler</a>
- <LI><a href="#[9f]">DisableInterrupts</a>
- <LI><a href="#[a2]">EnableInterrupts</a>
- <LI><a href="#[9b]">StartCritical</a>
- <LI><a href="#[9c]">EndCritical</a>
- <LI><a href="#[aa]">WaitForInterrupt</a>
+ <LI><a href="#[9e]">DisableInterrupts</a>
+ <LI><a href="#[a1]">EnableInterrupts</a>
+ <LI><a href="#[9a]">StartCritical</a>
+ <LI><a href="#[9b]">EndCritical</a>
+ <LI><a href="#[a9]">WaitForInterrupt</a>
 </UL>
 </UL>
 <P>
@@ -585,7 +585,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_Handler
 </UL>
 
-<P><STRONG><a name="[a4]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
+<P><STRONG><a name="[a3]"></a>_main_stk</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry2.o(.ARM.Collect$$$$00000001))
 
 <P><STRONG><a name="[7f]"></a>_main_scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry5.o(.ARM.Collect$$$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
@@ -595,35 +595,35 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
 </UL>
 
-<P><STRONG><a name="[a5]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
+<P><STRONG><a name="[a4]"></a>_main_clock</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry7b.o(.ARM.Collect$$$$00000008))
 
-<P><STRONG><a name="[a6]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
+<P><STRONG><a name="[a5]"></a>_main_cpp_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry8b.o(.ARM.Collect$$$$0000000A))
 
-<P><STRONG><a name="[a7]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
+<P><STRONG><a name="[a6]"></a>_main_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry9a.o(.ARM.Collect$$$$0000000B))
 
-<P><STRONG><a name="[a8]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
+<P><STRONG><a name="[a7]"></a>__rt_final_cpp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry10a.o(.ARM.Collect$$$$0000000D))
 
-<P><STRONG><a name="[a9]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
+<P><STRONG><a name="[a8]"></a>__rt_final_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, entry11a.o(.ARM.Collect$$$$0000000F))
 
-<P><STRONG><a name="[9f]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<P><STRONG><a name="[9e]"></a>DisableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a2]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<P><STRONG><a name="[a1]"></a>EnableInterrupts</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9b]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
+<P><STRONG><a name="[9a]"></a>StartCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_get
 </UL>
 
-<P><STRONG><a name="[9c]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
+<P><STRONG><a name="[9b]"></a>EndCritical</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_get
 </UL>
 
-<P><STRONG><a name="[aa]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
+<P><STRONG><a name="[a9]"></a>WaitForInterrupt</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup.o(.text), UNUSED)
 
 <P><STRONG><a name="[80]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main_after_scatterload
@@ -631,31 +631,31 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[ab]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[aa]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
-<P><STRONG><a name="[ac]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[ab]"></a>__decompress</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[ad]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
+<P><STRONG><a name="[ac]"></a>__decompress1</STRONG> (Thumb, 86 bytes, Stack size unknown bytes, __dczerorl2.o(.text), UNUSED)
 
-<P><STRONG><a name="[9e]"></a>PLL_Init</STRONG> (Thumb, 120 bytes, Stack size 0 bytes, pll.o(i.PLL_Init))
+<P><STRONG><a name="[9d]"></a>PLL_Init</STRONG> (Thumb, 120 bytes, Stack size 0 bytes, pll.o(i.PLL_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ae]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[ad]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[af]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[ae]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[b0]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[af]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[8e]"></a>delayms</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, gdew042t2.o(i.delayms))
+<P><STRONG><a name="[8d]"></a>delayms</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, gdew042t2.o(i.delayms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = delayms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
 </UL>
 
-<P><STRONG><a name="[82]"></a>demo_keys</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, main.o(i.demo_keys))
+<P><STRONG><a name="[82]"></a>demo_keys</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, main.o(i.demo_keys))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = demo_keys &rArr; print_key &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
@@ -663,108 +663,107 @@ Global Symbols
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_get
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_set_cursor
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitPF4
-<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_key
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_key
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8a]"></a>epd_display_frame_buffer</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_display_frame_buffer))
+<P><STRONG><a name="[89]"></a>epd_display_frame_buffer</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_display_frame_buffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = epd_display_frame_buffer &rArr; wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
-<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
-<P><STRONG><a name="[8f]"></a>epd_init</STRONG> (Thumb, 120 bytes, Stack size 4 bytes, gdew042t2.o(i.epd_init))
+<P><STRONG><a name="[8e]"></a>epd_init</STRONG> (Thumb, 120 bytes, Stack size 4 bytes, gdew042t2.o(i.epd_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = epd_init &rArr; epd_set_lut_slow &rArr; wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tm4cInit
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset
-<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tm4cInit
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset
+<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9a]"></a>epd_is_idle</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, gdew042t2.o(i.epd_is_idle))
+<P><STRONG><a name="[99]"></a>epd_is_idle</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, gdew042t2.o(i.epd_is_idle))
 <BR><BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
-<P><STRONG><a name="[94]"></a>epd_set_lut_fast</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_fast))
+<P><STRONG><a name="[93]"></a>epd_set_lut_fast</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_fast))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = epd_set_lut_fast &rArr; wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
 </UL>
 
-<P><STRONG><a name="[93]"></a>epd_set_lut_slow</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_slow))
+<P><STRONG><a name="[92]"></a>epd_set_lut_slow</STRONG> (Thumb, 128 bytes, Stack size 8 bytes, gdew042t2.o(i.epd_set_lut_slow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = epd_set_lut_slow &rArr; wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecmd
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wait_until_idle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
-<P><STRONG><a name="[86]"></a>epdgl_clear</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_clear))
+<P><STRONG><a name="[85]"></a>epdgl_clear</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_clear))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
 </UL>
 
-<P><STRONG><a name="[95]"></a>epdgl_draw_char</STRONG> (Thumb, 170 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_draw_char))
+<P><STRONG><a name="[94]"></a>epdgl_draw_char</STRONG> (Thumb, 170 bytes, Stack size 48 bytes, epdgl.o(i.epdgl_draw_char))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 </UL>
 
-<P><STRONG><a name="[96]"></a>epdgl_draw_pixel</STRONG> (Thumb, 24 bytes, Stack size 24 bytes, epdgl.o(i.epdgl_draw_pixel))
+<P><STRONG><a name="[95]"></a>epdgl_draw_pixel</STRONG> (Thumb, 24 bytes, Stack size 24 bytes, epdgl.o(i.epdgl_draw_pixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_pixel
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_absolute
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_abs_pixel
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_absolute
 </UL>
-<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
+<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
 </UL>
 
-<P><STRONG><a name="[99]"></a>epdgl_draw_string</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, epdgl.o(i.epdgl_draw_string))
+<P><STRONG><a name="[98]"></a>epdgl_draw_string</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, epdgl.o(i.epdgl_draw_string))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
+<BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_key
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_key
 </UL>
 
 <P><STRONG><a name="[83]"></a>epdgl_set_cursor</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_set_cursor))
 <BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
 </UL>
 
-<P><STRONG><a name="[a3]"></a>epdgl_set_orientation</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_set_orientation))
+<P><STRONG><a name="[a2]"></a>epdgl_set_orientation</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_set_orientation))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[88]"></a>epdgl_update_screen</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, epdgl.o(i.epdgl_update_screen))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = epdgl_update_screen &rArr; epd_set_lut_slow &rArr; wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_is_idle
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_is_idle
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
@@ -774,23 +773,23 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
 <LI>Call Chain = key_fifo_get
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 </UL>
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
 </UL>
 
-<P><STRONG><a name="[9d]"></a>key_fifo_put</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, keypad.o(i.key_fifo_put))
+<P><STRONG><a name="[9c]"></a>key_fifo_put</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, keypad.o(i.key_fifo_put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
 <LI>Call Chain = key_fifo_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
+<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EndCritical
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCritical
 </UL>
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_scan
 </UL>
 
-<P><STRONG><a name="[a1]"></a>keypad_init</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, keypad.o(i.keypad_init))
+<P><STRONG><a name="[a0]"></a>keypad_init</STRONG> (Thumb, 78 bytes, Stack size 0 bytes, keypad.o(i.keypad_init))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -798,7 +797,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40 + Unknown Stack Size
 <LI>Call Chain = keypad_scan &rArr; key_fifo_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
+<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_fifo_put
 </UL>
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
 </UL>
@@ -807,87 +806,83 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
 <LI>Call Chain = main &rArr; demo_keys &rArr; print_key &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
+<BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad_init
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_update_screen
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_set_orientation
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;portFinit
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_set_orientation
+<LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_clear
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;portFinit
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PLL_Init
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableInterrupts
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[a0]"></a>portFinit</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(i.portFinit))
+<P><STRONG><a name="[9f]"></a>portFinit</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(i.portFinit))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[85]"></a>print_key</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.print_key))
+<P><STRONG><a name="[86]"></a>print_key</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(i.print_key))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = print_key &rArr; epdgl_draw_string &rArr; epdgl_draw_char &rArr; epdgl_draw_pixel &rArr; epdgl_draw_abs_pixel
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_string
 </UL>
 <BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
 </UL>
 
-<P><STRONG><a name="[92]"></a>reset</STRONG> (Thumb, 32 bytes, Stack size 4 bytes, gdew042t2.o(i.reset))
+<P><STRONG><a name="[91]"></a>reset</STRONG> (Thumb, 32 bytes, Stack size 4 bytes, gdew042t2.o(i.reset))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = reset &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
-</UL>
-
-<P><STRONG><a name="[91]"></a>select</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, gdew042t2.o(i.select))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
-<P><STRONG><a name="[90]"></a>tm4cInit</STRONG> (Thumb, 276 bytes, Stack size 0 bytes, gdew042t2.o(i.tm4cInit))
-<BR><BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<P><STRONG><a name="[90]"></a>select</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, gdew042t2.o(i.select))
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
-<P><STRONG><a name="[89]"></a>waitPF4</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, main.o(i.waitPF4))
-<BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo_keys
+<P><STRONG><a name="[8f]"></a>tm4cInit</STRONG> (Thumb, 276 bytes, Stack size 0 bytes, gdew042t2.o(i.tm4cInit))
+<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
-<P><STRONG><a name="[8b]"></a>wait_until_idle</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gdew042t2.o(i.wait_until_idle))
+<P><STRONG><a name="[8a]"></a>wait_until_idle</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gdew042t2.o(i.wait_until_idle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = wait_until_idle &rArr; delayms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delayms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
-</UL>
-
-<P><STRONG><a name="[8c]"></a>writecmd</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gdew042t2.o(i.writecmd))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 
-<P><STRONG><a name="[8d]"></a>writedata</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, gdew042t2.o(i.writedata))
-<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+<P><STRONG><a name="[8b]"></a>writecmd</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gdew042t2.o(i.writecmd))
+<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
+</UL>
+
+<P><STRONG><a name="[8c]"></a>writedata</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, gdew042t2.o(i.writedata))
+<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_slow
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_set_lut_fast
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_display_frame_buffer
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epd_init
 </UL>
 <P>
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[97]"></a>epdgl_absolute</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_absolute))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
+<P><STRONG><a name="[96]"></a>epdgl_absolute</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, epdgl.o(i.epdgl_absolute))
+<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
 </UL>
 
-<P><STRONG><a name="[98]"></a>epdgl_draw_abs_pixel</STRONG> (Thumb, 156 bytes, Stack size 12 bytes, epdgl.o(i.epdgl_draw_abs_pixel))
+<P><STRONG><a name="[97]"></a>epdgl_draw_abs_pixel</STRONG> (Thumb, 156 bytes, Stack size 12 bytes, epdgl.o(i.epdgl_draw_abs_pixel))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = epdgl_draw_abs_pixel
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
+<BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;epdgl_draw_pixel
 </UL>
 <P>
 <H3>

@@ -113,18 +113,16 @@ demo_keys(void)
         keypad_scan();
 
         while (key_fifo_get(&ev) != FIFO_EMPTY_ERR) {
-            print_key(&ev);
-            y+=30;
             if (y > 370) {
                 y = 10;
                 epdgl_clear();
             }
             epdgl_set_cursor(10, y);
+            print_key(&ev);
+            y+=30;
         }
 
         while (!epdgl_update_screen(EPD_FAST));
-
-        waitPF4();
     }
 }
 
