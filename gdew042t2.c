@@ -88,62 +88,66 @@ const unsigned char lut_wb_fast[] = {
     0x00,   0,   0,   0,   0, 0,
 };
 
+#define ST1 8  // orig 0x08
+#define ST2 18  // orig 0x12
+#define ST3 20  // orig 0x14
+#define ST4 40  // orig 0x28
+
 const uint8_t lut_vcom0_slow[] = {
-    0x00, 0x08, 0x00, 0x00, 0x00, 0x02,
-    0x60, 0x28, 0x28, 0x00, 0x00, 0x01,
-    0x00, 0x14, 0x00, 0x00, 0x00, 0x01,
-    0x00, 0x12, 0x12, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00
+    0x00, ST1,   0,   0,   0, 2,
+    0x60, ST4, ST4,   0,   0, 1,
+    0x00, ST3,   0,   0,   0, 1,
+    0x00, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0, 0, 0
 };
 
 const uint8_t lut_ww_slow[] = {
-    0x40, 0x08, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
-    0x40, 0x14, 0x00, 0x00, 0x00, 0x01,
-    0xA0, 0x12, 0x12, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x40, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x40, ST3,   0,   0,   0, 1,
+    0xA0, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const uint8_t lut_bw_slow[] = {
-    0x40, 0x08, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
-    0x40, 0x14, 0x00, 0x00, 0x00, 0x01,
-    0xA0, 0x12, 0x12, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+    0x40, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x40, ST3,   0,   0,   0, 1,
+    0xA0, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0, 
 };
 
 const uint8_t lut_bb_slow[] = {
-    0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
-    0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
-    0x50, 0x12, 0x12, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00       
+    0x80, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x80, ST3,   0,   0,   0, 1,
+    0x50, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,       
 };
 
 const uint8_t lut_wb_slow[] = {
-    0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
-    0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
-    0x50, 0x12, 0x12, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00      
+    0x80, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x80, ST3,   0,   0,   0, 1,
+    0x50, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,     
 };
 
 // new waveform created by Jean-Marc Zingg for the actual panel
-#define T1 0 // color change charge balance pre-phase
-#define T2 2 // color change or sustain charge balance pre-phase
-#define T3 4 // color change or sustain phase
-#define T4 0 // color change phase
+#define T1 4  // color change charge balance pre-phase
+#define T2 8  // color change or sustain charge balance pre-phase
+#define T3 0 // color change or sustain phase
+#define T4 4  // color change phase
 
 const unsigned char lut_vcom0_partial[] = {
     0x00, T1, T2, T3, T4, 1, // 00 00 00 00
@@ -157,7 +161,7 @@ const unsigned char lut_vcom0_partial[] = {
 
 
 const unsigned char lut_ww_partial[] = {
-    0x18, T1, T2, T3, T4, 1, // 00 01 10 00
+    0xA0, T1, T2, T3, T4, 1, // 10 10 00 00
     0x00,  1,  0,  0,  0, 1, // gnd phase   
     0x00,  0,  0,  0,  0, 0,        
     0x00,  0,  0,  0,  0, 0,        
@@ -167,7 +171,7 @@ const unsigned char lut_ww_partial[] = {
 };
 
 const unsigned char lut_bw_partial[] = {
-    0x5A, T1, T2, T3, T4, 1, // 01 01 10 10
+    0xA0, T1, T2, T3, T4, 1, // 10 10 00 00
     0x00,  1,  0,  0,  0, 1, // gnd phase
     0x00,  0,  0,  0,  0, 0,        
     0x00,  0,  0,  0,  0, 0,        
@@ -177,7 +181,7 @@ const unsigned char lut_bw_partial[] = {
 };
 
 const unsigned char lut_bb_partial[] = {
-    0x24, T1, T2, T3, T4, 1, // 00 10 01 00
+    0x50, T1, T2, T3, T4, 1, // 01 01 00 00
     0x00,  1,  0,  0,  0, 1, // gnd phase
     0x00,  0,  0,  0,  0, 0,        
     0x00,  0,  0,  0,  0, 0,        
@@ -187,7 +191,7 @@ const unsigned char lut_bb_partial[] = {
 };
 
 const unsigned char lut_wb_partial[] = {
-    0xA5, T1, T2, T3, T4, 1, // 10 10 01 01
+    0x50, T1, T2, T3, T4, 1, // 01 01 00 00
     0x00,  1,  0,  0,  0, 1, // gnd phase 
     0x00,  0,  0,  0,  0, 0,        
     0x00,  0,  0,  0,  0, 0,        
@@ -484,7 +488,7 @@ epd_set_partial_area(int x0, int y0, int x1, int y1)
 }
 
 void
-epd_update_part(int x0, int y0, int x1, int y1)
+epd_refresh_part(int x0, int y0, int x1, int y1)
 {
     wait_until_idle();
 
@@ -503,7 +507,7 @@ epd_update_part(int x0, int y0, int x1, int y1)
 }
 
 void
-epd_set_partial_window(const uint8_t* frame_buffer, int x, int y, int w, int l)
+epd_update_part(const uint8_t* frame_buffer, int x, int y, int w, int l)
 {
     wait_until_idle();
     writecmd(PARTIAL_IN);
@@ -636,12 +640,8 @@ epd_update_frame(const uint8_t * fr)
 }
 
 void
-epd_display_frame_fast(const uint8_t * fr)
+epd_refresh_fast()
 {
-    wait_until_idle();
-
-    epd_update_frame(fr);
-
     if (ACTIVE_LUT != LUT_FAST) {
         epd_set_lut_fast();
         ACTIVE_LUT = LUT_FAST;
@@ -651,18 +651,34 @@ epd_display_frame_fast(const uint8_t * fr)
 }
 
 void
-epd_display_frame_slow(const uint8_t * fr)
+epd_refresh_slow()
 {
-    wait_until_idle();
-
-    epd_update_frame(fr);
-
     if (ACTIVE_LUT != LUT_SLOW) {
         epd_set_lut_slow();
         ACTIVE_LUT = LUT_SLOW;
     }
 
     writecmd(DISPLAY_REFRESH);
+}
+
+void
+epd_display_frame_fast(const uint8_t * fr)
+{
+    wait_until_idle();
+
+    epd_update_frame(fr);
+
+    epd_refresh_fast();
+}
+
+void
+epd_display_frame_slow(const uint8_t * fr)
+{
+    wait_until_idle();
+
+    epd_update_frame(fr);
+
+    epd_refresh_slow();
 }
 
 void epd_display_frame(void)

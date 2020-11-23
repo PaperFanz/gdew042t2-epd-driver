@@ -13,7 +13,7 @@
 void
 easi_init()
 {
-    keyMode = M_NORMAL;
+    KEY_MODE = M_NORMAL;
     draw_status_bar();
     draw_fn_bar();
     epdgl_update_screen(EPD_FAST);
@@ -25,13 +25,13 @@ parse_input(uint8_t raw_key)
     key_t key = KEYMAP[raw_key];
     switch(key){
         case ALPHA:
-            if(keyMode == M_ALPHA) keyMode = M_NORMAL;
-            else keyMode = M_ALPHA;
+            if(KEY_MODE == M_ALPHA) KEY_MODE = M_NORMAL;
+            else KEY_MODE = M_ALPHA;
             update_status_bar();
             break;
         case CTRL:
-            if(keyMode == M_CTRL) keyMode = M_NORMAL;
-            else keyMode = M_CTRL;
+            if(KEY_MODE == M_CTRL) KEY_MODE = M_NORMAL;
+            else KEY_MODE = M_CTRL;
             update_status_bar();
             break;
         case F1:
@@ -56,5 +56,10 @@ easi_run()
         }
     }
 
-    epdgl_update_screen(EPD_FAST);
+    if (FULL_UPDATE) {
+        epdgl_update_screen(EPD_SLOW);
+        FULL_UPDATE = false;
+    } else {
+        epdgl_update_screen(EPD_PART);
+    }
 }

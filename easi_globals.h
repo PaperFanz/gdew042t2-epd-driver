@@ -8,6 +8,8 @@
 #ifndef EASI_GLOBALS_H
 #define EASI_GLOBALS_H
 
+#include <stdbool.h>
+
 /*
     shell status variables
 */
@@ -27,6 +29,8 @@ typedef enum key_mode {
     M_CTRL
 } key_mode_t;
 
-extern key_mode_t keyMode;
+extern key_mode_t KEY_MODE;
+
+extern bool FULL_UPDATE;
 
 #endif

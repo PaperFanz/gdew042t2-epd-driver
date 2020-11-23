@@ -4,106 +4,14 @@
     Authors: Pete Fan and Sai Koukuntla
     Date: Nov 22
 */
+
+#include <string.h>
+
 #include "keypad.h"
 #include "epdgl.h"
 #include "easi_globals.h"
 #include "gui.h"
-#include <string.h>
-
-
-/*
-    status bar variables
-*/
-static char * appString = "algebraic";
-static char * keyModeString = "normal";
-
-/*
-    function bar variables
-*/
-typedef enum bar_item {
-    FOLDER,
-    FUNCTION,
-    CONSTANT,
-    MODE,
-    ESC
-} bar_item_t;
-
-typedef struct bar_function {
-    bar_item_t type;
-    char * name;
-    struct bar_function * subitems;
-} bar_fn_t;
-
-bar_fn_t MODE_ARR[] = {
-    {
-        MODE,
-        "ALG",
-        0
-    },
-    {
-        MODE,
-        "RPN",
-        0
-    },
-    {
-        MODE,
-        "GRPH",
-        0
-    },
-    {
-        MODE,
-        "VOLT",
-        0
-    },
-    {
-        MODE,
-        "PP",
-        0
-    },
-    {
-        ESC,
-        "ESC",
-        0
-    },
-};
-
-bar_fn_t FN_ARR[] = {
-    {
-        FOLDER,
-        "MODE",
-        MODE_ARR,
-    },
-    {
-        CONSTANT,
-        "null",
-        0
-    },
-    {
-        CONSTANT,
-        "null",
-        0
-    },
-    {
-        CONSTANT,
-        "null",
-        0
-    },
-    {
-        CONSTANT,
-        "null",
-        0
-    },
-    {
-        CONSTANT,
-        "null",
-        0
-    },
-};
-
-
-static bar_fn_t * ACTIVE_BAR = FN_ARR;
-
-static text_config_t bar_fnt = {&Consolas14, EPD_WHITE};
+#include "bar.h"
 
 void
 draw_fn_bar()
@@ -111,25 +19,28 @@ draw_fn_bar()
     epdgl_fill_rect(0, 380, 300, 20, EPD_BLACK);
     for (int i = 0; i < 6; ++i) {
         epdgl_set_cursor(10 + i * 50, 382);
-        epdgl_draw_string(ACTIVE_BAR[i].name, &bar_fnt);
+        epdgl_draw_string(get_active_fn(i)->name, &bar_fnt);
     }
 }
 
 void
 update_fn_bar(key_t k)
 {
-    bar_fn_t fn = ACTIVE_BAR[k];
-    switch (fn.type) {
+    const bar_fn_t * fn = get_active_fn(k);
+    switch (fn->type) {
     case FOLDER:
-        ACTIVE_BAR = fn.subitems;
+        ACTIVE_BAR = fn->subitems;
         break;
     case MODE:
-        ACTIVE_BAR = FN_ARR;
+        ACTIVE_BAR = &FUNCTION_BAR;
         EASI_MODE = k;
         update_status_bar();
         break;
+    case FUNCTION:
+        (*fn->function)();
+        break;
     case ESC:
-        ACTIVE_BAR = FN_ARR;
+        ACTIVE_BAR = &FUNCTION_BAR;
         break;
     }
     draw_fn_bar();
@@ -139,7 +50,7 @@ void
 draw_status_bar(){
     epdgl_fill_rect(0, 0, 300, 20, EPD_BLACK);
 
-    epdgl_set_cursor(2, 2);
+    epdgl_set_cursor(8, 2);
     epdgl_draw_string(keyModeString, &bar_fnt);
 
     // Draw app string
@@ -151,7 +62,7 @@ draw_status_bar(){
     epdgl_draw_string(appString, &bar_fnt);
 
     // Draw battery %
-    epdgl_set_cursor(275, 2);
+    epdgl_set_cursor(268, 2);
     epdgl_draw_string("99%", &bar_fnt);
 
     //TODO: 
@@ -162,7 +73,7 @@ void
 update_status_bar()
 {
     // update key string
-    switch(keyMode){
+    switch(KEY_MODE){
         case M_NORMAL:
             keyModeString = "normal";
             break;

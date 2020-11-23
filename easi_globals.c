@@ -8,4 +8,7 @@
 #include "easi_globals.h"
 
 easi_mode_t EASI_MODE = ALG;
-key_mode_t keyMode = M_NORMAL;
+
+key_mode_t KEY_MODE = M_NORMAL;
+
+bool FULL_UPDATE = false;

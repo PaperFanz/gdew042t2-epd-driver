@@ -17,14 +17,52 @@
 static int32_t CURSOR_X;
 static int32_t CURSOR_Y;
 
+// refresh counts to maintain safe operation and contrast level
+#define PART_REFRESH_LIMIT 1
+#define FAST_REFRESH_LIMIT 16
+static uint8_t fast_refresh_count = 0;
+static uint8_t part_refresh_count = 0;
+
 // update request boolean
 static bool UPDATE_REQUEST = false;
 static bool FORCE_SLOW_UPDATE = false;
+
+// minimal update area
+static int32_t UPD_MIN_X;
+static int32_t UPD_MAX_X;
+static int32_t UPD_MIN_Y;
+static int32_t UPD_MAX_Y;
 
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
 static uint8_t EPDGL_BUF[BUF_SIZE] = {0};
+
+static void
+epdgl_abs_update(int32_t x, int32_t y)
+{
+    // x = (x > EPD_WIDTH ? EPD_WIDTH : x) < 0 ? 0 : x;
+    // y = (y > EPD_HEIGHT ? EPD_HEIGHT : y) < 0 ? 0 : y;
+    UPD_MIN_X = (x < UPD_MIN_X ? x : UPD_MIN_X);
+    UPD_MAX_X = (x > UPD_MAX_X ? x : UPD_MAX_X);
+    UPD_MIN_Y = (y < UPD_MIN_Y ? y : UPD_MIN_Y);
+    UPD_MAX_Y = (y > UPD_MAX_Y ? y : UPD_MAX_Y);
+}
+
+static void
+epdgl_abs_reset()
+{
+    UPD_MIN_X = INT32_MAX;
+    UPD_MAX_X = INT32_MIN;
+    UPD_MIN_Y = INT32_MAX;
+    UPD_MAX_Y = INT32_MIN;
+}
+
+static int32_t
+epdgl_update_area()
+{
+    return (UPD_MAX_X - UPD_MIN_X + 1) * (UPD_MAX_Y -  UPD_MIN_Y + 1);
+}
 
 static void
 epdgl_absolute(int32_t * x, int32_t * y)
@@ -48,6 +86,7 @@ epdgl_absolute(int32_t * x, int32_t * y)
         *y = tmp;
         break;
     }
+    epdgl_abs_update(*x, *y); 
 }
 
 void
@@ -55,39 +94,45 @@ epdgl_init()
 {
     epd_set_lut_slow();
     epdgl_clear();
+    epdgl_abs_reset();
 }
 
 bool
 epdgl_update_screen(epd_update_t u)
 {
-    static uint32_t fast_refresh_count = 0;
     if (!epd_is_idle()) return false;
-    if (UPDATE_REQUEST == false) {
-        return true;
-    }
+    if (!UPDATE_REQUEST) return true;
 
-    // force slow refresh to avoid burn in
-    if (fast_refresh_count >= 20 || FORCE_SLOW_UPDATE) {
-        u = EPD_SLOW;
-    }
+    int32_t upd_area = epdgl_update_area();
+    epd_update_frame(EPDGL_BUF);
+
+    if (FORCE_SLOW_UPDATE) u = EPD_SLOW;
 
     switch (u) {
-    case EPD_FAST:
-        ++fast_refresh_count;
-        epd_display_frame_fast(EPDGL_BUF);
-        break;
     case EPD_PART:
-        epd_update_frame(EPDGL_BUF);
-        epd_update_part(0,0,400,300);
-        break;
+        if ((part_refresh_count < PART_REFRESH_LIMIT) && 
+            (upd_area < (EPD_WIDTH * EPD_HEIGHT / 4))
+        ) {
+            ++part_refresh_count;
+            epd_refresh_part(UPD_MIN_X,UPD_MIN_Y,UPD_MAX_X,UPD_MAX_Y);
+            break;
+        }
+    case EPD_FAST:
+        part_refresh_count = 0;
+        if (fast_refresh_count < FAST_REFRESH_LIMIT) {
+            ++fast_refresh_count;
+            epd_refresh_fast();
+            break;
+        }
     case EPD_SLOW:
         fast_refresh_count = 0;
         FORCE_SLOW_UPDATE = false;
-        epd_display_frame_slow(EPDGL_BUF);
+        epd_refresh_slow();
         break;
     }
 
     UPDATE_REQUEST = false;
+    epdgl_abs_reset();
     return true;
 }
 
@@ -114,7 +159,7 @@ black_pixel:
             EPDGL_BUF[(x + (y * EPD_WIDTH)) >> 3] &= ~(0x80 >> (x & 0x07));
             break;
         }
-    }   
+    }
 }
 
 static void
@@ -293,6 +338,8 @@ void
 epdgl_draw_circle(int32_t x, int32_t y, int32_t r, epd_color_t c)
 {
     epdgl_absolute(&x, &y);
+    epdgl_abs_update(x - r, y - r);
+    epdgl_abs_update(x + r, y + r);
     /* Bresenham algorithm */
     int x_pos = -r;
     int y_pos = 0;
@@ -323,6 +370,8 @@ void
 epdgl_fill_circle(int32_t x, int32_t y, int32_t r, epd_color_t c)
 {
     epdgl_absolute(&x, &y);
+    epdgl_abs_update(x - r, y - r);
+    epdgl_abs_update(x + r, y + r);
     /* Bresenham algorithm */
     int x_pos = -r;
     int y_pos = 0;

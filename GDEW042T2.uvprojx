@@ -452,6 +452,11 @@
               <FileType>1</FileType>
               <FilePath>..\inc\Timer0A.c</FilePath>
             </File>
+            <File>
+              <FileName>bar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\bar.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
