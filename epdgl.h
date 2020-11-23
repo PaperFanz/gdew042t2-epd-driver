@@ -30,6 +30,7 @@ typedef enum epd_color {
 
 typedef enum epd_update {
     EPD_FAST,
+    EPD_PART,
     EPD_SLOW
 } epd_update_t;
 
