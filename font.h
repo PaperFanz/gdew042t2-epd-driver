@@ -18,7 +18,7 @@ typedef struct {
     uint8_t const *GlyphBitmaps;
 } font_t;
 
-
-extern font_t CascadiaMono24;
+extern font_t Consolas14;
+extern font_t Consolas20;
 
 #endif // FONT_H

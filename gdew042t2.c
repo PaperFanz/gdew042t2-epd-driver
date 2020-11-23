@@ -25,112 +25,125 @@
 #define TM4C123GHPM  // comment out if using different mcu
 #define SINGLE_SLAVE // comment out if using multiple slaves
 
+typedef enum lut_mode {
+    LUT_FAST,
+    LUT_PART,
+    LUT_SLOW
+} lut_mode_t;
+
+static lut_mode_t ACTIVE_LUT = LUT_SLOW;
+
+#define FT1 7
+#define FT2 14
+#define FT3 0
+#define FT4 0
+
 const unsigned char lut_vcom0_fast[] = {
-    0x00, 0x0E, 0x00, 0x00, 0x00, 0x01,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, FT1, FT2, FT3, FT4, 1, // 00 00 00 00    
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0, 0, 0,
 };
 
-
 const unsigned char lut_ww_fast[] = {
-    0xA0, 0x0E, 0x00, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xA0, FT1, FT2, FT3, FT4, 1, // 10 10 00 00
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const unsigned char lut_bw_fast[] = {
-    0xA0, 0x0E, 0x00, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,     
+    0xA0, FT1, FT2, FT3, FT4, 1, // 10 10 00 00
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const unsigned char lut_bb_fast[] = {
-    0x50, 0x0E, 0x00, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,     
+    0x50, FT1, FT2, FT3, FT4, 1, // 01 01 00 00
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const unsigned char lut_wb_fast[] = {
-    0x50, 0x0E, 0x00, 0x00, 0x00, 0x01,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,         
+    0x50, FT1, FT2, FT3, FT4, 1, // 01 01 00 00
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const uint8_t lut_vcom0_slow[] = {
-    0x00, 0x17, 0x00, 0x00, 0x00, 0x02,        
-    0x00, 0x17, 0x17, 0x00, 0x00, 0x02,        
-    0x00, 0x0A, 0x01, 0x00, 0x00, 0x01,        
-    0x00, 0x0E, 0x0E, 0x00, 0x00, 0x02,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x08, 0x00, 0x00, 0x00, 0x02,
+    0x60, 0x28, 0x28, 0x00, 0x00, 0x01,
+    0x00, 0x14, 0x00, 0x00, 0x00, 0x01,
+    0x00, 0x12, 0x12, 0x00, 0x00, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00
 };
 
 const uint8_t lut_ww_slow[] = {
-    0x40, 0x17, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x17, 0x17, 0x00, 0x00, 0x02,
-    0x40, 0x0A, 0x01, 0x00, 0x00, 0x01,
-    0xA0, 0x0E, 0x0E, 0x00, 0x00, 0x02,
+    0x40, 0x08, 0x00, 0x00, 0x00, 0x02,
+    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
+    0x40, 0x14, 0x00, 0x00, 0x00, 0x01,
+    0xA0, 0x12, 0x12, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
 const uint8_t lut_bw_slow[] = {
-    0x40, 0x17, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x17, 0x17, 0x00, 0x00, 0x02,
-    0x40, 0x0A, 0x01, 0x00, 0x00, 0x01,
-    0xA0, 0x0E, 0x0E, 0x00, 0x00, 0x02,
+    0x40, 0x08, 0x00, 0x00, 0x00, 0x02,
+    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
+    0x40, 0x14, 0x00, 0x00, 0x00, 0x01,
+    0xA0, 0x12, 0x12, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 };
 
 const uint8_t lut_bb_slow[] = {
-    0x80, 0x17, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x17, 0x17, 0x00, 0x00, 0x02,
-    0x80, 0x0A, 0x01, 0x00, 0x00, 0x01,
-    0x50, 0x0E, 0x0E, 0x00, 0x00, 0x02,
+    0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
+    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
+    0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
+    0x50, 0x12, 0x12, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,          
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00       
 };
 
 const uint8_t lut_wb_slow[] = {
-    0x80, 0x17, 0x00, 0x00, 0x00, 0x02,
-    0x90, 0x17, 0x17, 0x00, 0x00, 0x02,
-    0x80, 0x0A, 0x01, 0x00, 0x00, 0x01,
-    0x50, 0x0E, 0x0E, 0x00, 0x00, 0x02,
+    0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
+    0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
+    0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
+    0x50, 0x12, 0x12, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00      
 };
 
 // new waveform created by Jean-Marc Zingg for the actual panel
-#define T1 25 // color change charge balance pre-phase
-#define T2  1 // color change or sustain charge balance pre-phase
-#define T3  2 // color change or sustain phase
-#define T4 25 // color change phase
+#define T1 0 // color change charge balance pre-phase
+#define T2 2 // color change or sustain charge balance pre-phase
+#define T3 4 // color change or sustain phase
+#define T4 0 // color change phase
 
 const unsigned char lut_vcom0_partial[] = {
     0x00, T1, T2, T3, T4, 1, // 00 00 00 00
@@ -412,19 +425,36 @@ void epd_init(void)
     writedata(0x2b);                  // VDH
     writedata(0x2b);                  // VDL
     writedata(0xff);                  // VDHR
+
     writecmd(BOOSTER_SOFT_START);
     writedata(0x17);
     writedata(0x17);
     writedata(0x17);                  //07 0f 17 1f 27 2F 37 2f
+
     writecmd(PANEL_SETTING);
     writedata(0xbf);    // KW-BF   KWR-AF  BWROTP 0f
     writedata(0x0b);
+
     writecmd(PLL_CONTROL);
     writedata(0x3c);        // 3A 100HZ   29 150Hz 39 200HZ  31 171HZ
+
+    writecmd(RESOLUTION_SETTING);
+    writedata(EPD_WIDTH >> 8);        
+    writedata(EPD_WIDTH & 0xff);
+    writedata(EPD_HEIGHT >> 8);
+    writedata(EPD_HEIGHT & 0xff);
+
+    writecmd(VCM_DC_SETTING);
+    writedata(0x12);                   
+
+    writecmd(VCOM_AND_DATA_INTERVAL_SETTING);
+    writecmd(0xd7);    // border floating to avoid flashing
+
     writecmd(POWER_ON);
     wait_until_idle();  // comment out if debugging with logic analyzer
 
     epd_set_lut_slow();
+    epd_clear_frame();
 }
 
 void epd_reset(void)
@@ -433,21 +463,53 @@ void epd_reset(void)
     reset();
 }
 
-void epd_set_partial_window(const uint8_t* frame_buffer, int x, int y, int w, int l)
+static void
+epd_set_partial_area(int x0, int y0, int x1, int y1)
+{
+    if (x0 > x1 || y0 > y1) return;
+    x1 |= 0x07;
+    wait_until_idle();
+
+    writecmd(PARTIAL_WINDOW);
+    writedata(x0 >> 8);
+    writedata(x0 & 0xf8);     // x should be the multiple of 8, the last 3 bit will always be ignored
+    writedata(x1 >> 8);
+    writedata(x1 | 0x07);
+    writedata(y0 >> 8);        
+    writedata(y0 & 0xff);
+    writedata(y1 >> 8);        
+    writedata(y1 & 0xff);
+    writedata(0x01);         // Gates scan both inside and outside of the partial window. (default) 
+    delayms(2);
+}
+
+void
+epd_update_part(int x0, int y0, int x1, int y1)
+{
+    wait_until_idle();
+
+    writecmd(PARTIAL_IN);
+
+    epd_set_partial_area(x0,y0, x1, y1);
+
+    if (ACTIVE_LUT != LUT_PART) {
+        epd_set_lut_part();
+        ACTIVE_LUT = LUT_PART;
+    }
+    writecmd(DISPLAY_REFRESH);
+
+    wait_until_idle();
+    writecmd(PARTIAL_OUT);
+}
+
+void
+epd_set_partial_window(const uint8_t* frame_buffer, int x, int y, int w, int l)
 {
     wait_until_idle();
     writecmd(PARTIAL_IN);
-    writecmd(PARTIAL_WINDOW);
-    writedata(x >> 8);
-    writedata(x & 0xf8);     // x should be the multiple of 8, the last 3 bit will always be ignored
-    writedata(((x & 0xf8) + w  - 1) >> 8);
-    writedata(((x & 0xf8) + w  - 1) | 0x07);
-    writedata(y >> 8);        
-    writedata(y & 0xff);
-    writedata((y + l - 1) >> 8);        
-    writedata((y + l - 1) & 0xff);
-    writedata(0x01);         // Gates scan both inside and outside of the partial window. (default) 
-    delayms(2);
+
+    epd_set_partial_area(x, y, x + w - 1, y + l - 1);
+
     writecmd(DATA_START_TRANSMISSION_2);
     if (frame_buffer != 0) {
         for(int i = 0; i < w  / 8 * l; i++) {
@@ -484,12 +546,43 @@ void epd_set_lut_slow()
 
     writecmd(LUT_WHITE_TO_BLACK);                      //wb w
     for(count = 0; count < 42; count++) {
-        writedata(lut_bb_slow[count]);
+        writedata(lut_wb_slow[count]);
     } 
 
     writecmd(LUT_BLACK_TO_BLACK);                      //bb b
     for(count = 0; count < 42; count++) {
-        writedata(lut_wb_slow[count]);
+        writedata(lut_bb_slow[count]);
+    } 
+}
+
+void epd_set_lut_part()
+{
+    wait_until_idle();
+    uint32_t count;
+
+    writecmd(LUT_FOR_VCOM);                            //vcom
+    for(count = 0; count < 44; count++) {
+        writedata(lut_vcom0_partial[count]);
+    }
+    
+    writecmd(LUT_WHITE_TO_WHITE);                      //ww --
+    for(count = 0; count < 42; count++) {
+        writedata(lut_ww_partial[count]);
+    }   
+    
+    writecmd(LUT_BLACK_TO_WHITE);                      //bw r
+    for(count = 0; count < 42; count++) {
+        writedata(lut_bw_partial[count]);
+    } 
+
+    writecmd(LUT_WHITE_TO_BLACK);                      //wb w
+    for(count = 0; count < 42; count++) {
+        writedata(lut_wb_partial[count]);
+    } 
+
+    writecmd(LUT_BLACK_TO_BLACK);                      //bb b
+    for(count = 0; count < 42; count++) {
+        writedata(lut_bb_partial[count]);
     } 
 }
 
@@ -515,41 +608,59 @@ void epd_set_lut_fast()
 
     writecmd(LUT_WHITE_TO_BLACK);                      //wb w
     for(count = 0; count < 42; count++) {
-        writedata(lut_bb_fast[count]);
+        writedata(lut_wb_fast[count]);
     } 
 
     writecmd(LUT_BLACK_TO_BLACK);                      //bb b
     for(count = 0; count < 42; count++) {
-        writedata(lut_wb_fast[count]);
+        writedata(lut_bb_fast[count]);
     } 
 }
 
-void epd_display_frame_buffer(const uint8_t* frame_buffer)
+void
+epd_update_frame(const uint8_t * fr)
 {
     wait_until_idle();
-    writecmd(RESOLUTION_SETTING);
-    writedata(EPD_WIDTH >> 8);        
-    writedata(EPD_WIDTH & 0xff);
-    writedata(EPD_HEIGHT >> 8);
-    writedata(EPD_HEIGHT & 0xff);
 
-    writecmd(VCM_DC_SETTING);
-    writedata(0x12);                   
+    // writecmd(DATA_START_TRANSMISSION_1);
+    // for(int i = 0; i < (EPD_WIDTH / 8) * EPD_HEIGHT; i++) {
+    //     writedata(0xFF);      // bit set: white, bit reset: black
+    // }
+    // delayms(2);
 
-    writecmd(VCOM_AND_DATA_INTERVAL_SETTING);
-    writecmd(0x97);    //VBDF 17|D7 VBDW 97  VBDB 57  VBDF F7  VBDW 77  VBDB 37  VBDR B7
-
-
-    writecmd(DATA_START_TRANSMISSION_1);
-    for(int i = 0; i < (EPD_WIDTH / 8) * EPD_HEIGHT; i++) {
-        writedata(0xFF);      // bit set: white, bit reset: black
-    }
-    delayms(2);
     writecmd(DATA_START_TRANSMISSION_2); 
     for(int i = 0; i < (EPD_WIDTH / 8) * EPD_HEIGHT; i++) {
-        writedata(frame_buffer[i]);
-    }  
+        writedata(fr[i]);
+    }
     delayms(2);
+}
+
+void
+epd_display_frame_fast(const uint8_t * fr)
+{
+    wait_until_idle();
+
+    epd_update_frame(fr);
+
+    if (ACTIVE_LUT != LUT_FAST) {
+        epd_set_lut_fast();
+        ACTIVE_LUT = LUT_FAST;
+    }
+
+    writecmd(DISPLAY_REFRESH);
+}
+
+void
+epd_display_frame_slow(const uint8_t * fr)
+{
+    wait_until_idle();
+
+    epd_update_frame(fr);
+
+    if (ACTIVE_LUT != LUT_SLOW) {
+        epd_set_lut_slow();
+        ACTIVE_LUT = LUT_SLOW;
+    }
 
     writecmd(DISPLAY_REFRESH);
 }

@@ -21,15 +21,21 @@ void epd_reset(void);
 
 bool epd_is_idle(void);
 
-void epd_set_partial_window(const uint8_t * frame_buffer, int x, int y, int w, int l);
+void epd_update_part(int x0, int y0, int x1, int y1);
+
+void epd_set_partial_window(const uint8_t * fr, int x, int y, int w, int l);
 
 void epd_set_lut_slow(void);
 
+void epd_set_lut_part(void);
+
 void epd_set_lut_fast(void);
 
-void epd_display_frame_buffer(const uint8_t * frame_buffer);
+void epd_update_frame(const uint8_t * fr);
 
-void epd_display_frame(void);
+void epd_display_frame_fast(const uint8_t * fr);
+
+void epd_display_frame_slow(const uint8_t * fr);
 
 void epd_clear_frame(void);
 

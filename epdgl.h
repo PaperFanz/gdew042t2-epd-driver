@@ -30,6 +30,7 @@ typedef enum epd_color {
 
 typedef enum epd_update {
     EPD_FAST,
+    EPD_PART,
     EPD_SLOW
 } epd_update_t;
 
@@ -70,10 +71,13 @@ void epdgl_fill_circle(int32_t x, int32_t y, int32_t r, epd_color_t c);
 
 void epdgl_set_cursor(int32_t x, int32_t y);
 
+// Moves cursor
 void epdgl_draw_char(char s, text_config_t * cfg);
 
+// Moves cursor
 void epdgl_draw_int(int32_t i, text_config_t * cfg);
 
+// Moves cursor
 void epdgl_draw_string(const char * s, text_config_t * cfg);
 
 void epdgl_plot(int32_t * x, int32_t * y, int32_t l, plot_config_t cfg);

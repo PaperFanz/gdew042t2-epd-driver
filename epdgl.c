@@ -21,13 +21,6 @@ static int32_t CURSOR_Y;
 static bool UPDATE_REQUEST = false;
 static bool FORCE_SLOW_UPDATE = false;
 
-typedef enum LUT_mode {
-    LUT_FAST,
-    LUT_SLOW
-} lut_mode_t;
-
-static lut_mode_t LUT_MODE = LUT_SLOW;
-
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
@@ -60,7 +53,6 @@ epdgl_absolute(int32_t * x, int32_t * y)
 void
 epdgl_init()
 {
-    LUT_MODE = LUT_SLOW;
     epd_set_lut_slow();
     epdgl_clear();
 }
@@ -70,7 +62,9 @@ epdgl_update_screen(epd_update_t u)
 {
     static uint32_t fast_refresh_count = 0;
     if (!epd_is_idle()) return false;
-    if (UPDATE_REQUEST == false) return true;
+    if (UPDATE_REQUEST == false) {
+        return true;
+    }
 
     // force slow refresh to avoid burn in
     if (fast_refresh_count >= 20 || FORCE_SLOW_UPDATE) {
@@ -80,24 +74,20 @@ epdgl_update_screen(epd_update_t u)
     switch (u) {
     case EPD_FAST:
         ++fast_refresh_count;
-        if (LUT_MODE != LUT_FAST) {
-            epd_set_lut_fast();
-            LUT_MODE = LUT_FAST;
-        }
+        epd_display_frame_fast(EPDGL_BUF);
+        break;
+    case EPD_PART:
+        epd_update_frame(EPDGL_BUF);
+        epd_update_part(0,0,400,300);
         break;
     case EPD_SLOW:
         fast_refresh_count = 0;
-        if (LUT_MODE != LUT_SLOW) {
-            epd_set_lut_slow();
-            LUT_MODE = LUT_SLOW;
-        }
         FORCE_SLOW_UPDATE = false;
+        epd_display_frame_slow(EPDGL_BUF);
         break;
     }
 
-    epd_display_frame_buffer(EPDGL_BUF);
     UPDATE_REQUEST = false;
-
     return true;
 }
 
