@@ -12,11 +12,13 @@
 #include "easi_globals.h"
 #include "gui.h"
 #include "bar.h"
+#include "rpn.h"
+#include "voltmeter.h"
 
 void
 draw_fn_bar()
 {
-    epdgl_fill_rect(0, 380, 300, 20, EPD_BLACK);
+    epdgl_fill_rect(0, SCREEN_H - FN_BAR_H, FN_BAR_W, FN_BAR_H, EPD_BLACK);
     for (int i = 0; i < 6; ++i) {
         epdgl_set_cursor(10 + i * 50, 382);
         epdgl_draw_string(get_active_fn(i)->name, &bar_fnt);
@@ -34,6 +36,7 @@ update_fn_bar(key_t k)
     case MODE:
         ACTIVE_BAR = &FUNCTION_BAR;
         EASI_MODE = k;
+        if(k == RPN) rpn_init();
         update_status_bar();
         break;
     case FUNCTION:
@@ -48,7 +51,7 @@ update_fn_bar(key_t k)
 
 void
 draw_status_bar(){
-    epdgl_fill_rect(0, 0, 300, 20, EPD_BLACK);
+    epdgl_fill_rect(0, 0, STATUS_BAR_W, STATUS_BAR_H, EPD_BLACK);
 
     epdgl_set_cursor(8, 2);
     epdgl_draw_string(keyModeString, &bar_fnt);
@@ -62,12 +65,15 @@ draw_status_bar(){
     epdgl_draw_string(appString, &bar_fnt);
 
     // Draw battery %
-    epdgl_set_cursor(268, 2);
-    epdgl_draw_string("99%", &bar_fnt);
+    int bat_dig = (GLOB_BATTERY == 100) ? 3 : ((GLOB_BATTERY >= 10) ? 2 : 1);
+    epdgl_set_cursor(291 - (bat_dig + 1) * 8, 2);
+    epdgl_draw_int(GLOB_BATTERY, &bar_fnt);
+    epdgl_draw_string("%", &bar_fnt);
 
     //TODO: 
     //TODO: battery symbol 
 }
+
 // PD1 has battery status
 void
 update_status_bar()

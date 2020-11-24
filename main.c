@@ -22,6 +22,7 @@
 #include "gdew042t2.h"
 #include "epdgl.h"
 #include "keypad.h"
+#include "voltmeter.h"
 
 void portFinit(void)
 {
@@ -111,8 +112,9 @@ int main (void)
     epd_init(); // initialize e-paper display
     portFinit();
     keypad_init();
+    voltmeter_init();
 
-    Timer0A_Init(&keypad_scan, 80000000/160, 2);
+    Timer1A_Init(&keypad_scan, 80000000/160, 2);
 
 	EnableInterrupts();
 

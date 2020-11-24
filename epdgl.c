@@ -9,10 +9,6 @@
 
 #include "epdgl.h"
 
-// Display resolution
-#define EPD_WIDTH   400
-#define EPD_HEIGHT  300
-
 // text printing cursor
 static int32_t CURSOR_X;
 static int32_t CURSOR_Y;
@@ -34,6 +30,10 @@ static int32_t UPD_MIN_Y;
 static int32_t UPD_MAX_Y;
 
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
+
+// Display resolution
+#define EPD_WIDTH   400
+#define EPD_HEIGHT  300
 
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
 static uint8_t EPDGL_BUF[BUF_SIZE] = {0};
@@ -111,7 +111,7 @@ epdgl_update_screen(epd_update_t u)
     switch (u) {
     case EPD_PART:
         if ((part_refresh_count < PART_REFRESH_LIMIT) && 
-            (upd_area < (EPD_WIDTH * EPD_HEIGHT / 4))
+            (upd_area < (EPD_WIDTH * EPD_HEIGHT / 8))
         ) {
             ++part_refresh_count;
             epd_refresh_part(UPD_MIN_X,UPD_MIN_Y,UPD_MAX_X,UPD_MAX_Y);

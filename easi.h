@@ -8,6 +8,8 @@
 #ifndef EASI_H
 #define EASI_H
 
+extern int ERROR;
+
 void easi_init(void);
 
 void easi_run(void);

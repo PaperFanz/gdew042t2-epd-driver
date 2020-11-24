@@ -1,5 +1,6 @@
 
 #include "bar.h"
+#include "easi_globals.h"
 
 /*
     status bar variables
@@ -43,8 +44,14 @@ bar_t MODE_BAR = {
     MODES
 };
 
+void
+req_full_update(void)
+{
+    FULL_UPDATE = true;
+}
+
 const bar_fn_t SETTINGS[] = {
-    {FUNCTION, "REFR", 0, &epd_refresh_slow},
+    {FUNCTION, "REFR", 0, &req_full_update},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},

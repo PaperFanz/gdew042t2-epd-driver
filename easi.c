@@ -8,7 +8,10 @@
 #include "keypad.h"
 #include "epdgl.h"
 #include "gui.h"
+#include "rpn.h"
 #include "easi_globals.h"
+
+int ERROR = 0;
 
 void
 easi_init()
@@ -43,8 +46,15 @@ parse_input(uint8_t raw_key)
             update_fn_bar(key);
             break;
     }
-}
 
+    switch(EASI_MODE){
+    case RPN:
+        rpn_handle_input(key);
+        break;
+    default:
+        break;
+    }
+}
 
 void
 easi_run()
@@ -60,6 +70,6 @@ easi_run()
         epdgl_update_screen(EPD_SLOW);
         FULL_UPDATE = false;
     } else {
-        epdgl_update_screen(EPD_PART);
+        epdgl_update_screen(EPD_FAST);
     }
 }

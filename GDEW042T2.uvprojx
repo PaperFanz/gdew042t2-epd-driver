@@ -457,6 +457,31 @@
               <FileType>1</FileType>
               <FilePath>.\bar.c</FilePath>
             </File>
+            <File>
+              <FileName>voltmeter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\voltmeter.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer1A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\inc\Timer1A.c</FilePath>
+            </File>
+            <File>
+              <FileName>CortexM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\inc\CortexM.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer2A.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\inc\Timer2A.c</FilePath>
+            </File>
+            <File>
+              <FileName>rpn.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\rpn.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
