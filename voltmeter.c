@@ -8,12 +8,30 @@
 #include "../inc/CortexM.h"
 #include "../inc/Timer2A.h"
 #include "gui.h"
+#include "epdgl.h"
 #include "voltmeter.h"
 
 static int32_t vExt0;
 static int32_t vExt1;
 static uint8_t vmReady;
 uint32_t GLOB_BATTERY;
+static int32_t RUNNING_AVG = 2048;
+
+text_config_t vm_fnt = {&Consolas20, EPD_BLACK};
+
+void
+draw_voltmeter()
+{
+    static uint8_t x = 0;
+    epdgl_fill_rect(0, 20, 300, 360, EPD_WHITE);
+    epdgl_set_cursor(x, 40+x);
+    epdgl_draw_int(vExt0, &vm_fnt);
+    epdgl_set_cursor(x, 80+x);
+    epdgl_draw_int(vExt1, &vm_fnt);
+    epdgl_set_cursor(x, 120+x);
+    epdgl_draw_int(RUNNING_AVG, &vm_fnt);
+    ++x;
+}
 
 /**
  * Initializes the voltmeter (set ADC configuration, etc).
@@ -57,8 +75,8 @@ void voltmeter_init(){
   ADC0_IM_R |= 0x04; 
   ADC0_ACTSS_R |= 0x04; 
   NVIC_PRI4_R = (NVIC_PRI4_R & 0xFFFFFF00) | 0x00000040; 
-  NVIC_EN0_R = 1<<16; 
-  EnableInterrupts(); 
+  NVIC_EN0_R = 1<<16;
+  EnableInterrupts();
 
   vmReady = 0;
   GLOB_BATTERY = battery_read();
@@ -90,37 +108,29 @@ int32_t voltmeter_read(void){
 }
 
 int32_t battery_read(void){
-    static uint8_t count = 0;
-    static uint32_t avg = 0;
-
+    static uint32_t count = 0;
     // Enable timer
     TIMER0_CTL_R |= 0x00000021; 
     Clock_Delay1ms(10);
 
-  // Read value
-  while(!vmReady){
-    Clock_Delay1ms(5);
-  }
-  uint32_t volts = vExt1;
+    // Read value
+    while(!vmReady){
+        Clock_Delay1ms(5);
+    }
 
-  // Disable timer
-  TIMER0_CTL_R = 0x00000000; 
-  vmReady = 0;
+    // Disable timer
+    TIMER0_CTL_R = 0x00000000; 
+    vmReady = 0;
 
-// Convert to percentage: 3.0 V = 0% = 1861/4096, 4.16 V = 100% = 2594/4096
-  volts = ((volts - 1861) * 100)/733; 
+    if (count++ == 127) {
+        count = 0;
 
-  // Add to average, set global if count = 127
-  avg += volts;
-  if(count == 127){
-      GLOB_BATTERY = avg/128;
-      avg = 0;
-      count = 0;
-      update_status_bar();
-  }
+        // Convert to percentage: 3.0 V = 0% = 1861/4096, 4.16 V = 100% = 2594/4096
+        GLOB_BATTERY = ((RUNNING_AVG - 1861) * 100)/733;
+        update_status_bar();
+    }
 
-  count = (count+1)%128;
-  return volts;
+    return 0;
 }
 
 /**
@@ -135,5 +145,6 @@ void ADC0Seq2_Handler(void){
   vmReady = 1;
   vExt1 = ADC0_SSFIFO2_R; //PD1
   vExt0 = ADC0_SSFIFO2_R; //PD0
+  RUNNING_AVG = (vExt1 + RUNNING_AVG * 15) >> 4;
 }
 

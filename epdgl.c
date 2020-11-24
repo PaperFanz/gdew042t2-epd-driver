@@ -15,7 +15,7 @@ static int32_t CURSOR_Y;
 
 // refresh counts to maintain safe operation and contrast level
 #define PART_REFRESH_LIMIT 1
-#define FAST_REFRESH_LIMIT 16
+#define FAST_REFRESH_LIMIT 32
 static uint8_t fast_refresh_count = 0;
 static uint8_t part_refresh_count = 0;
 
@@ -114,6 +114,7 @@ epdgl_update_screen(epd_update_t u)
             (upd_area < (EPD_WIDTH * EPD_HEIGHT / 8))
         ) {
             ++part_refresh_count;
+            UPDATE_REQUEST = true;  // partial refresh must be followed by full
             epd_refresh_part(UPD_MIN_X,UPD_MIN_Y,UPD_MAX_X,UPD_MAX_Y);
             break;
         }

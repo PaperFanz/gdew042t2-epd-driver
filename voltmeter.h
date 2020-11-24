@@ -16,6 +16,8 @@
 
 extern uint32_t GLOB_BATTERY;
 
+void draw_voltmeter(void);
+
 /**
  * Initializes the voltmeter (set ADC configuration, etc).
  * @return Nothing

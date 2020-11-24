@@ -10,6 +10,7 @@
 #include "gui.h"
 #include "rpn.h"
 #include "easi_globals.h"
+#include "voltmeter.h"
 
 int ERROR = 0;
 
@@ -51,6 +52,8 @@ parse_input(uint8_t raw_key)
     case RPN:
         rpn_handle_input(key);
         break;
+    case VOLT:
+        break;
     default:
         break;
     }
@@ -66,10 +69,20 @@ easi_run()
         }
     }
 
+    switch(EASI_MODE){
+    case RPN:
+        break;
+    case VOLT:
+        draw_voltmeter();
+        break;
+    default:
+        break;
+    }
+
     if (FULL_UPDATE) {
         epdgl_update_screen(EPD_SLOW);
         FULL_UPDATE = false;
     } else {
-        epdgl_update_screen(EPD_FAST);
+        epdgl_update_screen(EPD_PART);
     }
 }
