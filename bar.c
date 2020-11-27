@@ -1,9 +1,9 @@
 
 #include "bar.h"
+#include "easi.h"
 #include "easi_globals.h"
 
 /*
-    status bar variables
 */
 char * appString = "algebraic";
 char * keyModeString = "normal";
@@ -17,7 +17,7 @@ const bar_fn_t FUNCTIONS[] = {
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
-    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "CLR", 0, &clear_input},
     {FOLDER, "OPT", &SETTINGS_BAR, 0},
 };
 

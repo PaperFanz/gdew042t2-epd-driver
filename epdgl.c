@@ -14,7 +14,7 @@ static int32_t CURSOR_X;
 static int32_t CURSOR_Y;
 
 // refresh counts to maintain safe operation and contrast level
-#define PART_REFRESH_LIMIT 1
+#define PART_REFRESH_LIMIT 4
 #define FAST_REFRESH_LIMIT 32
 static uint8_t fast_refresh_count = 0;
 static uint8_t part_refresh_count = 0;

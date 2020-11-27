@@ -14,4 +14,6 @@ void easi_init(void);
 
 void easi_run(void);
 
+void clear_input(void);
+
 #endif

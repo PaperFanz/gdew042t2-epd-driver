@@ -32,15 +32,14 @@ typedef enum lut_mode {
 } lut_mode_t;
 
 static lut_mode_t ACTIVE_LUT = LUT_SLOW;
-#define T_MOD 2
 
-#define FT1 (7 * T_MOD)
-#define FT2 (14 * T_MOD)
-#define FT3 (0 * T_MOD)
-#define FT4 (0 * T_MOD)
+#define FT1 7
+#define FT2 14
+#define FT3 0
+#define FT4 0
 
 const unsigned char lut_vcom0_fast[] = {
-    0x00, FT1, FT2, FT3, FT4, 2, // 00 00 00 00    
+    0x00, FT1, FT2, FT3, FT4, 1, // 00 00 00 00    
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
@@ -50,7 +49,7 @@ const unsigned char lut_vcom0_fast[] = {
 };
 
 const unsigned char lut_ww_fast[] = {
-    0xa0, FT1, FT2, FT3, FT4, 1, // 00 10 10 00
+    0xA0, FT1, FT2, FT3, FT4, 1, // 10 10 00 00
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
@@ -60,7 +59,7 @@ const unsigned char lut_ww_fast[] = {
 };
 
 const unsigned char lut_bw_fast[] = {
-    0xa0, FT1, FT2, FT3, FT4, 1, // 00 10 10 00
+    0xA0, FT1, FT2, FT3, FT4, 1, // 10 10 00 00
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
@@ -70,7 +69,7 @@ const unsigned char lut_bw_fast[] = {
 };
 
 const unsigned char lut_bb_fast[] = {
-    0x50, FT1, FT2, FT3, FT4, 1, // 00 01 01 00
+    0x50, FT1, FT2, FT3, FT4, 1, // 01 01 00 00
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
@@ -80,7 +79,7 @@ const unsigned char lut_bb_fast[] = {
 };
 
 const unsigned char lut_wb_fast[] = {
-    0x50, FT1, FT2, FT3, FT4, 1, // 00 01 01 00
+    0x50, FT1, FT2, FT3, FT4, 1, // 01 01 00 00
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
     0x00,   0,   0,   0,   0, 0,
@@ -89,66 +88,66 @@ const unsigned char lut_wb_fast[] = {
     0x00,   0,   0,   0,   0, 0,
 };
 
-#define ST1 (0x17 * T_MOD)  // orig 0x08
-#define ST2 (0x0A * T_MOD)  // orig 0x12
-#define ST3 (0x01 * T_MOD)  // orig 0x14
-#define ST4 (0x0E * T_MOD)  // orig 0x28
+#define ST1 8  // orig 0x08
+#define ST2 18  // orig 0x12
+#define ST3 20  // orig 0x14
+#define ST4 40  // orig 0x28
 
 const uint8_t lut_vcom0_slow[] = {
-    0x00, ST1, 0x00, 0x00, 0x00, 0x02,        
-    0x00, ST1, ST1, 0x00, 0x00, 0x02,        
-    0x00, ST2, ST3, 0x00, 0x00, 0x01,        
-    0x00, ST4, ST4, 0x00, 0x00, 0x02,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,        
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, ST1,   0,   0,   0, 2,
+    0x60, ST4, ST4,   0,   0, 1,
+    0x00, ST3,   0,   0,   0, 1,
+    0x00, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0, 0, 0
 };
 
 const uint8_t lut_ww_slow[] = {
-    0x40, ST1, 0x00, 0x00, 0x00, 0x02,
-    0x90, ST1, ST1, 0x00, 0x00, 0x02,
-    0x40, ST2, ST3, 0x00, 0x00, 0x01,
-    0xA0, ST4, ST4, 0x00, 0x00, 0x02,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x40, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x40, ST3,   0,   0,   0, 1,
+    0xA0, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
 };
 
 const uint8_t lut_bw_slow[] = {
-    0x40, ST1, 0x00, 0x00, 0x00, 0x02,
-    0x90, ST1, ST1, 0x00, 0x00, 0x02,
-    0x40, ST2, ST3, 0x00, 0x00, 0x01,
-    0xA0, ST4, ST4, 0x00, 0x00, 0x02,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x40, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x40, ST3,   0,   0,   0, 1,
+    0xA0, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0, 
 };
 
 const uint8_t lut_bb_slow[] = {
-    0x80, ST1, 0x00, 0x00, 0x00, 0x02,
-    0x90, ST1, ST1, 0x00, 0x00, 0x02,
-    0x80, ST2, ST3, 0x00, 0x00, 0x01,
-    0x50, ST4, ST4, 0x00, 0x00, 0x02,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,      
+    0x80, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x80, ST3,   0,   0,   0, 1,
+    0x50, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,       
 };
 
 const uint8_t lut_wb_slow[] = {
-    0x80, ST1, 0x00, 0x00, 0x00, 0x02,
-    0x90, ST1, ST1, 0x00, 0x00, 0x02,
-    0x80, ST2, ST3, 0x00, 0x00, 0x01,
-    0x50, ST4, ST4, 0x00, 0x00, 0x02,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00,    
+    0x80, ST1,   0,   0,   0, 2,
+    0x90, ST4, ST4,   0,   0, 1,
+    0x80, ST3,   0,   0,   0, 1,
+    0x50, ST2, ST2,   0,   0, 1,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,
+    0x00,   0,   0,   0,   0, 0,     
 };
 
 // new waveform created by Jean-Marc Zingg for the actual panel
-#define T1 (7 * T_MOD)  // color change charge balance pre-phase
-#define T2 (14 * T_MOD)  // color change or sustain charge balance pre-phase
-#define T3 (0 * T_MOD)  // color change or sustain phase
-#define T4 (0 * T_MOD)  // color change phase
+#define T1 4  // color change charge balance pre-phase
+#define T2 8  // color change or sustain charge balance pre-phase
+#define T3 0 // color change or sustain phase
+#define T4 4  // color change phase
 
 const unsigned char lut_vcom0_partial[] = {
     0x00, T1, T2, T3, T4, 1, // 00 00 00 00
@@ -423,11 +422,6 @@ void epd_init(void)
     select();
     reset();
 
-    writecmd(BOOSTER_SOFT_START);
-    writedata(0x17);
-    writedata(0x17);
-    writedata(0x17);                  //07 0f 17 1f 27 2F 37 2f
-
     // begin startup sequence
     writecmd(POWER_SETTING);
     writedata(0x03);                  // VDS_EN, VDG_EN
@@ -435,15 +429,18 @@ void epd_init(void)
     writedata(0x2b);                  // VDH
     writedata(0x2b);                  // VDL
     writedata(0xff);                  // VDHR
-    
-    writecmd(POWER_ON);
-    wait_until_idle();  // comment out if debugging with logic analyzer
+
+    writecmd(BOOSTER_SOFT_START);
+    writedata(0x17);
+    writedata(0x17);
+    writedata(0x17);                  //07 0f 17 1f 27 2F 37 2f
 
     writecmd(PANEL_SETTING);
-    writedata(0x2f);    // KW-BF   KWR-AF  BWROTP 0f
+    writedata(0xbf);    // KW-BF   KWR-AF  BWROTP 0f
+    writedata(0x0b);
 
     writecmd(PLL_CONTROL);
-    writedata(0x3A);        // 3A 100HZ   29 150Hz 39 200HZ  31 171HZ
+    writedata(0x3c);        // 3A 100HZ   29 150Hz 39 200HZ  31 171HZ
 
     writecmd(RESOLUTION_SETTING);
     writedata(EPD_WIDTH >> 8);        
@@ -456,6 +453,9 @@ void epd_init(void)
 
     writecmd(VCOM_AND_DATA_INTERVAL_SETTING);
     writecmd(0xd7);    // border floating to avoid flashing
+
+    writecmd(POWER_ON);
+    wait_until_idle();  // comment out if debugging with logic analyzer
 
     epd_set_lut_slow();
     epd_clear_frame();
@@ -630,11 +630,13 @@ epd_update_frame(const uint8_t * fr)
     for(int i = 0; i < (EPD_WIDTH / 8) * EPD_HEIGHT; i++) {
         writedata(0xFF);      // bit set: white, bit reset: black
     }
+    delayms(2);
 
     writecmd(DATA_START_TRANSMISSION_2); 
     for(int i = 0; i < (EPD_WIDTH / 8) * EPD_HEIGHT; i++) {
         writedata(fr[i]);
     }
+    delayms(2);
 }
 
 void

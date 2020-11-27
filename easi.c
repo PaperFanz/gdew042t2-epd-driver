@@ -86,3 +86,12 @@ easi_run()
         epdgl_update_screen(EPD_PART);
     }
 }
+
+void 
+clear_input(){
+    switch(EASI_MODE){
+        case RPN:
+            rpn_clear();
+        break;
+    }
+}

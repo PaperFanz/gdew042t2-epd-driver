@@ -19,6 +19,7 @@ bmfont2c.*
 *.map
 *.scvd
 *.uvguix
+*.iex
 
 # vscode ignores
 .vscode

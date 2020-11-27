@@ -36,6 +36,7 @@ update_fn_bar(key_t k)
     case MODE:
         ACTIVE_BAR = &FUNCTION_BAR;
         EASI_MODE = k;
+        epdgl_fill_rect(0, STATUS_BAR_H, 300, 400 - FN_BAR_H, EPD_WHITE);
         if(k == RPN) rpn_init();
         update_status_bar();
         break;
