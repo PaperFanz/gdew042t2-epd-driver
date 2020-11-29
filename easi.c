@@ -56,8 +56,8 @@ parse_input(uint8_t raw_key)
     case VOLT:
         break;
 		case ALG:
-			alg_handle_input(key);
-			break;
+				alg_handle_input(key);
+				break;
     default:
         break;
     }
@@ -79,6 +79,8 @@ easi_run()
     case VOLT:
         draw_voltmeter();
         break;
+		case ALG:
+				break;
     default:
         break;
     }
@@ -96,6 +98,8 @@ clear_input(){
     switch(EASI_MODE){
         case RPN:
             rpn_clear();
+				case ALG:
+						alg_clear();
         break;
     }
 }

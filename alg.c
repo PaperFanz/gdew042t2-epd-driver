@@ -6,19 +6,14 @@
     Date: Nov 29
 */
 
+#include "alg.h"
 #include "easi.h"
-#include "keymap.h"
-#include "rpn.h"
 #include "easi_globals.h"
 #include "epdgl.h"
 
 #include "ExpressionTree.h"
 
-#include <string.h>
 #include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
 
 //Globals
 ExpressionTree alg_exp;
@@ -97,6 +92,12 @@ void alg_handle_input(key_t k){
 	}
 	
 	alg_draw_expression(&alg_exp);
+}
+
+void alg_clear(void){
+	ExpressionTree_Clear(&alg_exp);
+	
+	//TODO: Clear screen
 }
 
 static void alg_draw_expression(ExpressionTree *exp){
