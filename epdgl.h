@@ -15,6 +15,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Display resolution
+#define EPD_WIDTH   400
+#define EPD_HEIGHT  300
+
 typedef enum epd_orientation {
     LANDSCAPE,          // rotate 0
     PORTRAIT,           // rotate 90

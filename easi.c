@@ -11,6 +11,7 @@
 #include "rpn.h"
 #include "easi_globals.h"
 #include "voltmeter.h"
+#include "graph.h"
 
 int ERROR = 0;
 
@@ -53,6 +54,9 @@ parse_input(uint8_t raw_key)
         rpn_handle_input(key);
         break;
     case VOLT:
+        break;
+    case GRPH:
+        graph_handle_input(key);
         break;
     default:
         break;

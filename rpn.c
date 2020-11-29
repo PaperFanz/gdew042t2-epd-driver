@@ -262,3 +262,18 @@ rpn_clear(){
     memset(IN_BUF, 0, MAX_BUF); 
 }
 
+void 
+rpn_swap(){
+    char temp[MAX_BUF];
+    double dtemp;
+
+    memcpy(temp, STACK[0], MAX_BUF);
+    dtemp = DSTACK[0];
+    memcpy(STACK[0], STACK[1], MAX_BUF);
+    DSTACK[0] = DSTACK[1];
+    memcpy(STACK[1], temp, MAX_BUF);
+    DSTACK[1] = dtemp;
+
+    rpn_draw_stack();
+}
+

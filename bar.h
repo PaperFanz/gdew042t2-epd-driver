@@ -44,7 +44,7 @@ const bar_fn_t * get_active_fn(int32_t i);
 
 extern bar_t MODE_BAR;
 
-extern bar_t FUNCTION_BAR;
+extern bar_t FUNCTION_BAR[];
 
 extern bar_t SETTINGS_BAR;
 
