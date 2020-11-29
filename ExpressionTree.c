@@ -608,6 +608,13 @@ int calculate_prev_opnode(node_t current, node_t previous){
 	}
 }
 
+void expression_invalid(ExpressionTree *exp){
+	exp->hasResult = 1;
+	exp->validResult = 0;
+	
+	exp->exp_nodes.size--; //Remove closing parenthesis
+}
+
 //0 success, 1 failure
 int ExpressionTree_Evaluate(ExpressionTree *exp){
 	int evalConstant = 0; //false
@@ -644,7 +651,10 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 			
 			evalConstant = 1; 
 			if(node == POINT){
-				if(hitDecimal) return 1; //2 decimal error
+				if(hitDecimal){
+					expression_invalid(exp);
+					return 1; //2 decimal error
+				}
 				hitDecimal = 1;
 			}
 			else{
@@ -682,6 +692,11 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 		   node == OPEE || node == OPPOW || node == OPLOG || node == OPSQRT || 
 		   node == OPEN_PAREN || node == CLOSE_PAREN || node == SGN)
 		{										
+			
+			if(opStack.size == 0){
+				expression_invalid(exp);
+				return 1;
+			}
 			node_t prevOp = opStack.stack[opStack.size - 1];
 				
 			int perform_operation = calculate_prev_opnode(node, prevOp);									
@@ -699,6 +714,11 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 				int numInputs = num_inputs_for_opnode(prevOp);
 				if(numInputs >= 2){
 					constStack.size--;
+					
+					if(constStack.size == 0){
+						expression_invalid(exp);
+						return 1;
+					}
 					src2 = constStack.stack[constStack.size];
 				}
 				else{
@@ -706,17 +726,29 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 				}
 				if(numInputs >= 1){
 					constStack.size--;
+					
+					if(constStack.size == 0){
+						expression_invalid(exp);
+						return 1;
+					}
 					src1 = constStack.stack[constStack.size];
 				}
 				else{
 					src1 = 0;
 				}
 							
-				if(execute_operation(&res, src1, src2, prevOp)) return 1; 
+				if(execute_operation(&res, src1, src2, prevOp)){ 
+					expression_invalid(exp);
+					return 1; 
+				}
 					
 				constStack.stack[constStack.size] = res;
 				constStack.size++;
 						
+				if(opStack.size == 0){
+					expression_invalid(exp);
+					return 1;
+				}
 				prevOp = opStack.stack[opStack.size - 1];
 				perform_operation = calculate_prev_opnode(node, prevOp);
 			}
@@ -730,6 +762,7 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 	
 	exp->result = constStack.stack[0];
 	exp->hasResult = 1;
+	exp->validResult = 1;
 	
 	exp->exp_nodes.size--; //Remove closing parenthesis TODO: For errors this has to be done as well
 		
@@ -937,37 +970,46 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 		exp_string[string_idx] = ' ';
 		string_idx++;
 		
-		double result = exp.result;
-		if(result < 0){
-			exp_string[string_idx] = '-';
-			string_idx++;
-			result = -result;
-		}
-		
-		
-		char result_str[20];
-		snprintf(result_str, 20, "%f", result);
-		
-		//Remove zero padding
-		int temp_idx = 0;
-		while(result_str[temp_idx] != '\0'){
-			temp_idx++;
-		}
-		
-		char letter = result_str[temp_idx - 1];
-		for(int i = temp_idx - 1; letter == '0'; i--){
-			letter = result_str[i];
-			if(letter == '0' || letter == '.')
-				result_str[i] = '\0';
-		}
-		
-		//Translate result string to end of expression string
-		int result_str_idx = 0;
-		while(result_str[result_str_idx] != '\0'){
-			exp_string[string_idx] = result_str[result_str_idx];
-			string_idx++;
+		if(exp.validResult == 1){
+			double result = exp.result;
+			if(result < 0){
+				exp_string[string_idx] = '-';
+				string_idx++;
+				result = -result;
+			}
 			
-			result_str_idx++;
+			
+			char result_str[20];
+			snprintf(result_str, 20, "%f", result);
+			
+			//Remove zero padding
+			int temp_idx = 0;
+			while(result_str[temp_idx] != '\0'){
+				temp_idx++;
+			}
+			
+			char letter = result_str[temp_idx - 1];
+			for(int i = temp_idx - 1; letter == '0'; i--){
+				letter = result_str[i];
+				if(letter == '0' || letter == '.')
+					result_str[i] = '\0';
+			}
+			
+			//Translate result string to end of expression string
+			int result_str_idx = 0;
+			while(result_str[result_str_idx] != '\0'){
+				exp_string[string_idx] = result_str[result_str_idx];
+				string_idx++;
+				
+				result_str_idx++;
+			}
+		}
+		else{
+			char syn_err_str[6] = "Error";
+			for(int i = 0; i < 6; i++){
+				exp_string[string_idx] = syn_err_str[i];
+				string_idx++;
+			}
 		}
 	}
 	

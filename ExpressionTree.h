@@ -39,12 +39,11 @@ struct ExpressionNodes{
 }typedef ExpressionNodes;
 
 struct ExpressionTree{
-	//OperatorStack opStack;
-	//ConstantStack constStack;
 	ExpressionNodes exp_nodes;
 	
 	double result;
 	int hasResult; //0 no, 1 yes
+	int validResult; //0 no, 1 yes
 }typedef ExpressionTree;
 
 #define PRI_MAX 5
