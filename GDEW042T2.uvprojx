@@ -482,6 +482,21 @@
               <FileType>1</FileType>
               <FilePath>.\rpn.c</FilePath>
             </File>
+            <File>
+              <FileName>AlphaValues.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AlphaValues.c</FilePath>
+            </File>
+            <File>
+              <FileName>ExpressionTree.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ExpressionTree.c</FilePath>
+            </File>
+            <File>
+              <FileName>Math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Math.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
