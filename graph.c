@@ -79,7 +79,7 @@ graph_draw_window(){
     for(int i = 0; i < NUM_WFIELDS; i++){
         text_config_t fnt = (i == WIN_SEL) ? sel_fnt : norm_fnt;
         if(i == WIN_SEL){
-            epdgl_fill_rect(18, 269+20*WIN_SEL, (6 + WIN_END[WIN_SEL]) * 14 + 2, 20, EPD_BLACK);
+            epdgl_fill_rect(18, 269+20*WIN_SEL, (6 + WIN_END[WIN_SEL]) * 14 + 2, 20, EPD_GREY);
         }
 
         epdgl_set_cursor(20, 269 + 20*i);
@@ -106,19 +106,20 @@ graph_draw_input()
 static void
 update_window()
 {   
-    if (WIN_SEL == -1) return;
-    //update and clamp fields, x-axis
-    W_FVALS[WIN_SEL] = strtod(IN_BUF, &END_IN_BUF);
-    if (IN_NEG) W_FVALS[WIN_SEL] *= -1;
+    if (WIN_SEL >= 0){
+        //update and clamp fields, x-axis
+        W_FVALS[WIN_SEL] = strtod(IN_BUF, &END_IN_BUF);
+        if (IN_NEG) W_FVALS[WIN_SEL] *= -1;
 
-    if(W_FVALS[WIN_SEL % 2] && (W_FVALS[WIN_SEL] >= W_FVALS[WIN_SEL + 1])){
-        W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL + 1] - 20;
+        if((WIN_SEL % 2 == 0) && (W_FVALS[WIN_SEL] >= W_FVALS[WIN_SEL + 1])){
+            W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL + 1] - 20;
+        }
+        else if (W_FVALS[WIN_SEL] <= W_FVALS[WIN_SEL - 1]){
+            W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL - 1] + 20;
+        }
+        snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
+        WIN_END[WIN_SEL] = strlen(IN_BUF);
     }
-    else if (W_FVALS[WIN_SEL] <= W_FVALS[WIN_SEL - 1]){
-        W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL - 1] + 20;
-    }
-    snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
-    WIN_END[WIN_SEL] = strlen(IN_BUF);
 
     for(int i = 0; i < EPD_HEIGHT; i++){
         X_AXIS[i] = W_FVALS[XMIN] + (i * (W_FVALS[XMAX] - W_FVALS[XMIN])/EPD_HEIGHT);
@@ -126,6 +127,7 @@ update_window()
 
     memset(IN_BUF, 0, MAX_BUF);    
     IN_NEG = false;
+    DEC_ENTERED = false;
 }
 
 static void
@@ -145,13 +147,20 @@ graph_display(){
 
 void
 graph_init(){
-    memset(IN_BUF, 0, MAX_BUF);   
     G_MODE = WINDOW;
     WIN_SEL = -1;
     W_FVALS[YMIN] = W_FVALS[XMIN] = -10;
     W_FVALS[YMAX] = W_FVALS[XMAX] = 10;
-    WIN_END[YMIN] = WIN_END[XMIN] = 3;
-    WIN_END[XMIN] = WIN_END[XMAX] = 2;
+
+    memset(IN_BUF, 0, MAX_BUF);             
+    snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[YMIN]));
+    WIN_END[YMIN] = WIN_END[XMIN] = strlen(IN_BUF);
+
+    memset(IN_BUF, 0, MAX_BUF);             
+    snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[YMAX]));
+    WIN_END[XMIN] = WIN_END[XMAX] = strlen(IN_BUF);
+    
+    memset(IN_BUF, 0, MAX_BUF);   
     update_window();
 }
 
@@ -205,14 +214,15 @@ graph_window_input(key_t k){
             IN_END = 0;
             BUF_FULL = false;
             DEC_ENTERED = false;
-            epdgl_fill_rect(0, 349, 300, 20, EPD_WHITE);
             update_window();
             memset(IN_BUF, 0, MAX_BUF); 
-            graph_draw_window();
         }
+        graph_draw_window();
+
         WIN_SEL = (WIN_SEL + 1) % NUM_WFIELDS;
         snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
         IN_NEG = W_FVALS[WIN_SEL] < 0;
+        DEC_ENTERED = true;
         IN_CURSOR = IN_END = WIN_END[WIN_SEL];
         break;
     case BACKSPACE:
@@ -238,12 +248,14 @@ graph_window_input(key_t k){
         snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
         IN_NEG = W_FVALS[WIN_SEL] < 0;
         IN_CURSOR = IN_END = WIN_END[WIN_SEL];
+        graph_draw_window();
         break;
     case DOWN:
         WIN_SEL = (WIN_SEL + 1) % NUM_WFIELDS;
         snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
         IN_NEG = W_FVALS[WIN_SEL] < 0;
         IN_CURSOR = IN_END = WIN_END[WIN_SEL];
+        graph_draw_window();
         break;
     case SIGN:
         IN_NEG = !IN_NEG;
@@ -300,5 +312,8 @@ graph_get_val(void){
 
 void 
 graph_clear(void){
-  
+    memset(IN_BUF, 0, MAX_BUF);    
+    IN_NEG = false;
+    DEC_ENTERED = false;
+    graph_draw_input();
 }
