@@ -69,7 +69,6 @@ static bool BUF_FULL = false;
 static char *END_IN_BUF;
 
 text_config_t norm_fnt = {&Consolas20, EPD_BLACK};
-text_config_t sel_fnt = {&Consolas20, EPD_WHITE};
 
 static void
 graph_draw_window(){
@@ -77,24 +76,19 @@ graph_draw_window(){
     epdgl_fill_rect(0, 260, 300, 100, EPD_WHITE);
 
     for(int i = 0; i < NUM_WFIELDS; i++){
-        text_config_t fnt = (i == WIN_SEL) ? sel_fnt : norm_fnt;
-        if(i == WIN_SEL){
-            epdgl_fill_rect(18, 269+20*WIN_SEL, (6 + WIN_END[WIN_SEL]) * 14 + 2, 20, EPD_GREY);
-        }
-
         epdgl_set_cursor(20, 269 + 20*i);
-        epdgl_draw_string(W_FNAMES[i], &fnt);
+        epdgl_draw_string(W_FNAMES[i], &norm_fnt);
         snprintf(buf, MAX_BUF, "%f", W_FVALS[i]);
-        epdgl_draw_string(buf, &fnt);
+        epdgl_draw_string(buf, &norm_fnt);
     }
 }
 
 static void
 graph_draw_input()
 {
-    uint8_t cursor_x = 20 + IN_CURSOR * norm_fnt.font->FixedWidth;
-    epdgl_fill_rect(0, 349, 300, 20, EPD_WHITE);
-    epdgl_set_cursor(20, 349);
+    uint8_t cursor_x = 20 + 6 * norm_fnt.font->FixedWidth+ IN_CURSOR * norm_fnt.font->FixedWidth;
+    epdgl_fill_rect(0, 269+20*WIN_SEL, 300, 20, EPD_WHITE);
+    epdgl_set_cursor(20 + 6 * norm_fnt.font->FixedWidth, 269+20*WIN_SEL);
     if(IN_NEG) {
         epdgl_draw_char('-', &norm_fnt);
         cursor_x += norm_fnt.font->FixedWidth;
@@ -162,6 +156,7 @@ graph_init(){
     
     memset(IN_BUF, 0, MAX_BUF);   
     update_window();
+    graph_draw_window();
 }
 
 void
@@ -291,6 +286,7 @@ static void
 graph_change_mode(graph_mode_t mode){
     G_MODE = mode;
     memset(IN_BUF, 0, MAX_BUF);
+    update_window();
     graph_display();
 }
 
