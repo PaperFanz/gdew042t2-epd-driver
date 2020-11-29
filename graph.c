@@ -86,15 +86,15 @@ graph_draw_window(){
 static void
 graph_draw_input()
 {
-    uint8_t cursor_x = 20 + 6 * norm_fnt.font->FixedWidth+ IN_CURSOR * norm_fnt.font->FixedWidth;
-    epdgl_fill_rect(0, 269+20*WIN_SEL, 300, 20, EPD_WHITE);
+    uint8_t cursor_x = 20 + 6 * norm_fnt.font->FixedWidth + IN_CURSOR * norm_fnt.font->FixedWidth;
+    epdgl_fill_rect(10 + 6 * norm_fnt.font->FixedWidth, 269+20*WIN_SEL, 300, 20, EPD_WHITE);
     epdgl_set_cursor(20 + 6 * norm_fnt.font->FixedWidth, 269+20*WIN_SEL);
     if(IN_NEG) {
         epdgl_draw_char('-', &norm_fnt);
         cursor_x += norm_fnt.font->FixedWidth;
     }
     epdgl_draw_string(IN_BUF, &norm_fnt);
-    epdgl_draw_line(cursor_x, 349, cursor_x, 369, EPD_BLACK);
+    epdgl_draw_line(cursor_x, 269+20*WIN_SEL, cursor_x, 289+20*WIN_SEL, EPD_BLACK);
 }
 
 static void
@@ -108,7 +108,7 @@ update_window()
         if((WIN_SEL % 2 == 0) && (W_FVALS[WIN_SEL] >= W_FVALS[WIN_SEL + 1])){
             W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL + 1] - 20;
         }
-        else if (W_FVALS[WIN_SEL] <= W_FVALS[WIN_SEL - 1]){
+        else if ((WIN_SEL % 2 == 1) && (W_FVALS[WIN_SEL] <= W_FVALS[WIN_SEL - 1])){
             W_FVALS[WIN_SEL] =  W_FVALS[WIN_SEL - 1] + 20;
         }
         snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
@@ -142,7 +142,7 @@ graph_display(){
 void
 graph_init(){
     G_MODE = WINDOW;
-    WIN_SEL = -1;
+    WIN_SEL = 0;
     W_FVALS[YMIN] = W_FVALS[XMIN] = -10;
     W_FVALS[YMAX] = W_FVALS[XMAX] = 10;
 
@@ -152,7 +152,7 @@ graph_init(){
 
     memset(IN_BUF, 0, MAX_BUF);             
     snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[YMAX]));
-    WIN_END[XMIN] = WIN_END[XMAX] = strlen(IN_BUF);
+    WIN_END[YMAX] = WIN_END[XMAX] = strlen(IN_BUF);
     
     memset(IN_BUF, 0, MAX_BUF);   
     update_window();
@@ -224,6 +224,7 @@ graph_window_input(key_t k){
         if (IN_CURSOR) {
             --IN_CURSOR;
             --IN_END;
+            if(IN_BUF[IN_CURSOR] == '.') DEC_ENTERED = false;
             memmove(&IN_BUF[IN_CURSOR], &IN_BUF[IN_CURSOR + 1], IN_END - IN_CURSOR);
             IN_BUF[IN_END] = 0;
         }
@@ -292,7 +293,7 @@ graph_change_mode(graph_mode_t mode){
 
 void 
 graph_set_window(void){
-    WIN_SEL = -1;
+    WIN_SEL = 0;
     graph_change_mode(WINDOW);
 }
 
@@ -309,6 +310,8 @@ graph_get_val(void){
 void 
 graph_clear(void){
     memset(IN_BUF, 0, MAX_BUF);    
+    IN_CURSOR = 0;
+    IN_END = 0;
     IN_NEG = false;
     DEC_ENTERED = false;
     graph_draw_input();

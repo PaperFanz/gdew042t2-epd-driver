@@ -82,6 +82,10 @@ epdgl_absolute(int32_t * x, int32_t * y)
         *y = tmp;
         break;
     }
+    *x = *x < 0 ? 0 : *x;
+    *y = *y < 0 ? 0 : *y;
+    *x = *x > EPD_WIDTH ? EPD_WIDTH : *x;
+    *y = *y > EPD_HEIGHT ? EPD_HEIGHT : *y;
     epdgl_abs_update(*x, *y); 
 }
 

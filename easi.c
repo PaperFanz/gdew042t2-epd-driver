@@ -96,6 +96,8 @@ clear_input(){
     switch(EASI_MODE){
         case RPN:
             rpn_clear();
+        case GRPH:
+            graph_clear();
         break;
     }
 }
