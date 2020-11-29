@@ -122,6 +122,7 @@ void demo_alg(void){
 	char exp_string[20];
 	Expression_ToString(exp_string, exp);
 	epdgl_draw_string(exp_string, &t_cfg);
+	while (!epdgl_update_screen(EPD_FAST));
 	
 	ExpressionTree_Evaluate(&exp);
 	
