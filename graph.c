@@ -106,6 +106,7 @@ graph_draw_input()
 static void
 update_window()
 {   
+    if (WIN_SEL == -1) return;
     //update and clamp fields, x-axis
     W_FVALS[WIN_SEL] = strtod(IN_BUF, &END_IN_BUF);
     if (IN_NEG) W_FVALS[WIN_SEL] *= -1;
@@ -144,6 +145,7 @@ graph_display(){
 
 void
 graph_init(){
+    memset(IN_BUF, 0, MAX_BUF);   
     G_MODE = WINDOW;
     WIN_SEL = -1;
     W_FVALS[YMIN] = W_FVALS[XMIN] = -10;
