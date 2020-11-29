@@ -106,6 +106,7 @@ demo_keys(void)
     }
 }
 
+/*
 void demo_alg(void){
 	ExpressionTree exp;
 	
@@ -141,6 +142,7 @@ void demo_alg(void){
 		
 	}
 }
+*/
 
 int main (void)
 {
@@ -162,8 +164,6 @@ int main (void)
 
     // set display orientation (see epdgl.h for options)
     epdgl_set_orientation(PORTRAIT);
-	
-		demo_alg();
 	
     easi_init();
     while (1) {

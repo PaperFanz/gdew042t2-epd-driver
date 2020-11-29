@@ -2,7 +2,7 @@
 #define _EXPRESSION_TREE_H_
 
 #define MAX_STACK_SIZE 100
-#define MAX_EXPRESSION_STRING 50
+#define MAX_EXPRESSION_SIZE 20
 
 //#include "Globals.h"
 //#include "Switch.h"

@@ -5,6 +5,7 @@
     Date: Nov 21
 */
 
+#include "alg.h"
 #include "keypad.h"
 #include "epdgl.h"
 #include "gui.h"
@@ -54,6 +55,9 @@ parse_input(uint8_t raw_key)
         break;
     case VOLT:
         break;
+		case ALG:
+			alg_handle_input(key);
+			break;
     default:
         break;
     }
