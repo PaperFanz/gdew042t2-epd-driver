@@ -948,6 +948,20 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 		char result_str[20];
 		snprintf(result_str, 20, "%f", result);
 		
+		//Remove zero padding
+		int temp_idx = 0;
+		while(result_str[temp_idx] != '\0'){
+			temp_idx++;
+		}
+		
+		char letter = result_str[temp_idx - 1];
+		for(int i = temp_idx - 1; letter == '0'; i--){
+			letter = result_str[i];
+			if(letter == '0' || letter == '.')
+				result_str[i] = '\0';
+		}
+		
+		//Translate result string to end of expression string
 		int result_str_idx = 0;
 		while(result_str[result_str_idx] != '\0'){
 			exp_string[string_idx] = result_str[result_str_idx];

@@ -110,10 +110,13 @@ void demo_alg(void){
 	ExpressionTree exp;
 	
 	ExpressionTree_Clear(&exp);
-	set_key_alpha_value(A, 2);
+	set_key_alpha_value(A, 3.4);
 	
-	ExpressionTree_ModifyExpression(&exp, N1);
-	ExpressionTree_ModifyExpression(&exp, ADD);
+	//2.2 * A * cos(0) = 7.48
+	ExpressionTree_ModifyExpression(&exp, N2);
+	ExpressionTree_ModifyExpression(&exp, DEC);
+	ExpressionTree_ModifyExpression(&exp, N2);
+	ExpressionTree_ModifyExpression(&exp, MUL);
 	ExpressionTree_ModifyExpression(&exp, A);
 	ExpressionTree_ModifyExpression(&exp, MUL);
 	ExpressionTree_ModifyExpression(&exp, COS);
@@ -121,10 +124,18 @@ void demo_alg(void){
 	
 	char exp_string[20];
 	Expression_ToString(exp_string, exp);
+	
 	epdgl_draw_string(exp_string, &t_cfg);
 	while (!epdgl_update_screen(EPD_FAST));
 	
+	waitPF4();
+	
 	ExpressionTree_Evaluate(&exp);
+	
+	Expression_ToString(exp_string, exp);
+	
+	epdgl_draw_string(exp_string, &t_cfg);
+	while (!epdgl_update_screen(EPD_FAST));
 	
 	while(1){
 		
