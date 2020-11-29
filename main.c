@@ -115,10 +115,15 @@ void demo_alg(void){
 	ExpressionTree_ModifyExpression(&exp, N1);
 	ExpressionTree_ModifyExpression(&exp, ADD);
 	ExpressionTree_ModifyExpression(&exp, A);
-	ExpressionTree_Evaluate(&exp);
+	ExpressionTree_ModifyExpression(&exp, MUL);
+	ExpressionTree_ModifyExpression(&exp, COS);
+	ExpressionTree_ModifyExpression(&exp, N0);
 	
 	char exp_string[20];
 	Expression_ToString(exp_string, exp);
+	epdgl_draw_string(exp_string, &t_cfg);
+	
+	ExpressionTree_Evaluate(&exp);
 	
 	while(1){
 		
@@ -129,10 +134,8 @@ int main (void)
 {
 	PLL_Init(Bus80MHz);   // 80 MHz
 	
-	demo_alg();
-	
     DisableInterrupts();  // Disable interrupts until finished with inits
-    
+	
     epd_init(); // initialize e-paper display
     portFinit();
     keypad_init();
@@ -140,14 +143,16 @@ int main (void)
 
     Timer1A_Init(&keypad_scan, 80000000/160, 2);
 
-	EnableInterrupts();
+		EnableInterrupts();
 
     epdgl_clear();
     while(!epdgl_update_screen(EPD_SLOW));
 
     // set display orientation (see epdgl.h for options)
     epdgl_set_orientation(PORTRAIT);
-
+	
+		demo_alg();
+	
     easi_init();
     while (1) {
         easi_run();

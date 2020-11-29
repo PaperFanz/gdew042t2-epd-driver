@@ -11,11 +11,6 @@
 #include "Math.h"
 #include "AlphaValues.h"
 
-//ExpressionTree expressionTree;
-double src1 = 0;
-double src2 = 0;
-double res = 0;
-
 //Assumes valid input
 double node_to_constant(node_t node){
 	switch(node){
@@ -690,7 +685,7 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 			node_t prevOp = opStack.stack[opStack.size - 1];
 				
 			int perform_operation = calculate_prev_opnode(node, prevOp);									
-														
+										
 			while(perform_operation){
 				opStack.size--;
 						
@@ -698,6 +693,9 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 					break;
 				}
 						
+				double src1;
+				double src2;
+				double res;
 				int numInputs = num_inputs_for_opnode(prevOp);
 				if(numInputs >= 2){
 					constStack.size--;
