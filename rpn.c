@@ -103,7 +103,7 @@ rpn_init()
 void
 rpn_update_output()
 {
-    snprintf(STACK[0], MAX_BUF, "%f", fabs(DSTACK[0]));
+    snprintf(STACK[0], MAX_BUF, "%-#22.22g", fabs(DSTACK[0]));
     rpn_draw_stack();
 }
 
