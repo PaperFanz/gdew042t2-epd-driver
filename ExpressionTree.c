@@ -771,10 +771,15 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 	
 
 //No size check
-void Expression_ToString(char *exp_string, ExpressionTree exp){
+void Expression_ToString(ExpressionTree *exp){
+	//Clear string
+	for(int i = 0; i < 30; i++){
+		exp->exp_string[i] = 0;
+	}
+	
 	int string_idx = 0;
-	for(int i = 0; i < exp.exp_nodes.size; i++){		
-		node_t node = exp.exp_nodes.nodes[i];
+	for(int i = 0; i < exp->exp_nodes.size; i++){		
+		node_t node = exp->exp_nodes.nodes[i];
 		char node_char = ' ';
 		switch(node){
 			case VA:
@@ -898,23 +903,23 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 				node_char =	'/';
 				break;
 			case OPSIN:
-				exp_string[string_idx] = 's';
+				exp->exp_string[string_idx] = 's';
 				string_idx++;
-				exp_string[string_idx] = 'i';
+				exp->exp_string[string_idx] = 'i';
 				string_idx++;
 				node_char =	'n';
 				break;
 			case OPCOS:
-				exp_string[string_idx] = 'c';
+				exp->exp_string[string_idx] = 'c';
 				string_idx++;
-				exp_string[string_idx] = 'o';
+				exp->exp_string[string_idx] = 'o';
 				string_idx++;
 				node_char =	's';
 				break;
 			case OPTAN:
-				exp_string[string_idx] = 't';
+				exp->exp_string[string_idx] = 't';
 				string_idx++;
-				exp_string[string_idx] = 'a';
+				exp->exp_string[string_idx] = 'a';
 				string_idx++;
 				node_char =	'n';
 				break;
@@ -922,23 +927,23 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 				node_char =	'^';
 				break;
 			case OPEE:
-				exp_string[string_idx] = 'e';
+				exp->exp_string[string_idx] = 'e';
 				string_idx++;
 				node_char =	'^';
 				break;
 			case OPLOG:
-				exp_string[string_idx] = 'l';
+				exp->exp_string[string_idx] = 'l';
 				string_idx++;
-				exp_string[string_idx] = 'o';
+				exp->exp_string[string_idx] = 'o';
 				string_idx++;
 				node_char =	'g';
 				break;
 			case OPSQRT:
-				exp_string[string_idx] = 's';
+				exp->exp_string[string_idx] = 's';
 				string_idx++;
-				exp_string[string_idx] = 'q';
+				exp->exp_string[string_idx] = 'q';
 				string_idx++;
-				exp_string[string_idx] = 'r';
+				exp->exp_string[string_idx] = 'r';
 				string_idx++;
 				node_char =	't';
 				break;
@@ -958,22 +963,22 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 				break;
 		}
 		
-		exp_string[string_idx] = node_char;
+		exp->exp_string[string_idx] = node_char;
 		string_idx++;
 	}
 	
-	if(exp.hasResult == 1){
-		exp_string[string_idx] = ' ';
+	if(exp->hasResult == 1){
+		exp->exp_string[string_idx] = ' ';
 		string_idx++;
-		exp_string[string_idx] = '=';
+		exp->exp_string[string_idx] = '=';
 		string_idx++;
-		exp_string[string_idx] = ' ';
+		exp->exp_string[string_idx] = ' ';
 		string_idx++;
 		
-		if(exp.validResult == 1){
-			double result = exp.result;
+		if(exp->validResult == 1){
+			double result = exp->result;
 			if(result < 0){
-				exp_string[string_idx] = '-';
+				exp->exp_string[string_idx] = '-';
 				string_idx++;
 				result = -result;
 			}
@@ -998,20 +1003,20 @@ void Expression_ToString(char *exp_string, ExpressionTree exp){
 			//Translate result string to end of expression string
 			int result_str_idx = 0;
 			while(result_str[result_str_idx] != '\0'){
-				exp_string[string_idx] = result_str[result_str_idx];
+				exp->exp_string[string_idx] = result_str[result_str_idx];
 				string_idx++;
 				
 				result_str_idx++;
 			}
 		}
 		else{
-			char syn_err_str[6] = "Error";
-			for(int i = 0; i < 6; i++){
-				exp_string[string_idx] = syn_err_str[i];
+			char syn_err_str[7] = " Error";
+			for(int i = 0; i < 7; i++){
+				exp->exp_string[string_idx] = syn_err_str[i];
 				string_idx++;
 			}
 		}
 	}
 	
-	exp_string[string_idx] = '\0';
+	exp->exp_string[string_idx] = '\0';
 }

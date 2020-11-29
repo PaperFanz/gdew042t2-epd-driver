@@ -17,7 +17,6 @@
 
 //Globals
 ExpressionTree alg_exp;
-char exp_string[MAX_EXPRESSION_SIZE];
 
 //Declarations
 static void alg_draw_expression(ExpressionTree *exp);
@@ -101,8 +100,8 @@ void alg_clear(void){
 }
 
 static void alg_draw_expression(ExpressionTree *exp){
-	Expression_ToString(exp_string, alg_exp);
+	Expression_ToString(&alg_exp);
 	
-	epdgl_draw_string(exp_string, &exp_fnt);
+	epdgl_draw_string(exp->exp_string, &exp_fnt);
 	while (!epdgl_update_screen(EPD_FAST));
 }

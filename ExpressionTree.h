@@ -41,6 +41,7 @@ struct ExpressionNodes{
 struct ExpressionTree{
 	ExpressionNodes exp_nodes;
 	
+	char exp_string[30];
 	double result;
 	int hasResult; //0 no, 1 yes
 	int validResult; //0 no, 1 yes
@@ -64,6 +65,6 @@ int ExpressionTree_ModifyExpression(ExpressionTree *exp, key_t key);
 int ExpressionTree_Evaluate(ExpressionTree *exp);
 
 
-void Expression_ToString(char *exp_string, ExpressionTree exp);
+void Expression_ToString(ExpressionTree *exp);
 
 #endif
