@@ -23,6 +23,8 @@
 #include "epdgl.h"
 #include "keypad.h"
 #include "voltmeter.h"
+#include "ExpressionTree.h"
+#include "AlphaValues.h"
 
 void portFinit(void)
 {
@@ -104,9 +106,31 @@ demo_keys(void)
     }
 }
 
+void demo_alg(void){
+	ExpressionTree exp;
+	
+	ExpressionTree_Clear(&exp);
+	set_key_alpha_value(A, 2);
+	
+	ExpressionTree_ModifyExpression(&exp, N1);
+	ExpressionTree_ModifyExpression(&exp, ADD);
+	ExpressionTree_ModifyExpression(&exp, A);
+	ExpressionTree_Evaluate(&exp);
+	
+	char exp_string[20];
+	Expression_ToString(exp_string, exp);
+	
+	while(1){
+		
+	}
+}
+
 int main (void)
 {
 	PLL_Init(Bus80MHz);   // 80 MHz
+	
+	demo_alg();
+	
     DisableInterrupts();  // Disable interrupts until finished with inits
     
     epd_init(); // initialize e-paper display

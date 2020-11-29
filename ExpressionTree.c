@@ -12,6 +12,9 @@
 #include "AlphaValues.h"
 
 //ExpressionTree expressionTree;
+double src1 = 0;
+double src2 = 0;
+double res = 0;
 
 //Assumes valid input
 double node_to_constant(node_t node){
@@ -616,7 +619,6 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 	double constantVal = 0;
 	
 	int divisor = 10;
-	
 	int hitDecimal = 0; //false
 
 	OperatorStack opStack;
@@ -680,18 +682,12 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 			constStack.size++;
 		}
 		
-		double src1;
-		double src2;
-		double res;
 		if(node == OPADD || node == OPSUB || node == OPMUL || node == OPDIV || 
 			 node == OPSIN || node == OPCOS || node == OPTAN || 
 		   node == OPEE || node == OPPOW || node == OPLOG || node == OPSQRT || 
 		   node == OPEN_PAREN || node == CLOSE_PAREN || node == SGN)
 		{										
 			node_t prevOp = opStack.stack[opStack.size - 1];
-				
-			//	int currPri = ExpressionTree_GetPriority(button);
-			//	int prevPri = ExpressionTree_GetPriority(prevOp);
 				
 			int perform_operation = calculate_prev_opnode(node, prevOp);									
 														
@@ -703,28 +699,28 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 				}
 						
 				int numInputs = num_inputs_for_opnode(prevOp);
-						if(numInputs >= 2){
-							constStack.size--;
-							src2 = constStack.stack[constStack.size];
-						}
-						else{
-							src2 = 0;
-						}
-						if(numInputs >= 1){
-							constStack.size--;
-							src1 = constStack.stack[constStack.size];
-						}
-						else{
-							src1 = 0;
-						}
+				if(numInputs >= 2){
+					constStack.size--;
+					src2 = constStack.stack[constStack.size];
+				}
+				else{
+					src2 = 0;
+				}
+				if(numInputs >= 1){
+					constStack.size--;
+					src1 = constStack.stack[constStack.size];
+				}
+				else{
+					src1 = 0;
+				}
 							
-						if(execute_operation(&res, src1, src2, prevOp)) return 1; 
+				if(execute_operation(&res, src1, src2, prevOp)) return 1; 
+					
+				constStack.stack[constStack.size] = res;
+				constStack.size++;
 						
-						constStack.stack[constStack.size] = res;
-						constStack.size++;
-						
-						prevOp = opStack.stack[opStack.size - 1];
-						perform_operation = calculate_prev_opnode(node, prevOp);
+				prevOp = opStack.stack[opStack.size - 1];
+				perform_operation = calculate_prev_opnode(node, prevOp);
 			}
 
 			if(node != CLOSE_PAREN){
