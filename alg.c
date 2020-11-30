@@ -23,11 +23,20 @@ static void alg_draw_expression(ExpressionTree *exp);
 
 text_config_t exp_fnt = {&Consolas20, EPD_BLACK};
 
+static bool NEW_EXPRESSION = true;
+
 void alg_init(void){
-	ExpressionTree_Clear(&alg_exp);
+    NEW_EXPRESSION = true;
 }
 
 void alg_handle_input(key_t k){
+    bool update = true;
+
+    if (NEW_EXPRESSION) {
+        alg_clear();
+        NEW_EXPRESSION = false;
+    }
+
 	switch(k){
 		case N0:
 		case N1:
@@ -85,23 +94,36 @@ void alg_handle_input(key_t k){
 			ExpressionTree_ModifyExpression(&alg_exp, k);
 			break;
 		case ENTER:
-			ExpressionTree_Evaluate(&alg_exp);
+			if (ExpressionTree_Evaluate(&alg_exp)) {
+                epdgl_set_cursor(20,100);
+                epdgl_draw_string("err", &exp_fnt);
+            } else {
+                NEW_EXPRESSION = true;
+            }
+            break;
 		default:
-			return;
+            update = false;
+			break;
 	}
 	
-	alg_draw_expression(&alg_exp);
+    if (update) {
+        alg_draw_expression(&alg_exp);
+    }
 }
 
 void alg_clear(void){
 	ExpressionTree_Clear(&alg_exp);
 	
 	//TODO: Clear screen
+    epdgl_fill_rect(20, 20, 280, 20, EPD_WHITE);    // clear off area
 }
 
 static void alg_draw_expression(ExpressionTree *exp){
+    static uint16_t py = 20;
 	Expression_ToString(&alg_exp);
 	
-	epdgl_draw_string(exp->exp_string, &exp_fnt);
-	while (!epdgl_update_screen(EPD_FAST));
+    epdgl_fill_rect(20, py, 280, 20, EPD_WHITE);    // clear off area
+    epdgl_set_cursor(20, py);                       // set cursor coordinates
+	epdgl_draw_string(exp->exp_string, &exp_fnt);        // draw string
+    py += 20;
 }

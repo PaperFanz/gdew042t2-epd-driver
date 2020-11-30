@@ -158,7 +158,7 @@ int main (void)
 
     Timer1A_Init(&keypad_scan, 80000000/160, 2);
 
-		EnableInterrupts();
+    EnableInterrupts();
 
     epdgl_clear();
     while(!epdgl_update_screen(EPD_SLOW));

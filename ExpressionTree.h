@@ -1,7 +1,7 @@
 #ifndef _EXPRESSION_TREE_H_
 #define _EXPRESSION_TREE_H_
 
-#define MAX_STACK_SIZE 100
+#define MAX_STACK_SIZE 20
 #define MAX_EXPRESSION_SIZE 20
 
 //#include "Globals.h"

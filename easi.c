@@ -55,9 +55,9 @@ parse_input(uint8_t raw_key)
         break;
     case VOLT:
         break;
-		case ALG:
-				alg_handle_input(key);
-				break;
+    case ALG:
+        alg_handle_input(key);
+        break;
     default:
         break;
     }

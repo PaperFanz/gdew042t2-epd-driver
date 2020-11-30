@@ -628,6 +628,7 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 	
 	opStack.stack[0] = OPEN_PAREN; //Opening parenthesis in op stack
 	opStack.size = 1;
+    constStack.size = 0;
 	
 	exp->exp_nodes.nodes[exp->exp_nodes.size] = CLOSE_PAREN; //Add a closing paren to expression
 	exp->exp_nodes.size++;
@@ -713,24 +714,22 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 				double res;
 				int numInputs = num_inputs_for_opnode(prevOp);
 				if(numInputs >= 2){
-					constStack.size--;
-					
 					if(constStack.size == 0){
 						expression_invalid(exp);
 						return 1;
 					}
+					constStack.size--;
 					src2 = constStack.stack[constStack.size];
 				}
 				else{
 					src2 = 0;
 				}
 				if(numInputs >= 1){
-					constStack.size--;
-					
 					if(constStack.size == 0){
 						expression_invalid(exp);
 						return 1;
 					}
+					constStack.size--;
 					src1 = constStack.stack[constStack.size];
 				}
 				else{
