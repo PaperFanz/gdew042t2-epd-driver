@@ -22,7 +22,7 @@
 
 #define MAX_BUF 21
 #define NUM_WFIELDS 4
-#define GRAPH_HEIGHT EPD_WIDTH - FN_BAR_H - STATUS_BAR_H
+#define GRAPH_HEIGHT (EPD_WIDTH - FN_BAR_H - STATUS_BAR_H)
 #define GRAPH_WIDTH  EPD_HEIGHT
 
 /*
@@ -78,39 +78,46 @@ static char *END_IN_BUF;
 
 text_config_t norm_fnt = {&Consolas20, EPD_BLACK};
 
-static void
-graph_draw_window(){
-    char buf[MAX_BUF];
-    epdgl_fill_rect(0, 260, 300, 100, EPD_WHITE);
-
-    for(int i = 0; i < NUM_WFIELDS; i++){
-        epdgl_set_cursor(20, 269 + 20*i);
-        epdgl_draw_string(W_FNAMES[i], &norm_fnt);
-        snprintf(buf, MAX_BUF, "%f", W_FVALS[i]);
-        epdgl_draw_string(buf, &norm_fnt);
-    }
-}
-
 static void 
 graph_draw_fig(){
+    int32_t xPix[GRAPH_WIDTH];
+    int32_t yPix[GRAPH_WIDTH];
+
     // Clear
     epdgl_fill_rect(0, STATUS_BAR_H, GRAPH_WIDTH, GRAPH_HEIGHT, EPD_WHITE);
 
     // Draw axes
     if(W_FVALS[YMIN] <= 0 && W_FVALS[YMAX] >= 0){
-        int x_ax_pix = (-1 * (W_FVALS[YMIN]) / (W_FVALS[YMAX] - W_FVALS[YMIN])) * GRAPH_HEIGHT;
+        int x_ax_pix = GRAPH_HEIGHT + (W_FVALS[YMIN]) / (W_FVALS[YMAX] - W_FVALS[YMIN]) * GRAPH_HEIGHT + STATUS_BAR_H;
         epdgl_draw_line(0, x_ax_pix, GRAPH_WIDTH, x_ax_pix, EPD_BLACK);
     }
-    if(W_FVALS[XMIN] < 0 && W_FVALS[XMAX] >= 0){
-        int y_ax_pix = -1 * (W_FVALS[XMIN]) / (W_FVALS[XMAX] - W_FVALS[XMIN]) * GRAPH_WIDTH;
+    if(W_FVALS[XMIN] <= 0 && W_FVALS[XMAX] >= 0){
+        int y_ax_pix =  -1 * (W_FVALS[XMIN]) / (W_FVALS[XMAX] - W_FVALS[XMIN]) * GRAPH_WIDTH;
         epdgl_draw_line(y_ax_pix, STATUS_BAR_H, y_ax_pix, EPD_WIDTH - FN_BAR_H, EPD_BLACK);
     }
 
     // Graph
     if(EXP_VALID){
-        for(int i = 0; i < GRAPH_WIDTH - 1; i++){
-            epdgl_draw_line(i, Y_VAL[i], i+1, Y_VAL[i+1], EPD_BLACK);
+        plot_config_t plot = {0, GRAPH_WIDTH, STATUS_BAR_H, STATUS_BAR_H + GRAPH_HEIGHT, EPD_BLACK};
+        for(int i = 0; i < GRAPH_WIDTH; i++){
+            xPix[i] = i;
+            yPix[i] = (Y_VAL[i] - W_FVALS[YMIN])/(W_FVALS[YMAX] - W_FVALS[YMIN]) * GRAPH_HEIGHT;
         }
+        epdgl_plot(xPix, yPix, GRAPH_WIDTH, plot);
+    }
+}
+
+static void
+graph_draw_window(){
+    char buf[MAX_BUF];
+    graph_draw_fig();
+    epdgl_fill_rect(0, 260, 300, 100, EPD_WHITE);
+    
+    for(int i = 0; i < NUM_WFIELDS; i++){
+        epdgl_set_cursor(20, 269 + 20*i);
+        epdgl_draw_string(W_FNAMES[i], &norm_fnt);
+        snprintf(buf, MAX_BUF, "%f", W_FVALS[i]);
+        epdgl_draw_string(buf, &norm_fnt);
     }
 }
 
@@ -122,7 +129,7 @@ graph_draw_input()
 
     switch(G_MODE){
         case EQUATION:
-            Expression_ToString(&graph_exp);
+            Expression_String(&graph_exp);
             graph_draw_fig();
             epdgl_fill_rect(20, 349, 300, 30, EPD_WHITE);    
             epdgl_set_cursor(20, 349);  
@@ -131,7 +138,6 @@ graph_draw_input()
             break;
 
         case WINDOW:
-            graph_draw_fig();
             cursor_x = 20 + 6 * norm_fnt.font->FixedWidth + IN_CURSOR * norm_fnt.font->FixedWidth;
             epdgl_fill_rect(10 + 6 * norm_fnt.font->FixedWidth, 269+20*WIN_SEL, 300, 20, EPD_WHITE);
             epdgl_set_cursor(20 + 6 * norm_fnt.font->FixedWidth, 269+20*WIN_SEL);
@@ -172,7 +178,7 @@ graph_draw_input()
 static void
 update_window()
 {   
-    if (WIN_SEL >= 0){
+    if (WIN_SEL >= 0 && IN_CURSOR > 0){
         //update and clamp fields, x-axis
         W_FVALS[WIN_SEL] = strtod(IN_BUF, &END_IN_BUF);
         if (IN_NEG) W_FVALS[WIN_SEL] *= -1;
@@ -189,6 +195,10 @@ update_window()
 
     for(int i = 0; i < GRAPH_WIDTH; i++){
         X_AXIS[i] = W_FVALS[XMIN] + (i * (W_FVALS[XMAX] - W_FVALS[XMIN])/GRAPH_WIDTH);
+    }
+
+    if(EXP_VALID){
+        ExpressionTree_Graph(&graph_exp, X, X_AXIS, Y_VAL, GRAPH_WIDTH);
     }
 
     memset(IN_BUF, 0, MAX_BUF);    
@@ -210,6 +220,7 @@ static void
 graph_display(){
     switch(G_MODE){
         case FIGURE:
+            graph_draw_fig();
             break;
         case EQUATION:
             graph_draw_input();
@@ -224,6 +235,10 @@ graph_display(){
 
 void
 graph_init(){
+    for(int i = 0; i < GRAPH_WIDTH; i++){
+        Y_VAL[i] = (double) 0xDEADBEEF;
+    }
+
     WIN_SEL = 0;
     W_FVALS[YMIN] = W_FVALS[XMIN] = -10;
     W_FVALS[YMAX] = W_FVALS[XMAX] = 10;
@@ -235,8 +250,7 @@ graph_init(){
     memset(IN_BUF, 0, MAX_BUF);             
     snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[YMAX]));
     WIN_END[YMAX] = WIN_END[XMAX] = strlen(IN_BUF);
-    
-    memset(IN_BUF, 0, MAX_BUF);   
+     
     update_window();
 
     G_MODE = EQUATION;
@@ -374,8 +388,6 @@ graph_window_input(key_t k){
         break;
     case ENTER:
         if(IN_CURSOR && WIN_SEL != -1){
-            IN_CURSOR = 0;
-            IN_END = 0;
             BUF_FULL = false;
             DEC_ENTERED = false;
             update_window();
@@ -544,6 +556,7 @@ graph_change_mode(graph_mode_t mode){
     }
     G_MODE = mode;
     memset(IN_BUF, 0, MAX_BUF);
+    IN_CURSOR = 0;
     update_window();
     graph_display();
 }
@@ -557,6 +570,9 @@ graph_view_figure(void){
 void 
 graph_set_window(void){
     WIN_SEL = 0;
+    snprintf(IN_BUF, MAX_BUF, "%f", fabs(W_FVALS[WIN_SEL]));
+    IN_NEG = W_FVALS[WIN_SEL] < 0;
+    IN_CURSOR = IN_END = WIN_END[WIN_SEL];
     graph_change_mode(WINDOW);
 }
 

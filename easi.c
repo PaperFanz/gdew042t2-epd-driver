@@ -28,7 +28,7 @@ easi_init()
 static void
 parse_input(uint8_t raw_key)
 {
-    key_t key = KEYMAP[raw_key];
+    key_t key = KEYMAP[raw_key + KEY_MODE * KEY_NUM];
     switch(key){
         case ALPHA:
             if(KEY_MODE == M_ALPHA) KEY_MODE = M_NORMAL;
