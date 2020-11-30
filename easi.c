@@ -83,8 +83,8 @@ easi_run()
     case VOLT:
         draw_voltmeter();
         break;
-		case ALG:
-				break;
+    case ALG:
+        break;
     default:
         break;
     }
@@ -100,15 +100,16 @@ easi_run()
 void 
 clear_input(){
     switch(EASI_MODE){
-        case RPN:
-            rpn_clear();
-            break;
-				case ALG:
-						alg_clear();
-            break;
-        case GRPH:
-            graph_clear();
-            break;
+    case RPN:
+        rpn_clear();
+        break;
+    case ALG:
+        alg_clear();
+        break;
+    case GRPH:
+        graph_clear();
+        break;
+    default:
         break;
     }
 }
