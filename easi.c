@@ -5,6 +5,7 @@
     Date: Nov 21
 */
 
+#include "alg.h"
 #include "keypad.h"
 #include "epdgl.h"
 #include "gui.h"
@@ -55,6 +56,9 @@ parse_input(uint8_t raw_key)
         break;
     case VOLT:
         break;
+    case ALG:
+        alg_handle_input(key);
+        break;
     case GRPH:
         graph_handle_input(key);
         break;
@@ -79,6 +83,8 @@ easi_run()
     case VOLT:
         draw_voltmeter();
         break;
+		case ALG:
+				break;
     default:
         break;
     }
@@ -96,8 +102,13 @@ clear_input(){
     switch(EASI_MODE){
         case RPN:
             rpn_clear();
+            break;
+				case ALG:
+						alg_clear();
+            break;
         case GRPH:
             graph_clear();
+            break;
         break;
     }
 }
