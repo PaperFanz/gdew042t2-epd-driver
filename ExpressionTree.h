@@ -67,4 +67,6 @@ int ExpressionTree_Evaluate(ExpressionTree *exp);
 
 void Expression_ToString(ExpressionTree *exp);
 
+int ExpressionTree_Graph(ExpressionTree *exp, key_t var, double *xbuf, double *ybuf, int num_points);
+
 #endif

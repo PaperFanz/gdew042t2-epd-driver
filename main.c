@@ -106,44 +106,58 @@ demo_keys(void)
     }
 }
 
-/*
+
 void demo_alg(void){
 	ExpressionTree exp;
 	
 	ExpressionTree_Clear(&exp);
 	set_key_alpha_value(A, 3.4);
 	
-	//2.2 * A * cos(0) = 7.48
+	//-2.2 + A * cos(0) / sgrt(16) 
 	ExpressionTree_ModifyExpression(&exp, N2);
+	ExpressionTree_ModifyExpression(&exp, LEFT);
+	ExpressionTree_ModifyExpression(&exp, SIGN);
+	ExpressionTree_ModifyExpression(&exp, RIGHT);
 	ExpressionTree_ModifyExpression(&exp, DEC);
 	ExpressionTree_ModifyExpression(&exp, N2);
 	ExpressionTree_ModifyExpression(&exp, MUL);
+	ExpressionTree_ModifyExpression(&exp, BACKSPACE);
+	ExpressionTree_ModifyExpression(&exp, ADD);
 	ExpressionTree_ModifyExpression(&exp, A);
 	ExpressionTree_ModifyExpression(&exp, MUL);
 	ExpressionTree_ModifyExpression(&exp, COS);
 	ExpressionTree_ModifyExpression(&exp, N0);
+	ExpressionTree_ModifyExpression(&exp, RIGHT);
+	ExpressionTree_ModifyExpression(&exp, DIV);
+	ExpressionTree_ModifyExpression(&exp, ROOT);
+	ExpressionTree_ModifyExpression(&exp, N1);
+	ExpressionTree_ModifyExpression(&exp, N6);
 	
-	char exp_string[20];
-	Expression_ToString(exp_string, exp);
+	Expression_ToString(&exp);
 	
-    epdgl_set_cursor(20, 20);
-	epdgl_draw_string(exp_string, &t_cfg);
+	/*
+  epdgl_set_cursor(20, 20);
+	epdgl_draw_string(exp.exp_string, &t_cfg);
 	while (!epdgl_update_screen(EPD_FAST));
 	
 	waitPF4();
+	*/
 	
 	ExpressionTree_Evaluate(&exp);
+	Expression_ToString(&exp);
 	
-    epdgl_set_cursor(20, 40);
-	Expression_ToString(exp_string, exp);
+	/*
+  epdgl_set_cursor(20, 40);
+	Expression_ToString(&exp);
 	
-	epdgl_draw_string(exp_string, &t_cfg);
+	epdgl_draw_string(exp.exp_string, &t_cfg);
 	while (!epdgl_update_screen(EPD_FAST));
+	*/
 	
 	while(1){
 	}
 }
-*/
+
 
 int main (void)
 {

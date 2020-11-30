@@ -584,6 +584,8 @@ int opnode_priority(node_t node){
 			return PRI_OPEN_PAREN;		
 		case CLOSE_PAREN:
 			return PRI_CLOSE_PAREN;
+		case SGN:
+			return PRI_NEG;
 		default:
 			return -1;
 	}
@@ -757,6 +759,11 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 				opStack.size++;	
 			}
 		}
+	}
+	
+	if(constStack.size != 1 || opStack.size != 0){
+		expression_invalid(exp);
+		return 1;
 	}
 	
 	exp->result = constStack.stack[0];
@@ -1018,4 +1025,21 @@ void Expression_ToString(ExpressionTree *exp){
 	}
 	
 	exp->exp_string[string_idx] = '\0';
+}
+
+//0 success, 1 failure
+int ExpressionTree_Graph(ExpressionTree *exp, key_t var, double *xbuf, double *ybuf, int num_points){
+	double var_value = get_key_alpha_value(var);
+	
+	for(int i = 0; i < num_points; i++){
+		set_key_alpha_value(var, xbuf[i]);
+		if(ExpressionTree_Evaluate(exp)) {
+			set_key_alpha_value(var, var_value); //Reset variable value
+			return 1;
+		}
+		ybuf[i] = exp->result;
+	}
+	
+	set_key_alpha_value(var, var_value); //Reset variable value
+	return 0;
 }
