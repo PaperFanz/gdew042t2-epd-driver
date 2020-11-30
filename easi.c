@@ -109,6 +109,5 @@ clear_input(){
         case GRPH:
             graph_clear();
             break;
-        break;
     }
 }

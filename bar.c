@@ -33,7 +33,7 @@ const bar_fn_t FUNCTIONS[5][6] = {{
 
     // Graphing bar
     {{FOLDER, "MODE", &MODE_BAR, 0},
-    {FUNCTION, "FIG", 0, &clear_input},
+    {FUNCTION, "FIG", 0, &graph_view_figure},
     {FUNCTION, "EQN", 0, &graph_set_eqn},
     {FUNCTION, "WIN", 0, &graph_set_window},
     {CONSTANT, "VAL", 0, &graph_get_val},

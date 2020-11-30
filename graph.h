@@ -15,6 +15,8 @@ void graph_init(void);
 
 void graph_handle_input(key_t k);
 
+void graph_view_figure(void);
+
 void graph_set_window(void);
 
 void graph_set_eqn(void);
