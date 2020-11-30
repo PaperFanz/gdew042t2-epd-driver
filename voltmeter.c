@@ -80,8 +80,8 @@ void voltmeter_init(){
 
   vmReady = 0;
   GLOB_BATTERY = battery_read();
-  Timer2A_Init(&battery_read, 80000000, 7);
-}
+  Timer2A_Init((void (*)(void)) &battery_read, 80000000, 7);
+} 
 
 /**
  * Returns the difference in voltage between the two VEXT pins

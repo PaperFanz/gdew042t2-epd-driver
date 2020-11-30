@@ -17,4 +17,6 @@ void rpn_handle_input(key_t k);
 
 void rpn_clear(void);
 
+void rpn_swap(void);
+
 #endif

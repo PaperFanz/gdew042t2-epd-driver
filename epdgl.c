@@ -31,10 +31,6 @@ static int32_t UPD_MAX_Y;
 
 static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 
-// Display resolution
-#define EPD_WIDTH   400
-#define EPD_HEIGHT  300
-
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
 static uint8_t EPDGL_BUF[BUF_SIZE] = {0};
 
@@ -86,6 +82,10 @@ epdgl_absolute(int32_t * x, int32_t * y)
         *y = tmp;
         break;
     }
+    *x = *x < 0 ? 0 : *x;
+    *y = *y < 0 ? 0 : *y;
+    *x = *x > EPD_WIDTH ? EPD_WIDTH : *x;
+    *y = *y > EPD_HEIGHT ? EPD_HEIGHT : *y;
     epdgl_abs_update(*x, *y); 
 }
 

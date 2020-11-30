@@ -168,6 +168,7 @@ rpn_handle_input(key_t k){
         if (IN_CURSOR) {
             --IN_CURSOR;
             --IN_END;
+            if(IN_BUF[IN_CURSOR] == '.') DEC_ENTERED = false;
             memmove(&IN_BUF[IN_CURSOR], &IN_BUF[IN_CURSOR + 1], IN_END - IN_CURSOR);
             IN_BUF[IN_END] = 0;
         }
@@ -260,5 +261,24 @@ rpn_clear(){
     IN_CURSOR = 0;
     IN_END = 0;
     memset(IN_BUF, 0, MAX_BUF); 
+}
+
+void 
+rpn_swap(){
+    char temp[MAX_BUF];
+    double dtemp;
+    bool ntemp;
+
+    memcpy(temp, STACK[0], MAX_BUF);
+    dtemp = DSTACK[0];
+    ntemp = NEG[0];
+    memcpy(STACK[0], STACK[1], MAX_BUF);
+    DSTACK[0] = DSTACK[1];
+    NEG[0] = NEG[1];
+    memcpy(STACK[1], temp, MAX_BUF);
+    DSTACK[1] = dtemp;
+    NEG[1] = ntemp;
+
+    rpn_draw_stack();
 }
 

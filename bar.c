@@ -2,6 +2,8 @@
 #include "bar.h"
 #include "easi.h"
 #include "easi_globals.h"
+#include "rpn.h"
+#include "graph.h"
 
 /*
 */
@@ -12,20 +14,73 @@ char * keyModeString = "normal";
     function bar variables
 */
 
-const bar_fn_t FUNCTIONS[] = {
+const bar_fn_t FUNCTIONS[5][6] = {{
+    // Algebraic bar
     {FOLDER, "MODE", &MODE_BAR, 0},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
     {FUNCTION, "CLR", 0, &clear_input},
-    {FOLDER, "OPT", &SETTINGS_BAR, 0},
+    {FOLDER, "OPT", &SETTINGS_BAR, 0},},
+
+    // RPN bar
+    {{FOLDER, "MODE", &MODE_BAR, 0},
+    {FUNCTION, "SWAP", 0, &rpn_swap},
+    {CONSTANT, "null", 0, 0},
+    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "CLR", 0, &clear_input},
+    {FOLDER, "OPT", &SETTINGS_BAR, 0},},
+
+    // Graphing bar
+    {{FOLDER, "MODE", &MODE_BAR, 0},
+    {FUNCTION, "FIG", 0, &clear_input},
+    {FUNCTION, "EQN", 0, &graph_set_eqn},
+    {FUNCTION, "WIN", 0, &graph_set_window},
+    {CONSTANT, "VAL", 0, &graph_get_val},
+    {FUNCTION, "CLR", 0, &clear_input},},
+
+    // Voltmeter bar
+    {{FOLDER, "MODE", &MODE_BAR, 0},
+    {CONSTANT, "null", 0, 0},
+    {CONSTANT, "null", 0, 0},
+    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "CLR", 0, &clear_input},
+    {FOLDER, "OPT", &SETTINGS_BAR, 0},},
+
+    // PP bar
+    {{FOLDER, "MODE", &MODE_BAR, 0},
+    {CONSTANT, "null", 0, 0},
+    {CONSTANT, "null", 0, 0},
+    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "CLR", 0, &clear_input},
+    {FOLDER, "OPT", &SETTINGS_BAR, 0},},
 };
 
-#define FUNCTIONS_MAX (sizeof(FUNCTIONS) / sizeof(bar_fn_t))
-bar_t FUNCTION_BAR = {
-    0,
+#define FUNCTIONS_MAX (sizeof(FUNCTIONS[0]) / sizeof(bar_fn_t))
+bar_t FUNCTION_BAR[]= {
+    {0,
     FUNCTIONS_MAX,
-    FUNCTIONS
+    FUNCTIONS[0]},
+
+    {0,
+    FUNCTIONS_MAX,
+    FUNCTIONS[1]},
+
+    {0,
+    FUNCTIONS_MAX,
+    FUNCTIONS[2]},
+
+    {0,
+    FUNCTIONS_MAX,
+    FUNCTIONS[3]},
+
+    {0,
+    FUNCTIONS_MAX,
+    FUNCTIONS[4]},
+
+    {0,
+    FUNCTIONS_MAX,
+    FUNCTIONS[5]}
 };
 
 const bar_fn_t MODES[] = {
@@ -65,8 +120,8 @@ bar_t SETTINGS_BAR = {
     SETTINGS_MAX,
     SETTINGS
 };
-
-bar_t * ACTIVE_BAR = &FUNCTION_BAR;
+ 
+bar_t * ACTIVE_BAR = &FUNCTION_BAR[0];
 
 const bar_fn_t *
 get_active_fn(int32_t i)
