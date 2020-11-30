@@ -508,6 +508,11 @@
               <FileType>1</FileType>
               <FilePath>.\alg.c</FilePath>
             </File>
+            <File>
+              <FileName>graph.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\graph.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

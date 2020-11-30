@@ -13,6 +13,7 @@
 #include "gui.h"
 #include "bar.h"
 #include "rpn.h"
+#include "graph.h"
 #include "voltmeter.h"
 
 void
@@ -34,18 +35,23 @@ update_fn_bar(key_t k)
         ACTIVE_BAR = fn->subitems;
         break;
     case MODE:
-        ACTIVE_BAR = &FUNCTION_BAR;
-        EASI_MODE = k;
+        EASI_MODE = (easi_mode_t) k;
+		ACTIVE_BAR = &FUNCTION_BAR[EASI_MODE];
         epdgl_fill_rect(0, STATUS_BAR_H, 300, 400 - FN_BAR_H, EPD_WHITE);
-        if(k == RPN) rpn_init();
+        switch (k) {
+        case RPN: rpn_init(); break;
+        case GRPH: graph_init(); break;
+        }
         update_status_bar();
         break;
     case FUNCTION:
         (*fn->function)();
         break;
     case ESC:
-        ACTIVE_BAR = &FUNCTION_BAR;
+        ACTIVE_BAR = &FUNCTION_BAR[EASI_MODE];
         break;
+		default:
+				break;
     }
     draw_fn_bar();
 }
