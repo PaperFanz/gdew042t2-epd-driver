@@ -784,7 +784,12 @@ void Expression_ToString(ExpressionTree *exp){
 	}
 	
 	int string_idx = 0;
-	for(int i = 0; i < exp->exp_nodes.size; i++){		
+	for(int i = 0; i < exp->exp_nodes.size; i++){
+		if(i == exp->exp_nodes.idx && exp->hasResult == 0){
+			exp->exp_string[string_idx] = '|';
+			string_idx++;
+		}
+			
 		node_t node = exp->exp_nodes.nodes[i];
 		char node_char = ' ';
 		switch(node){
@@ -1016,12 +1021,16 @@ void Expression_ToString(ExpressionTree *exp){
 			}
 		}
 		else{
-			char syn_err_str[7] = " Error";
-			for(int i = 0; i < 7; i++){
+			char syn_err_str[6] = "Error";
+			for(int i = 0; i < 6; i++){
 				exp->exp_string[string_idx] = syn_err_str[i];
 				string_idx++;
 			}
 		}
+	}
+	else if(exp->exp_nodes.idx == exp->exp_nodes.size){ //Cursor placement at end
+		exp->exp_string[string_idx] = '|';
+		string_idx++;
 	}
 	
 	exp->exp_string[string_idx] = '\0';
