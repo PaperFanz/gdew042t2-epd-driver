@@ -100,6 +100,12 @@ rpn_init()
     rpn_draw_input();
 }
 
+double
+rpn_get_val()
+{
+    return DSTACK[0];
+}
+
 void
 rpn_update_output()
 {

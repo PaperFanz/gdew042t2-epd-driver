@@ -16,6 +16,8 @@
 
 extern uint32_t GLOB_BATTERY;
 
+double volt_get_val(void);
+
 void draw_voltmeter(void);
 
 /**

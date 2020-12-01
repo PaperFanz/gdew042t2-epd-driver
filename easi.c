@@ -13,13 +13,16 @@
 #include "easi_globals.h"
 #include "voltmeter.h"
 #include "graph.h"
+#include "AlphaValues.h"
 
 int ERROR = 0;
+static bool STORE = false;
 
 void
 easi_init()
 {
     KEY_MODE = M_NORMAL;
+    STORE = false;
     draw_status_bar();
     draw_fn_bar();
     epdgl_update_screen(EPD_FAST);
@@ -28,7 +31,7 @@ easi_init()
 static void
 parse_input(uint8_t raw_key)
 {
-    key_t key = KEYMAP[raw_key];
+    key_t key = KEYMAP[raw_key + KEY_MODE * KEY_NUM];
     switch(key){
         case ALPHA:
             if(KEY_MODE == M_ALPHA) KEY_MODE = M_NORMAL;
@@ -47,6 +50,58 @@ parse_input(uint8_t raw_key)
         case F5:
         case F6:
             update_fn_bar(key);
+            break;
+        case STO:
+            STORE = true;
+            break;
+		case A:
+		case B:
+		case C:
+		case D:
+		case E:
+		case F:
+		case G:
+		case H:
+		case I:
+		case J:
+		case K:
+		case L:
+		case M:
+		case N:
+		case O:
+		case P:
+		case Q:
+		case R:
+		case S:
+		case T:
+		case U:
+		case V:
+		case W:
+		case X:
+		case Y:
+		case Z:
+            if (STORE) {
+                double val = 0.0;
+                switch(EASI_MODE){
+                case RPN:
+                    val = rpn_get_val();
+                    break;
+                case VOLT:
+                    
+                    break;
+                case ALG:
+                    val = alg_get_val();
+                    break;
+                case GRPH:
+                    val = graph_get_val();
+                    break;
+                default:
+                    break;
+                }
+                set_key_alpha_value(key, val);
+                STORE = false;
+            }
+        default:
             break;
     }
 

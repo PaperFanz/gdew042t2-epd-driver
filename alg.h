@@ -16,4 +16,6 @@ void alg_handle_input(key_t k);
 
 void alg_clear(void);
 
+double alg_get_val(void);
+
 #endif

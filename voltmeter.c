@@ -15,22 +15,39 @@ static int32_t vExt0;
 static int32_t vExt1;
 static uint8_t vmReady;
 uint32_t GLOB_BATTERY;
-static int32_t RUNNING_AVG = 2048;
+static int32_t VOLT_RUNNING_AVG = 2048;
+static int32_t BATT_RUNNING_AVG = 2048;
 
 text_config_t vm_fnt = {&Consolas20, EPD_BLACK};
+
+static uint16_t
+adc_to_volts(uint16_t adc_val)
+{
+    return 0;
+}
+
+double
+volt_get_val()
+{
+    return (double) VOLT_RUNNING_AVG;
+}
 
 void
 draw_voltmeter()
 {
+    static uint32_t VOLT_PREV = 0;
+    static uint32_t BATT_PREV = 0;
     static uint8_t x = 0;
-    epdgl_fill_rect(0, 20, 300, 360, EPD_WHITE);
-    epdgl_set_cursor(x, 40+x);
-    epdgl_draw_int(vExt0, &vm_fnt);
-    epdgl_set_cursor(x, 80+x);
-    epdgl_draw_int(vExt1, &vm_fnt);
-    epdgl_set_cursor(x, 120+x);
-    epdgl_draw_int(RUNNING_AVG, &vm_fnt);
-    ++x;
+
+    if (VOLT_RUNNING_AVG != VOLT_PREV || BATT_RUNNING_AVG != BATT_PREV) {
+        epdgl_fill_rect(0, 20, 300, 360, EPD_WHITE);
+        epdgl_set_cursor(x, 40+x);
+        epdgl_draw_int(VOLT_RUNNING_AVG, &vm_fnt);
+        epdgl_set_cursor(x, 80+x);
+        epdgl_draw_int(BATT_RUNNING_AVG, &vm_fnt);
+        VOLT_PREV = VOLT_RUNNING_AVG;
+        BATT_PREV = BATT_RUNNING_AVG;
+    }
 }
 
 /**
@@ -126,7 +143,7 @@ int32_t battery_read(void){
         count = 0;
 
         // Convert to percentage: 3.0 V = 0% = 1861/4096, 4.16 V = 100% = 2594/4096
-        GLOB_BATTERY = ((RUNNING_AVG - 1861) * 100)/733;
+        GLOB_BATTERY = ((BATT_RUNNING_AVG - 1861) * 100)/733;
         update_status_bar();
     }
 
@@ -145,6 +162,7 @@ void ADC0Seq2_Handler(void){
   vmReady = 1;
   vExt1 = ADC0_SSFIFO2_R; //PD1
   vExt0 = ADC0_SSFIFO2_R; //PD0
-  RUNNING_AVG = (vExt1 + RUNNING_AVG * 15) >> 4;
+  BATT_RUNNING_AVG = (vExt1 + BATT_RUNNING_AVG * 15) >> 4;
+  VOLT_RUNNING_AVG = (vExt0 + VOLT_RUNNING_AVG * 15) >> 4;
 }
 

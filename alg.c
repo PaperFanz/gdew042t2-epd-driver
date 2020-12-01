@@ -18,8 +18,15 @@
 //Globals
 ExpressionTree alg_exp;
 
+#define ALG_INPUT_IDX 13
+#define MAX_HIST (ALG_INPUT_IDX - 1)
+ExpressionTree history[MAX_HIST];
+static int history_size = 0;
+
 //Declarations
-static void alg_draw_expression(ExpressionTree *exp);
+static void alg_draw_expression(ExpressionTree *exp, int loc_on_screen);
+static void alg_draw(void);
+void alg_update_history(ExpressionTree *exp);
 
 text_config_t exp_fnt = {&Consolas20, EPD_BLACK};
 
@@ -94,11 +101,9 @@ void alg_handle_input(key_t k){
 			ExpressionTree_ModifyExpression(&alg_exp, k);
 			break;
 		case ENTER:
-			if (ExpressionTree_Evaluate(&alg_exp)) {
-                epdgl_set_cursor(20,100);
-                epdgl_draw_string("err", &exp_fnt);
-            } else {
-                NEW_EXPRESSION = true;
+			if (ExpressionTree_Evaluate(&alg_exp) == 0) {
+                alg_update_history(&alg_exp);
+                alg_clear();
             }
             break;
 		default:
@@ -107,23 +112,54 @@ void alg_handle_input(key_t k){
 	}
 	
     if (update) {
-        alg_draw_expression(&alg_exp);
+        alg_draw_expression(&alg_exp, ALG_INPUT_IDX); //New expression always bottommost location
     }
 }
 
 void alg_clear(void){
 	ExpressionTree_Clear(&alg_exp);
-	
-	//TODO: Clear screen
-    epdgl_fill_rect(20, 20, 280, 20, EPD_WHITE);    // clear off area
 }
 
-static void alg_draw_expression(ExpressionTree *exp){
-    static uint16_t py = 20;
+double
+alg_get_val()
+{
+    return history[history_size-1].result;
+}
+
+//loc_on_screen: 0 top, 5 bottom
+static void alg_draw_expression(ExpressionTree *exp, int loc_on_screen){
 	Expression_ToString(&alg_exp);
 	
-    epdgl_fill_rect(20, py, 280, 20, EPD_WHITE);    // clear off area
-    epdgl_set_cursor(20, py);                       // set cursor coordinates
-	epdgl_draw_string(exp->exp_string, &exp_fnt);        // draw string
-    py += 20;
+    uint16_t py = 25 + 25 * loc_on_screen;
+    epdgl_fill_rect(10, py, 290, 25, EPD_WHITE);    // clear off area
+    epdgl_set_cursor(10, py);                       // set cursor coordinates
+	epdgl_draw_string(exp->exp_string, &exp_fnt);   // draw string
+}
+
+static void alg_draw(void){
+	alg_draw_expression(&alg_exp, ALG_INPUT_IDX);
+
+	int hist_idx = history_size - 1;
+	while(hist_idx >= 0){
+		alg_draw_expression(&history[hist_idx], hist_idx);
+		
+		hist_idx--;
+	}
+}
+
+void alg_update_history(ExpressionTree *exp){
+    Expression_ToString(exp);
+    
+	if(history_size < MAX_HIST){
+		history[history_size] = *exp;
+		history_size++;
+	}
+	else{
+		for(int i = 1; i < MAX_HIST; i++){
+			history[i - 1] = history[i];
+		}
+		history[MAX_HIST-1] = *exp;
+	}
+	
+	alg_draw();
 }

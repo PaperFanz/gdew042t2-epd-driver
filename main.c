@@ -115,8 +115,14 @@ void demo_alg(void){
 	
 	ExpressionTree_ModifyExpression(&exp, N2);
 	ExpressionTree_ModifyExpression(&exp, DEC);
+	
+	Expression_ToString(&exp);
+	
 	ExpressionTree_ModifyExpression(&exp, N2);
-	ExpressionTree_ModifyExpression(&exp, MUL);
+	ExpressionTree_ModifyExpression(&exp, COS);
+	
+	Expression_ToString(&exp);
+	
 	ExpressionTree_ModifyExpression(&exp, SIGN);
 	ExpressionTree_ModifyExpression(&exp, A);
 	

@@ -19,4 +19,6 @@ void rpn_clear(void);
 
 void rpn_swap(void);
 
+double rpn_get_val(void);
+
 #endif

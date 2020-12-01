@@ -27,6 +27,12 @@ typedef enum key {
     S,       T,      U,     V,      W, 
     X,       Y,      Z,     SPACE,  SHIFT,
     /* control mode */
+    U1,      U2,     U3,
+    U4,      STO,     U6,    U7,     U8, 
+    U9,      U10,    U11,   U12,    U13, 
+    U14,     U15,    U16,   U17,    U18, 
+    U19,     U20,    U21,   U22,    U23, 
+    U24,     U25,    U26,   U27,    U28,
     // TODO
     INVALID_KEY
 } key_t;
