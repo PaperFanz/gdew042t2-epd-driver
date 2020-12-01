@@ -152,8 +152,6 @@ int main (void)
 	
     DisableInterrupts();  // Disable interrupts until finished with inits
 	
-		demo_alg();
-	
     epd_init(); // initialize e-paper display
     portFinit();
     keypad_init();
