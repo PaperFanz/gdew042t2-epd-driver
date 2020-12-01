@@ -18,8 +18,13 @@
 //Globals
 ExpressionTree alg_exp;
 
+ExpressionTree history[5];
+static int history_size = 0;
+
 //Declarations
-static void alg_draw_expression(ExpressionTree *exp);
+static void alg_draw_expression(ExpressionTree *exp, int loc_on_screen);
+static void alg_draw(void);
+void alg_update_history(ExpressionTree *exp);
 
 text_config_t exp_fnt = {&Consolas20, EPD_BLACK};
 
@@ -107,7 +112,7 @@ void alg_handle_input(key_t k){
 	}
 	
     if (update) {
-        alg_draw_expression(&alg_exp);
+        alg_draw_expression(&alg_exp, 5); //New expression always bottommost location
     }
 }
 
@@ -118,7 +123,8 @@ void alg_clear(void){
     epdgl_fill_rect(20, 20, 280, 20, EPD_WHITE);    // clear off area
 }
 
-static void alg_draw_expression(ExpressionTree *exp){
+//loc_on_screen: 0 top, 5 bottom
+static void alg_draw_expression(ExpressionTree *exp, int loc_on_screen){
     static uint16_t py = 20;
 	Expression_ToString(&alg_exp);
 	
@@ -126,4 +132,30 @@ static void alg_draw_expression(ExpressionTree *exp){
     epdgl_set_cursor(20, py);                       // set cursor coordinates
 	epdgl_draw_string(exp->exp_string, &exp_fnt);        // draw string
     py += 20;
+}
+
+static void alg_draw(void){
+	alg_draw_expression(&alg_exp, 5);
+
+	int hist_idx = history_size - 1;
+	while(hist_idx >= 0){
+		alg_draw_expression(&history[hist_idx], hist_idx);
+		
+		hist_idx--;
+	}
+}
+
+void alg_update_history(ExpressionTree *exp){
+	if(history_size < 5){
+		history[history_size] = *exp;
+		history_size++;
+	}
+	else{
+		for(int i = 1; i < 5; i++){
+			history[i - 1] = history[i];
+		}
+		history[4] = *exp;
+	}
+	
+	alg_draw();
 }
