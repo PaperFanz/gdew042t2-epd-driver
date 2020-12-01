@@ -47,11 +47,11 @@ struct ExpressionTree{
 	int validResult; //0 no, 1 yes
 }typedef ExpressionTree;
 
-#define PRI_MAX 5
-#define PRI_MIN 0
+//#define PRI_MAX 6
+//#define PRI_MIN 0
 //Lower priority has preference (0 highest priority)
 enum FuncPri{ //Todo: add base
-	PRI_OPEN_PAREN = 0, PRI_POW = 1, PRI_EE = 1, PRI_SIN = 2, PRI_COS = 2, PRI_TAN = 2, PRI_LOG = 2, PRI_SQRT = 2, PRI_NEG = 3, PRI_MUL = 3, PRI_DIV = 3, PRI_SUB = 4, PRI_ADD = 4, PRI_CLOSE_PAREN = 5
+	PRI_OPEN_PAREN = 0, PRI_POW = 1, PRI_EE = 1, PRI_SIN = 2, PRI_COS = 2, PRI_TAN = 2, PRI_LOG = 2, PRI_SQRT = 2, PRI_NEG = 3, PRI_MUL = 4, PRI_DIV = 4, PRI_SUB = 5, PRI_ADD = 5, PRI_CLOSE_PAREN = 6
 } typedef FuncPri;
 
 //Initializes the expression tree to be empty
