@@ -1027,6 +1027,205 @@ void Expression_ToString(ExpressionTree *exp){
 	exp->exp_string[string_idx] = '\0';
 }
 
+void Expression_String(ExpressionTree *exp){
+	//Clear string
+	for(int i = 0; i < 30; i++){
+		exp->exp_string[i] = 0;
+	}
+	
+	int string_idx = 0;
+	for(int i = 0; i < exp->exp_nodes.size; i++){		
+		node_t node = exp->exp_nodes.nodes[i];
+		char node_char = ' ';
+		switch(node){
+			case VA:
+				node_char = 'A';
+				break;
+			case VB:
+				node_char = 'B';
+				break;
+			case VC:
+				node_char =	'C';
+				break;
+			case VD:
+				node_char =	'D';	
+				break;
+			case VE:
+				node_char =	'E';
+				break;
+			case VF:
+				node_char =	'F';
+				break;
+			case VG:
+				node_char =	'G';
+				break;
+			case VH:
+				node_char =	'H';
+				break;
+			case VI:
+				node_char =	'I';
+				break;
+			case VJ:
+				node_char =	'J';
+				break;
+			case VK:
+				node_char =	'K';
+				break;
+			case VL:
+				node_char =	'L';		
+				break;
+			case VM:
+				node_char =	'M';	
+				break;
+			case VN:
+				node_char =	'N';
+				break;
+			case VO:
+				node_char =	'O';
+				break;
+			case VP:
+				node_char =	'P';
+				break;
+			case VQ:
+				node_char =	'Q';
+				break;
+			case VR:
+				node_char =	'R';
+				break;
+			case VS:
+				node_char =	'S';
+				break;
+			case VT:
+				node_char =	'T';
+				break;
+			case VU:
+				node_char =	'U';
+				break;
+			case VV:
+				node_char =	'V';
+				break;
+			case VW:
+				node_char =	'W';
+				break;
+			case VX:
+				node_char =	'X';
+				break;
+			case VY:
+				node_char =	'Y';
+				break;
+			case VZ:
+				node_char =	'Z';
+				break;
+			case NUM0:
+				node_char =	'0';
+				break;
+			case NUM1:
+				node_char =	'1';
+				break;
+			case NUM2:
+				node_char =	'2';
+				break;
+			case NUM3:
+				node_char =	'3';
+				break;
+			case NUM4:
+				node_char =	'4';
+				break;
+			case NUM5:
+				node_char =	'5';
+				break;
+			case NUM6:
+				node_char =	'6';
+				break;
+			case NUM7:
+				node_char =	'7';
+				break;
+			case NUM8:
+				node_char =	'8';
+				break;
+			case NUM9:
+				node_char =	'9';
+				break;
+			case OPADD:
+				node_char =	'+';
+				break;
+			case OPSUB:
+				node_char =	'-';
+				break;
+			case OPMUL:
+				node_char =	'*';
+				break;
+			case OPDIV:
+				node_char =	'/';
+				break;
+			case OPSIN:
+				exp->exp_string[string_idx] = 's';
+				string_idx++;
+				exp->exp_string[string_idx] = 'i';
+				string_idx++;
+				node_char =	'n';
+				break;
+			case OPCOS:
+				exp->exp_string[string_idx] = 'c';
+				string_idx++;
+				exp->exp_string[string_idx] = 'o';
+				string_idx++;
+				node_char =	's';
+				break;
+			case OPTAN:
+				exp->exp_string[string_idx] = 't';
+				string_idx++;
+				exp->exp_string[string_idx] = 'a';
+				string_idx++;
+				node_char =	'n';
+				break;
+			case OPPOW:
+				node_char =	'^';
+				break;
+			case OPEE:
+				exp->exp_string[string_idx] = 'e';
+				string_idx++;
+				node_char =	'^';
+				break;
+			case OPLOG:
+				exp->exp_string[string_idx] = 'l';
+				string_idx++;
+				exp->exp_string[string_idx] = 'o';
+				string_idx++;
+				node_char =	'g';
+				break;
+			case OPSQRT:
+				exp->exp_string[string_idx] = 's';
+				string_idx++;
+				exp->exp_string[string_idx] = 'q';
+				string_idx++;
+				exp->exp_string[string_idx] = 'r';
+				string_idx++;
+				node_char =	't';
+				break;
+			case OPEN_PAREN:
+				node_char =	'(';
+				break;
+			case CLOSE_PAREN:
+				node_char =	')';
+				break;
+			case POINT:
+				node_char =	'.';
+				break;
+			case SGN:
+				node_char =	'-';
+				break;
+			default:
+				break;
+		}
+		
+		exp->exp_string[string_idx] = node_char;
+		string_idx++;
+	}
+	
+	exp->exp_string[string_idx] = '\0';
+}
+
 //0 success, 1 failure
 int ExpressionTree_Graph(ExpressionTree *exp, key_t var, double *xbuf, double *ybuf, int num_points){
 	double var_value = get_key_alpha_value(var);

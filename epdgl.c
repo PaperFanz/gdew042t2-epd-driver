@@ -463,29 +463,12 @@ void
 epdgl_plot(int32_t * x, int32_t * y, int32_t l, plot_config_t cfg)
 {
     int32_t i;
-    int32_t min_x = INT32_MAX, min_y = INT32_MAX;
-    int32_t max_x = INT32_MIN, max_y = INT32_MIN;
-
-    for (i = 0; i < l; ++i) {
-        if (x[i] > max_x) max_x = x[i];
-        if (x[i] < min_x) min_x = x[i];
-        if (y[i] > max_y) max_y = y[i];
-        if (y[i] < min_y) min_y = y[i];
-    }
-
-    int32_t cfg_xr = cfg.max_x - cfg.min_x;
-    int32_t xr = max_x - min_x;
-    int32_t bx = cfg.min_x - min_x;
-
-    int32_t cfg_yr = cfg.max_y - cfg.min_y;
-    int32_t yr = max_y - min_y;
-    int32_t by = cfg.min_y - min_y;
 
     for (i = 0; i < l - 1; ++i) {
-        int32_t x0 = ((x[i] + bx) * cfg_xr) / xr;
-        int32_t x1 = ((x[i + 1] + bx) * cfg_xr) / xr;
-        int32_t y0 = ((max_y - y[i] + by) * cfg_yr) / yr;
-        int32_t y1 = ((max_y - y[i + 1] + by) * cfg_yr) / yr;
+        int32_t x0 = cfg.min_x + x[i];
+        int32_t x1 = cfg.min_x + x[i + 1];
+        int32_t y0 = cfg.max_y - y[i];
+        int32_t y1 = cfg.max_y - y[i + 1];
         epdgl_draw_line(x0, y0, x1, y1, cfg.color);
     }
 }
