@@ -113,25 +113,12 @@ void demo_alg(void){
 	ExpressionTree_Clear(&exp);
 	set_key_alpha_value(A, 3.4);
 	
-	//-2.2 + A * cos(0) / sgrt(16) 
 	ExpressionTree_ModifyExpression(&exp, N2);
-	ExpressionTree_ModifyExpression(&exp, LEFT);
-	ExpressionTree_ModifyExpression(&exp, SIGN);
-	ExpressionTree_ModifyExpression(&exp, RIGHT);
 	ExpressionTree_ModifyExpression(&exp, DEC);
 	ExpressionTree_ModifyExpression(&exp, N2);
 	ExpressionTree_ModifyExpression(&exp, MUL);
-	ExpressionTree_ModifyExpression(&exp, BACKSPACE);
-	ExpressionTree_ModifyExpression(&exp, ADD);
+	ExpressionTree_ModifyExpression(&exp, SIGN);
 	ExpressionTree_ModifyExpression(&exp, A);
-	ExpressionTree_ModifyExpression(&exp, MUL);
-	ExpressionTree_ModifyExpression(&exp, COS);
-	ExpressionTree_ModifyExpression(&exp, N0);
-	ExpressionTree_ModifyExpression(&exp, RIGHT);
-	ExpressionTree_ModifyExpression(&exp, DIV);
-	ExpressionTree_ModifyExpression(&exp, ROOT);
-	ExpressionTree_ModifyExpression(&exp, N1);
-	ExpressionTree_ModifyExpression(&exp, N6);
 	
 	Expression_ToString(&exp);
 	
@@ -164,6 +151,8 @@ int main (void)
 	PLL_Init(Bus80MHz);   // 80 MHz
 	
     DisableInterrupts();  // Disable interrupts until finished with inits
+	
+		demo_alg();
 	
     epd_init(); // initialize e-paper display
     portFinit();
