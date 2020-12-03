@@ -25,6 +25,7 @@
 #include "voltmeter.h"
 #include "ExpressionTree.h"
 #include "AlphaValues.h"
+#include "test.h"
 
 void portFinit(void)
 {
@@ -157,6 +158,10 @@ int main (void)
 	PLL_Init(Bus80MHz);   // 80 MHz
 	
     DisableInterrupts();  // Disable interrupts until finished with inits
+	
+		int failed_tests[NUM_TEST_CASES];
+		int num_failed_tests;
+		int test_success = test_alg(failed_tests, &num_failed_tests);
 	
     epd_init(); // initialize e-paper display
     portFinit();
