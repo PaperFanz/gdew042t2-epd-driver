@@ -7,7 +7,6 @@
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/CortexM.h"
 #include "Math.h"
-#include <math.h>
 
 int Math_Add(double *res, double src1, double src2){
 	*res = src1 + src2;

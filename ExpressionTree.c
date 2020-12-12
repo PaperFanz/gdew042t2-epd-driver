@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/CortexM.h"
 #include "ExpressionTree.h"
@@ -61,6 +62,24 @@ double node_to_constant(node_t node){
 		case VY:
 		case VZ:
 			return get_node_alpha_value(node);
+		case PI:
+			return CONST_PI;
+		case EULER: 
+			return CONST_E;
+		case GOLDEN_RATIO: 
+			return CONST_PHI;
+		case PLANCK: 
+			return CONST_PLANCK;
+		case AVOGRADO: 
+			return CONST_AVOGADO;
+		case LIGHT: 
+			return CONST_LIGHT;
+		case GRAVITY_FIELD:
+			return CONST_GRAV;
+		case GRAVITY_ACCEL:
+			return CONST_GRAV_ACCEL;
+		case BOLTZMANN:
+			return CONST_BOLT;
 		default: 
 			return 404; //input error
 	}
@@ -685,7 +704,8 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 		//TODO: error with a constant and a variable bordering
 		if(node == VA || node == VB || node == VC || node == VD || node == VE || node == VF || node == VG || node == VH || node == VI ||
 			 node == VJ || node == VK || node == VL || node == VM || node == VN || node == VO || node == VP || node == VQ || node == VR ||
-		   node == VS || node == VT || node == VU || node == VV || node == VW || node == VX || node == VY || node == VZ){
+		   node == VS || node == VT || node == VU || node == VV || node == VW || node == VX || node == VY || node == VZ ||
+		   node == PI || node == EULER || node == GOLDEN_RATIO || node == PLANCK || node == AVOGRADO || node == LIGHT || node == GRAVITY_FIELD || node == GRAVITY_ACCEL || node == BOLTZMANN){
 			
 			constStack.stack[constStack.size] = node_to_constant(node);
 			constStack.size++;

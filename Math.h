@@ -1,6 +1,18 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
+#include <math.h>
+
+#define CONST_PI acos(-1.0)
+#define CONST_E exp(1)
+#define CONST_PHI (1 + sqrt(5)) / 2  //Golden ratio
+#define CONST_PLANCK 6.626068 * pow(10, -34) //m^2 * kg/s
+#define CONST_AVOGADO 6.0221515 * pow(10, 23)
+#define CONST_LIGHT 299792458 // m/s
+#define CONST_GRAV 6.67300 * pow(10, -11) // m^3 kg^-1 s^-2
+#define CONST_GRAV_ACCEL 9.80665 // m * s^-2
+#define CONST_BOLT 1.380650 * pow(10, 23) // joule per kelvin
+
 //Functions
 
 int Math_Add(double *res, double src1, double src2);

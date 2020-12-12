@@ -19,7 +19,10 @@ typedef enum {
 	OPDIV, OPMUL, OPSUB, OPADD,
 	OPEN_PAREN, CLOSE_PAREN,  
 	NUM0, NUM1, NUM2, NUM3, NUM4, NUM5, NUM6, NUM7, NUM8, NUM9,
-  POINT, SGN
+  POINT, SGN,
+	
+	//Unimplemented constant nodes
+	PI, EULER, GOLDEN_RATIO, PLANCK, AVOGRADO, LIGHT, GRAVITY_FIELD, GRAVITY_ACCEL, BOLTZMANN  
 } node_t;
 
 struct ConstantStack{

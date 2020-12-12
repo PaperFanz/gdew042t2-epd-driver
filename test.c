@@ -38,6 +38,8 @@ test_t testArr[NUM_TEST_CASES] = {
 	{{{{NUM1, OPADD, NUM0, OPMUL, NUM2}, 														5, 0}, "", 0, 0, 0}, 1, 1},//1 + 0 * 2
 	{{{{NUM1, OPSUB, NUM0, OPDIV, NUM2}, 														5, 0}, "", 0, 0, 0}, 1, 1},//1 - 0 / 2
 	{{{{OPEN_PAREN, NUM1, OPADD, NUM0, CLOSE_PAREN, OPMUL, NUM2},		7, 0}, "", 0, 0, 0}, 1, 2},//(1 + 0) * 2
+	
+	{{{{OPCOS, PI},		2, 0}, "", 0, 0, 0}, 1, -1}, //cos(pi)
 };
 
 //0 for all test cases passed, 1 for a failed test case

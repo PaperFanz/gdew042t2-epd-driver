@@ -10,7 +10,7 @@
 
 #include "ExpressionTree.h"
 
-#define NUM_TEST_CASES 19
+#define NUM_TEST_CASES 20
 
 struct test_t{
 	ExpressionTree exp;
