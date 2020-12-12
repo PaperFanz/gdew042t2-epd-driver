@@ -31,7 +31,8 @@ test_t testArr[NUM_TEST_CASES] = {
 	//Error detection
 	{{{{OPCOS}, 																1, 0}, "", 0, 0, 0}, 0, 0},	//ERROR: No operand
 	{{{{NUM3, OPSIN, NUM0}, 										3, 0}, "", 0, 0, 0}, 0, 0}, //ERROR: No implicit multiplication for constants, too many operands
-	{{{{NUM4, OPDIV, NUM0}, 										3, 0}, "", 0, 0, 0}, 0, 0}, //ERROR: TODO: Div by 0 
+	{{{{NUM4, OPDIV, NUM0}, 										3, 0}, "", 0, 0, 0}, 0, 0}, //ERROR: Div by 0 
+	{{{{OPSQRT, SGN, NUM9}, 										3, 0}, "", 0, 0, 0}, 0, 0}, //ERROR: Sqrt negative number
 	
 	//Order of operations
 	{{{{NUM1, OPADD, NUM0, OPMUL, NUM2}, 														5, 0}, "", 0, 0, 0}, 1, 1},//1 + 0 * 2

@@ -68,48 +68,49 @@ double node_to_constant(node_t node){
 
 //0 success, 1 failure
 int execute_operation(double *result, double src1, double src2, node_t op){
+	int error;
 	switch(op){
 		case OPADD:
-			*result = Math_Add(src1, src2);
+			error = Math_Add(result, src1, src2);
 			break;
 		case OPSUB:
-			*result = Math_Sub(src1, src2);
+			error = Math_Sub(result, src1, src2);
 			break;
 		case OPMUL:
-			*result = Math_Mul(src1, src2);	
+			error = Math_Mul(result, src1, src2);	
 			break;
 		case OPDIV:
-			*result = Math_Div(src1, src2);
+			error = Math_Div(result, src1, src2);
 			break;
 		case OPCOS:
-			*result = Math_Cos(src1);
+			error = Math_Cos(result, src1);
 			break;
 		case OPSIN:
-			*result = Math_Sin(src1);
+			error = Math_Sin(result, src1);
 			break;
 		case OPTAN:
-			*result = Math_Tan(src1);	
+			error = Math_Tan(result, src1);	
 			break;
 		case OPLOG:
-			*result = Math_Log10(src1);
+			error = Math_Log10(result, src1);
 			break;
 		case OPSQRT:
-			*result = Math_Sqrt(src1);
+			error = Math_Sqrt(result, src1);
 			break;
 		case OPEE:
-			*result = Math_ExponentE(src1);
+			error = Math_ExponentE(result, src1);
 			break;
 		case OPPOW:
-			*result = Math_Pow(src1, src2);
+			error = Math_Pow(result, src1, src2);
 			break;
 		case SGN:
-			*result = Math_Neg(src1);
+			error = Math_Neg(result, src1);
 			break;
 		default:
-			return 1; 
+			return 1; //error
 	}
 	
-	return 0;
+	return error;
 }
 
 void ExpressionTree_Clear(ExpressionTree *exp){
