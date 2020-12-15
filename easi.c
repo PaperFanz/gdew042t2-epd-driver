@@ -110,6 +110,7 @@ parse_input(uint8_t raw_key)
         rpn_handle_input(key);
         break;
     case VOLT:
+        volt_handle_input(key);
         break;
     case ALG:
         alg_handle_input(key);
@@ -126,25 +127,31 @@ void
 easi_run()
 {
     key_event_t event;
-    while (key_fifo_get(&event) != FIFO_EMPTY_ERR) {
-        if (event.k_action == KEY_UP) {
-            parse_input(event.key);
+    if (!SLEEP) {
+        while (key_fifo_get(&event) != FIFO_EMPTY_ERR) {
+            if (event.k_action == KEY_UP) {
+                parse_input(event.key);
+            }
         }
     }
 
-    switch(EASI_MODE){
-    case RPN:
-        break;
-    case VOLT:
-        draw_voltmeter();
-        break;
-    case ALG:
-        break;
-    default:
-        break;
-    }
+    if (SLEEP && WAKE) {
+        // wake from sleep
+        SLEEP = false;
 
-    if (FULL_UPDATE) {
+        // clear key event fifo
+        while (key_fifo_get(&event) != FIFO_EMPTY_ERR);
+
+        // reinit display
+        epd_init();
+        epdgl_clear();
+
+        // give user control over new mode
+        parse_input(35);
+        
+        // wait for full refresh before continuing
+        while(!epdgl_update_screen(EPD_SLOW));
+    } else if (FULL_UPDATE) {
         epdgl_update_screen(EPD_SLOW);
         FULL_UPDATE = false;
     } else {

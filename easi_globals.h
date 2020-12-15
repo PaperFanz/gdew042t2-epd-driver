@@ -33,4 +33,8 @@ extern key_mode_t KEY_MODE;
 
 extern bool FULL_UPDATE;
 
+extern bool SLEEP;
+
+extern bool WAKE;
+
 #endif

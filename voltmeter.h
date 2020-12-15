@@ -20,6 +20,8 @@ double volt_get_val(void);
 
 void draw_voltmeter(void);
 
+void volt_handle_input(key_t k);
+
 /**
  * Initializes the voltmeter (set ADC configuration, etc).
  * @return Nothing

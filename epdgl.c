@@ -34,6 +34,8 @@ static epd_orientation_t EPDGL_ROT = LANDSCAPE;
 #define BUF_SIZE (((EPD_WIDTH + 7) / 8) * EPD_HEIGHT)
 static uint8_t EPDGL_BUF[BUF_SIZE] = {0};
 
+#define abs(n) ((n) < 0 ? -1 * (n) : (n))
+
 static void
 epdgl_abs_update(int32_t x, int32_t y)
 {
@@ -463,12 +465,15 @@ void
 epdgl_plot(int32_t * x, int32_t * y, int32_t l, plot_config_t cfg)
 {
     int32_t i;
+    int32_t r = cfg.max_y - cfg.min_y;
 
     for (i = 0; i < l - 1; ++i) {
         int32_t x0 = cfg.min_x + x[i];
         int32_t x1 = cfg.min_x + x[i + 1];
         int32_t y0 = cfg.max_y - y[i];
         int32_t y1 = cfg.max_y - y[i + 1];
-        epdgl_draw_line(x0, y0, x1, y1, cfg.color);
+        if (abs(y0 - y1) != r) {
+            epdgl_draw_line(x0, y0, x1, y1, cfg.color);
+        }
     }
 }

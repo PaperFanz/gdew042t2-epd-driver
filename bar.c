@@ -3,6 +3,7 @@
 #include "easi.h"
 #include "easi_globals.h"
 #include "rpn.h"
+#include "alg.h"
 #include "graph.h"
 
 /*
@@ -17,8 +18,8 @@ char * keyModeString = "normal";
 const bar_fn_t FUNCTIONS[5][6] = {{
     // Algebraic bar
     {FOLDER, "MODE", &MODE_BAR, 0},
-    {CONSTANT, "null", 0, 0},
-    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "ANS", 0, &alg_ans},
+    {FUNCTION, "VOLT", 0, &alg_volt},
     {CONSTANT, "null", 0, 0},
     {FUNCTION, "CLR", 0, &clear_input},
     {FOLDER, "OPT", &SETTINGS_BAR, 0},},
@@ -105,9 +106,25 @@ req_full_update(void)
     FULL_UPDATE = true;
 }
 
+text_config_t slp_fnt = {&Consolas20, EPD_BLACK};
+
+void
+sleep_mode(void)
+{
+    epdgl_clear();
+    epdgl_set_cursor(150 - 50, 190);
+    epdgl_draw_string("(UwU) zzZ", &slp_fnt);
+    while(!epdgl_update_screen(EPD_SLOW));
+    FULL_UPDATE = true;
+    SLEEP = true;
+    WAKE = false;
+    ACTIVE_BAR = &FUNCTION_BAR[0];
+    epd_sleep();
+}
+
 const bar_fn_t SETTINGS[] = {
     {FUNCTION, "REFR", 0, &req_full_update},
-    {CONSTANT, "null", 0, 0},
+    {FUNCTION, "SLP", 0, &sleep_mode},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},
     {CONSTANT, "null", 0, 0},

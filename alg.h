@@ -18,4 +18,8 @@ void alg_clear(void);
 
 double alg_get_val(void);
 
+void alg_ans(void);
+
+void alg_volt(void);
+
 #endif

@@ -29,15 +29,21 @@ draw_fn_bar()
 void
 update_fn_bar(key_t k)
 {
+    bool upd = false;
     const bar_fn_t * fn = get_active_fn(k);
     switch (fn->type) {
     case FOLDER:
         ACTIVE_BAR = fn->subitems;
+        upd = true;
         break;
     case MODE:
-        EASI_MODE = (easi_mode_t) k;
-		ACTIVE_BAR = &FUNCTION_BAR[EASI_MODE];
-        epdgl_fill_rect(0, STATUS_BAR_H, 300, 400 - FN_BAR_H, EPD_WHITE);
+        if ((easi_mode_t) k != EASI_MODE) {
+            EASI_MODE = (easi_mode_t) k;
+            FULL_UPDATE = true;
+            ACTIVE_BAR = &FUNCTION_BAR[EASI_MODE];
+            upd = true;
+            epdgl_fill_rect(0, STATUS_BAR_H, 300, 400 - FN_BAR_H, EPD_WHITE);
+        }
         switch (k) {
         case RPN: rpn_init(); break;
         case GRPH: graph_init(); break;
@@ -49,11 +55,13 @@ update_fn_bar(key_t k)
         break;
     case ESC:
         ACTIVE_BAR = &FUNCTION_BAR[EASI_MODE];
+        upd = true;
         break;
-		default:
-				break;
+    default:
+        break;
     }
-    draw_fn_bar();
+    
+    if (upd) draw_fn_bar();
 }
 
 void

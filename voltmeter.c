@@ -11,6 +11,8 @@
 #include "epdgl.h"
 #include "voltmeter.h"
 
+#define PT_LOC 6
+
 static int32_t vExt0;
 static int32_t vExt1;
 static uint8_t vmReady;
@@ -20,33 +22,51 @@ static int32_t BATT_RUNNING_AVG = 2048;
 
 text_config_t vm_fnt = {&Consolas20, EPD_BLACK};
 
-static uint16_t
-adc_to_volts(uint16_t adc_val)
+static int32_t
+adc_to_volts(int32_t v)
 {
-    return 0;
+    /* THIS FUNCTION ONLY WORKS WITH THE EXTERNAL DATA AQUISITION PORT */
+    return (33 * (v << (PT_LOC))) / 40960;
+}
+
+static void
+draw_ext_volts()
+{
+    /* Note: this function does not clear anything or set cursor */
+    int32_t volts = (33 * (vExt0 << (PT_LOC))) / 40960;
+    epdgl_draw_int(volts >> PT_LOC, &vm_fnt);
+    epdgl_draw_char('.', &vm_fnt);
+    epdgl_draw_int(volts & ~(0xffffffff << PT_LOC), &vm_fnt);
+    epdgl_draw_char('V', &vm_fnt);
 }
 
 double
 volt_get_val()
 {
-    return (double) VOLT_RUNNING_AVG;
+    double volts = (double) vExt0;
+    volts = 33 * volts / 40960;
+    return volts;
 }
 
 void
 draw_voltmeter()
 {
-    static uint32_t VOLT_PREV = 0;
-    static uint32_t BATT_PREV = 0;
-    static uint8_t x = 0;
-
-    if (VOLT_RUNNING_AVG != VOLT_PREV || BATT_RUNNING_AVG != BATT_PREV) {
         epdgl_fill_rect(0, 20, 300, 360, EPD_WHITE);
-        epdgl_set_cursor(x, 40+x);
-        epdgl_draw_int(VOLT_RUNNING_AVG, &vm_fnt);
-        epdgl_set_cursor(x, 80+x);
-        epdgl_draw_int(BATT_RUNNING_AVG, &vm_fnt);
-        VOLT_PREV = VOLT_RUNNING_AVG;
-        BATT_PREV = BATT_RUNNING_AVG;
+        epdgl_set_cursor(10, 40);
+        draw_ext_volts();
+        epdgl_set_cursor(10, 60);
+        epdgl_draw_int(vExt0, &vm_fnt);
+}
+
+void
+volt_handle_input(key_t k)
+{
+    switch (k) {
+    case ENTER:
+        draw_voltmeter();
+        break;
+    default:
+        break;
     }
 }
 

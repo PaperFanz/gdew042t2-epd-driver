@@ -7,6 +7,7 @@
 #include <stdbool.h>
 
 #include "keypad.h"
+#include "easi_globals.h"
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/CortexM.h"
 
@@ -114,6 +115,7 @@ keypad_scan(void)
                     ev.k_action = KEY_DN;
                 }
                 key_fifo_put(ev);
+                WAKE = true;
             }
         }
     }

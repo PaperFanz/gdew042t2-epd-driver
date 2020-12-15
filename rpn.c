@@ -34,6 +34,7 @@ static double DSTACK[MAX_STACK];
     status variables for tracking stack entry
 */
 static bool DEC_ENTERED = false;
+static bool EE_ENTERED = false;
 static bool BUF_FULL = false;
 static bool IN_NEG = false;
 static char IN_BUF[MAX_BUF];
@@ -109,7 +110,7 @@ rpn_get_val()
 void
 rpn_update_output()
 {
-    snprintf(STACK[0], MAX_BUF, "%-#22.22g", fabs(DSTACK[0]));
+    snprintf(STACK[0], MAX_BUF, "%g", fabs(DSTACK[0]));
     rpn_draw_stack();
 }
 
@@ -147,13 +148,14 @@ rpn_handle_input(key_t k){
     case N9:
         rpn_append_num(k - N7 + 7);
         break;
+    case EE:
+        if (!EE_ENTERED && !BUF_FULL) {
+            rpn_append_num('e' - '0');
+        }
+        break;
     case DEC:
         if (!DEC_ENTERED && !BUF_FULL) {
-            if(IN_CURSOR != IN_END){
-                memmove(&IN_BUF[IN_CURSOR + 1], &IN_BUF[IN_CURSOR], IN_END - IN_CURSOR);
-            }
-            IN_BUF[IN_CURSOR++] = '.';
-            IN_END++;
+            rpn_append_num('.' - '0');
             DEC_ENTERED = true;
         }
         break;
@@ -175,6 +177,7 @@ rpn_handle_input(key_t k){
             --IN_CURSOR;
             --IN_END;
             if(IN_BUF[IN_CURSOR] == '.') DEC_ENTERED = false;
+            if(IN_BUF[IN_CURSOR] == 'e') EE_ENTERED = false;
             memmove(&IN_BUF[IN_CURSOR], &IN_BUF[IN_CURSOR + 1], IN_END - IN_CURSOR);
             IN_BUF[IN_END] = 0;
         }

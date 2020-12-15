@@ -10,8 +10,9 @@
 #include "easi.h"
 #include "easi_globals.h"
 #include "epdgl.h"
-
+#include "AlphaValues.h"
 #include "ExpressionTree.h"
+#include "voltmeter.h"
 
 #include <stdint.h>
 
@@ -123,7 +124,32 @@ void alg_clear(void){
 double
 alg_get_val()
 {
+    if (history_size == 0) return 0;
     return history[history_size-1].result;
+}
+
+void
+alg_ans()
+{
+    if (NEW_EXPRESSION) {
+        alg_clear();
+        NEW_EXPRESSION = false;
+    }
+    set_key_alpha_value(A, alg_get_val());
+    ExpressionTree_ModifyExpression(&alg_exp, A);
+    alg_draw_expression(&alg_exp, ALG_INPUT_IDX);
+}
+
+void
+alg_volt()
+{
+    if (NEW_EXPRESSION) {
+        alg_clear();
+        NEW_EXPRESSION = false;
+    }
+    set_key_alpha_value(V, volt_get_val());
+    ExpressionTree_ModifyExpression(&alg_exp, V);
+    alg_draw_expression(&alg_exp, ALG_INPUT_IDX);
 }
 
 //loc_on_screen: 0 top, 5 bottom
