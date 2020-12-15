@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+
 #include "../inc/tm4c123gh6pm.h"
 #include "../inc/CortexM.h"
 #include "ExpressionTree.h"
@@ -61,6 +62,24 @@ double node_to_constant(node_t node){
 		case VY:
 		case VZ:
 			return get_node_alpha_value(node);
+		case PI:
+			return CONST_PI;
+		case EULER: 
+			return CONST_E;
+		case GOLDEN_RATIO: 
+			return CONST_PHI;
+		case PLANCK: 
+			return CONST_PLANCK;
+		case AVOGRADO: 
+			return CONST_AVOGADO;
+		case LIGHT: 
+			return CONST_LIGHT;
+		case GRAVITY_FIELD:
+			return CONST_GRAV;
+		case GRAVITY_ACCEL:
+			return CONST_GRAV_ACCEL;
+		case BOLTZMANN:
+			return CONST_BOLT;
 		default: 
 			return 404; //input error
 	}
@@ -68,48 +87,49 @@ double node_to_constant(node_t node){
 
 //0 success, 1 failure
 int execute_operation(double *result, double src1, double src2, node_t op){
+	int error;
 	switch(op){
 		case OPADD:
-			*result = Math_Add(src1, src2);
+			error = Math_Add(result, src1, src2);
 			break;
 		case OPSUB:
-			*result = Math_Sub(src1, src2);
+			error = Math_Sub(result, src1, src2);
 			break;
 		case OPMUL:
-			*result = Math_Mul(src1, src2);	
+			error = Math_Mul(result, src1, src2);	
 			break;
 		case OPDIV:
-			*result = Math_Div(src1, src2);
+			error = Math_Div(result, src1, src2);
 			break;
 		case OPCOS:
-			*result = Math_Cos(src1);
+			error = Math_Cos(result, src1);
 			break;
 		case OPSIN:
-			*result = Math_Sin(src1);
+			error = Math_Sin(result, src1);
 			break;
 		case OPTAN:
-			*result = Math_Tan(src1);	
+			error = Math_Tan(result, src1);	
 			break;
 		case OPLOG:
-			*result = Math_Log10(src1);
+			error = Math_Log10(result, src1);
 			break;
 		case OPSQRT:
-			*result = Math_Sqrt(src1);
+			error = Math_Sqrt(result, src1);
 			break;
 		case OPEE:
-			*result = Math_ExponentE(src1);
+			error = Math_ExponentE(result, src1);
 			break;
 		case OPPOW:
-			*result = Math_Pow(src1, src2);
+			error = Math_Pow(result, src1, src2);
 			break;
 		case SGN:
-			*result = Math_Neg(src1);
+			error = Math_Neg(result, src1);
 			break;
 		default:
-			return 1; 
+			return 1; //error
 	}
 	
-	return 0;
+	return error;
 }
 
 void ExpressionTree_Clear(ExpressionTree *exp){
@@ -684,7 +704,8 @@ int ExpressionTree_Evaluate(ExpressionTree *exp){
 		//TODO: error with a constant and a variable bordering
 		if(node == VA || node == VB || node == VC || node == VD || node == VE || node == VF || node == VG || node == VH || node == VI ||
 			 node == VJ || node == VK || node == VL || node == VM || node == VN || node == VO || node == VP || node == VQ || node == VR ||
-		   node == VS || node == VT || node == VU || node == VV || node == VW || node == VX || node == VY || node == VZ){
+		   node == VS || node == VT || node == VU || node == VV || node == VW || node == VX || node == VY || node == VZ ||
+		   node == PI || node == EULER || node == GOLDEN_RATIO || node == PLANCK || node == AVOGRADO || node == LIGHT || node == GRAVITY_FIELD || node == GRAVITY_ACCEL || node == BOLTZMANN){
 			
 			constStack.stack[constStack.size] = node_to_constant(node);
 			constStack.size++;
